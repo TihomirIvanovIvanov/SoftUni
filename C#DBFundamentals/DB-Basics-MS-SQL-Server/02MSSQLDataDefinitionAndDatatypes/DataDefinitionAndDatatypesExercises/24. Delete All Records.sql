@@ -1,3 +1,0 @@
-USE Hotel
-
-DELETE Occupancies

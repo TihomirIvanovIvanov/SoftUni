@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Operations", "Operations\Operations.csproj", "{317A76C3-BB55-48BF-BD39-6000FAB32137}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Animals", "Animals\Animals.csproj", "{F0B653C6-CD61-4FDD-BA28-C186A3F13376}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shapes", "Shapes\Shapes.csproj", "{FD3FF4C6-B53B-43B2-9B6F-1A2756353245}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{317A76C3-BB55-48BF-BD39-6000FAB32137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317A76C3-BB55-48BF-BD39-6000FAB32137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317A76C3-BB55-48BF-BD39-6000FAB32137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317A76C3-BB55-48BF-BD39-6000FAB32137}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B653C6-CD61-4FDD-BA28-C186A3F13376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B653C6-CD61-4FDD-BA28-C186A3F13376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B653C6-CD61-4FDD-BA28-C186A3F13376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B653C6-CD61-4FDD-BA28-C186A3F13376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3FF4C6-B53B-43B2-9B6F-1A2756353245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3FF4C6-B53B-43B2-9B6F-1A2756353245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3FF4C6-B53B-43B2-9B6F-1A2756353245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3FF4C6-B53B-43B2-9B6F-1A2756353245}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17A2196B-F491-44EA-8E43-944851252FC3}
+	EndGlobalSection
+EndGlobal

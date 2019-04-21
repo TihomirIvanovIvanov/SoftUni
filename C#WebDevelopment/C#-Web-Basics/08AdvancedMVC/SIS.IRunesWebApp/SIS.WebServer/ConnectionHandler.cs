@@ -15,6 +15,7 @@ namespace SIS.WebServer
     using HTTP.Sessions;
     using Results;
     using Routing;
+    using System.Linq;
 
     public class ConnectionHandler
     {
@@ -24,15 +25,17 @@ namespace SIS.WebServer
 
         private const string RootDirectoryRelativePath = "../../..";
 
+        private readonly IHttpHandlingContext handlersContext;
+
         public ConnectionHandler(
             Socket client,
-            IHttpHandler handler)
+            IHttpHandlingContext handlersContext)
         {
             CoreValidator.ThrowIfNull(client, nameof(client));
-            CoreValidator.ThrowIfNull(handler, nameof(handler));
+            CoreValidator.ThrowIfNull(handlersContext, nameof(handlersContext));
 
             this.client = client;
-            this.handler = handler;
+            this.handlersContext = handlersContext;
         }
 
         private async Task<IHttpRequest> ReadRequest()
@@ -111,8 +114,8 @@ namespace SIS.WebServer
                 if (httpRequest != null)
                 {
                     string sessionId = this.SetRequestSession(httpRequest);
-
-                    var httpResponse = this.handler.Handle(httpRequest);
+                    
+                    var httpResponse = this.handlersContext.Handle(httpRequest);
 
                     this.SetResponseSession(httpResponse, sessionId);
 

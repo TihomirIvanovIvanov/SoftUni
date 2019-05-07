@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftUniDIFramework", "SoftUniDIFramework\SoftUniDIFramework.csproj", "{8258F6AA-1159-4062-82E8-1DB044132147}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftUniDependencyInjection", "SoftUniDependencyInjection\SoftUniDependencyInjection.csproj", "{C9AF42F9-939D-4118-BC78-58596A314609}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8258F6AA-1159-4062-82E8-1DB044132147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8258F6AA-1159-4062-82E8-1DB044132147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8258F6AA-1159-4062-82E8-1DB044132147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8258F6AA-1159-4062-82E8-1DB044132147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9AF42F9-939D-4118-BC78-58596A314609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9AF42F9-939D-4118-BC78-58596A314609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9AF42F9-939D-4118-BC78-58596A314609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9AF42F9-939D-4118-BC78-58596A314609}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {589BB823-9B0B-46E7-BD68-22AF648248A4}
+	EndGlobalSection
+EndGlobal

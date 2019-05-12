@@ -1,0 +1,174 @@
+01. Darth Vader Response 
+No Auth
+
+
+02. GitHub: Labels Issue 
+No Auth
+
+
+03. GitHub: Create Issue 
+Basic Auth with your github username & password
+
+{
+"title":"I have created an issue",
+"body":"Minor bug",
+"labels":["bug","minor"]
+}
+
+
+
+04. Firebase: All Books 
+FIREBASE
+
+Books
+1
+author: 
+"Ivan Vazov"
+title: 
+"Under the Yoke"
+2
+author: 
+"Svetlin Nakov & Co"
+title: 
+"C# Fundamentals"
+
+POSTMAN
+Use your database url for example https://testapp-4164c.firebaseio.com/ with GET No Auth
+The expect result should be:
+
+{
+    "Books": [
+        null,
+        {
+            "author": "Ivan Vazov",
+            "title": "Under the Yoke"
+        },
+        {
+            "author": "Svetlin Nakov & Co",
+            "title": "C# Fundamentals"
+        }
+    ]
+}
+
+
+
+05. Firebase: Get Book 
+No Auth
+
+should write what with id 1 to get in this case is /Books/1
+
+url: https://testapp-4164c.firebaseio.com/Books/1/.json
+
+
+
+
+06. Firebase: Create Book 
+same as 5 task but instead of /Books/1 write /Books/3 cuz next there is already books with id 1 and 2
+
+{
+ "title":"New Title",
+ "author":"New Author"
+}
+
+
+07. Firebase: Patch Book 
+same as before just use this script
+
+{
+ "year": 1981,
+ "author": "Author Changed"
+}
+
+
+
+08. Firebase: Change Book Author 
+use this script {
+ "author": "New author was assigned"
+}
+for this url https://testapp-4164c.firebaseio.com/Books/7/author/.json
+
+
+09. Kinvey: Handshake 
+reg in kinvey
+add new collection
+add new user guest/guest
+Basic Auth
+
+
+10. Kinvey: All Posts 
+Use this url https://console.kinvey.com/login
+Add new App
+Add new Collection
+Add new user username: guest/ pass: guest
+
+Add 2 column title and body
+Add these 3 rows
+
+Third Post Title
+Third Post Body
+
+Second Post Title
+Second Post Body
+
+First Post Title
+First Post Body
+
+Get this url https://baas.kinvey.com/appdata/kid_SyQsGq1_V/posts
+
+
+
+11. Kinvey: Create New Post 
+post the new title and body IN Body x-www-form-urlencoded can be done also with form-data
+
+
+
+12. Kinvey: Delete a Post 
+use the id from last task for example 5c921712cad7d87d9f85e511
+
+
+
+13. Kinvey: Edit a Post 
+{
+ "title":"edited title", 
+ "body":"edited author", 
+ "hidden":true
+}
+
+Choose an existing post's ID for example first body post
+
+DONT KNOW
+
+
+
+
+14. Kinvey: Login 
+DONT KNOW
+
+88c17eba-1ca3-49d1-b11c-2b01889a6ea2.kagG7fwkYgYi1bdgAaCEyF4xVnX9mbZ/RXEai9Ay4DU=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

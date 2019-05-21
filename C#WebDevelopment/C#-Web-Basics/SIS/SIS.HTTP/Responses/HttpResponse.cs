@@ -3,9 +3,9 @@
     using Common;
     using Contracts;
     using Enums;
+    using Extensions;
     using Headers;
     using Headers.Contracts;
-    using System;
     using System.Text;
 
     public class HttpResponse : IHttpResponse
@@ -59,7 +59,7 @@
             var result = new StringBuilder();
 
             result
-                .Append($"{GlobalConstants.HttpOneProtocolFragment} {(int)this.StatusCode} {this.StatusCode.ToString()}")
+                .Append($"{GlobalConstants.HttpOneProtocolFragment} {this.StatusCode.GetStatusLine()}")
                 .Append(GlobalConstants.HttpNewLine)
                 .Append(this.Headers)
                 .Append(GlobalConstants.HttpNewLine);

@@ -2,13 +2,12 @@
 {
     using Common;
     using Contracts;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public class HttpHeaderCollection : IHttpHeaderCollection
     {
-        public readonly IDictionary<string, HttpHeader> httpHeaders;
+        private readonly IDictionary<string, HttpHeader> httpHeaders;
 
         public HttpHeaderCollection()
         {
@@ -24,7 +23,7 @@
         public bool ContainsHeader(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            return this.ContainsHeader(key);
+            return this.httpHeaders.ContainsKey(key);
         }
 
         public HttpHeader GetHeader(string key)
@@ -35,7 +34,7 @@
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, this.httpHeaders.Values.Select(header => header.ToString()));
+            return string.Join("\r\n", this.httpHeaders.Values.Select(header => header.ToString())); ;
         }
     }
 }

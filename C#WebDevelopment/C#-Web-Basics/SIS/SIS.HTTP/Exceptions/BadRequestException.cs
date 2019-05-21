@@ -4,10 +4,10 @@
 
     public class BadRequestException : Exception
     {
-        private const string errorMessage = "The Request was malformed or contains unsupported elements.";
+        private const string BadRequestExceptionDefaultMessage = "The Request was malformed or contains unsupported elements.";
 
         public BadRequestException()
-            : this(errorMessage)
+            : this(BadRequestExceptionDefaultMessage)
         {
         }
 

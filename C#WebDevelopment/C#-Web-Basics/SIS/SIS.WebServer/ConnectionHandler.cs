@@ -93,6 +93,7 @@
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
             // EXECUTE FUNCTION FOR CURRENT REQUEST -> RETURNS RESPONSE
+
             if (!this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
             {
                 return new TextResult($@"Route with method {httpRequest.RequestMethod} and path \{httpRequest.Path}\ not found.", HttpResponseStatusCode.NotFound);
@@ -104,6 +105,7 @@
         private async Task PrepareResponse(IHttpResponse httpResponse)
         {
             // PREPARES RESPONSE -> MAPS IT TO BYTE DATA
+
             var byteSegments = httpResponse.GetBytes();
 
             await this.client.SendAsync(byteSegments, SocketFlags.None);

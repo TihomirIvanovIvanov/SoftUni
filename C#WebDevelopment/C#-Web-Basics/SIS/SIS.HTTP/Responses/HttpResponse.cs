@@ -2,6 +2,8 @@
 {
     using Common;
     using Contracts;
+    using Cookies;
+    using Cookies.Contracts;
     using Enums;
     using Extensions;
     using Headers;
@@ -13,6 +15,7 @@
         public HttpResponse()
         {
             this.Headers = new HttpHeaderCollection();
+            this.Cookies = new HttpCookieCollection();
             this.Content = new byte[0];
         }
 
@@ -27,12 +30,18 @@
 
         public IHttpHeaderCollection Headers { get; }
 
+        public IHttpCookieCollection Cookies { get; }
+
         public byte[] Content { get; set; }
 
         public void AddHeader(HttpHeader header)
         {
-            CoreValidator.ThrowIfNull(header, nameof(header));
             this.Headers.AddHeader(header);
+        }
+
+        public void AddCookie(HttpCookie cookie)
+        {
+            this.Cookies.AddCookie(cookie);
         }
 
         public byte[] GetBytes()
@@ -63,6 +72,11 @@
                 .Append(GlobalConstants.HttpNewLine)
                 .Append(this.Headers)
                 .Append(GlobalConstants.HttpNewLine);
+
+            if (this.Cookies.HasCookies())
+            {
+                result.Append(this.Cookies).Append(GlobalConstants.HttpNewLine);
+            }
 
             result.Append(GlobalConstants.HttpNewLine);
 

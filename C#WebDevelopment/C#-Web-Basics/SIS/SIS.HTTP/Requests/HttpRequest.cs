@@ -94,7 +94,7 @@
 
         private void ParseRequestHeaders(string[] plainHeaders)
         {
-            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ':', ' ' },
+            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ": " },
                 StringSplitOptions.RemoveEmptyEntries))
                 .ToList()
                 .ForEach(headerKeyValuePair => this.Headers.AddHeader(new HttpHeader(headerKeyValuePair[0], headerKeyValuePair[1])));
@@ -115,15 +115,26 @@
 
         private void ParseRequestFormDataParameters(string requestBody)
         {
-            if (!string.IsNullOrEmpty(requestBody))
+            if (string.IsNullOrEmpty(requestBody) == false)
             {
                 //TODO: Parse multiple parameters by name
-                requestBody
+                var paramPairs = requestBody
                     .Split('&')
                     .Select(plainQueryParameter => plainQueryParameter.Split('='))
-                    .ToList()
-                    .ForEach(queryParameterKeyValuePair =>
-                        this.FormData.Add(queryParameterKeyValuePair[0], queryParameterKeyValuePair[1]));
+                    .ToList();
+
+                foreach (var paramPair in paramPairs)
+                {
+                    var key = paramPair[0];
+                    var value = paramPair[1];
+
+                    if (this.FormData.ContainsKey(key) == false)
+                    {
+                        this.FormData.Add(key, new HashSet<string>());
+                    }
+
+                    ((ISet<string>)this.FormData[key]).Add(value);
+                }
             }
         }
 

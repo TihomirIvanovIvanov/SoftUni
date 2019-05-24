@@ -41,17 +41,15 @@
                     Console.WriteLine($"Processing: {httpRequest.RequestMethod} {httpRequest.Path}...");
 
                     httpResponse = this.HandleRequest(httpRequest);
-
-                    await this.PrepareResponse(httpResponse);
                 }
             }
             catch (BadRequestException bre)
             {
-                httpResponse = new TextResult(bre.ToString(), HttpResponseStatusCode.BadRequest);
+                httpResponse = new TextResult(bre.Message, HttpResponseStatusCode.BadRequest);
             }
             catch (Exception e)
             {
-                httpResponse = new TextResult(e.ToString(), HttpResponseStatusCode.InternalServerError);
+                httpResponse = new TextResult(e.Message, HttpResponseStatusCode.InternalServerError);
             }
 
             await this.PrepareResponse(httpResponse);

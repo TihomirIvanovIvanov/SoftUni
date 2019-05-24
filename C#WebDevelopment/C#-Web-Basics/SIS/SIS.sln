@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.HTTP", "SIS.HTTP\SIS.HTTP.csproj", "{30CA938F-E3B9-4736-9968-DC47D98AF93F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.HTTP", "SIS.HTTP\SIS.HTTP.csproj", "{30CA938F-E3B9-4736-9968-DC47D98AF93F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.WebServer", "SIS.WebServer\SIS.WebServer.csproj", "{101BF515-F3BF-4D80-93F9-DE50C27F9DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.WebServer", "SIS.WebServer\SIS.WebServer.csproj", "{101BF515-F3BF-4D80-93F9-DE50C27F9DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Demo", "SIS.Demo\SIS.Demo.csproj", "{D1C5D6D0-70CA-49EA-B2F7-FA0964308F5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.Demo", "SIS.Demo\SIS.Demo.csproj", "{D1C5D6D0-70CA-49EA-B2F7-FA0964308F5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Demo.Data", "SIS.Demo.Data\SIS.Demo.Data.csproj", "{328F5E1E-9963-4807-8F62-5BD7C142E84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Demo.Models", "SIS.Demo.Models\SIS.Demo.Models.csproj", "{48422354-4412-4F28-93ED-1A96A229FE8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{D1C5D6D0-70CA-49EA-B2F7-FA0964308F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C5D6D0-70CA-49EA-B2F7-FA0964308F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C5D6D0-70CA-49EA-B2F7-FA0964308F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{328F5E1E-9963-4807-8F62-5BD7C142E84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{328F5E1E-9963-4807-8F62-5BD7C142E84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{328F5E1E-9963-4807-8F62-5BD7C142E84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{328F5E1E-9963-4807-8F62-5BD7C142E84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48422354-4412-4F28-93ED-1A96A229FE8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48422354-4412-4F28-93ED-1A96A229FE8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48422354-4412-4F28-93ED-1A96A229FE8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48422354-4412-4F28-93ED-1A96A229FE8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

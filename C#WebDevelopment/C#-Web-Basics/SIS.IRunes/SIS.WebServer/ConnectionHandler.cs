@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SIS.HTTP.Common;
@@ -62,12 +64,32 @@ namespace SIS.WebServer
             return new HttpRequest(result.ToString());
         }
 
+        private IHttpResponse ReturnIfResource(IHttpRequest httpRequest)
+        {
+            var folderPrefix = "/../";
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var resourceFolderPath = "Resources/";
+            var requestedResource = httpRequest.Path;
+
+            var fullPathToRecource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;
+
+            if (File.Exists(fullPathToRecource))
+            {
+                var content = File.ReadAllBytes(fullPathToRecource);
+                return new InlineResourceResult(content, HttpResponseStatusCode.Found);
+            }
+            else
+            {
+                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.", HttpResponseStatusCode.NotFound);
+            }
+        }
+
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
             // EXECUTE FUNCTION FOR CURRENT REQUEST -> RETURNS RESPONSE
             if (!this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
             {
-                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.", HttpResponseStatusCode.NotFound);
+                return ReturnIfResource(httpRequest);
             }
 
             return this.serverRoutingTable.Get(httpRequest.RequestMethod, httpRequest.Path).Invoke(httpRequest);

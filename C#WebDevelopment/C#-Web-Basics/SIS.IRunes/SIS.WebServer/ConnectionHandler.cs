@@ -71,11 +71,11 @@ namespace SIS.WebServer
             var resourceFolderPath = "Resources/";
             var requestedResource = httpRequest.Path;
 
-            var fullPathToRecource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;
+            var fullPathToResource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;
 
-            if (File.Exists(fullPathToRecource))
+            if (File.Exists(fullPathToResource))
             {
-                var content = File.ReadAllBytes(fullPathToRecource);
+                var content = File.ReadAllBytes(fullPathToResource);
                 return new InlineResourceResult(content, HttpResponseStatusCode.Found);
             }
             else

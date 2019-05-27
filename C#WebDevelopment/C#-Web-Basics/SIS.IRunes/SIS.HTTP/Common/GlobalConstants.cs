@@ -9,5 +9,17 @@
         public const string HttpNewLine = "\r\n";
 
         public const string UnsupportedHttpMethodExceptionMessage = "The HTTP method - {0} is not supported.";
+
+        public const string username = "username";
+
+        public const string Username = "Username";
+
+        public const string Controller = "Controller";
+
+        public const string Views = "Views/";
+
+        public const string Home = "Home/";
+
+        public const string HtmlSuffix = ".html";
     }
 }

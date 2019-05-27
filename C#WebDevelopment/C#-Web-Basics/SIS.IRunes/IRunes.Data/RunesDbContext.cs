@@ -29,6 +29,8 @@
 
             modelBuilder.Entity<Album>().HasKey(album => album.Id);
 
+            modelBuilder.Entity<Album>().HasMany(album => album.Tracks);
+
             base.OnModelCreating(modelBuilder);
         }
     }

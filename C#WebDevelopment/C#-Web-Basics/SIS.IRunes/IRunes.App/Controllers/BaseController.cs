@@ -1,5 +1,6 @@
 ﻿namespace IRunes.App.Controllers
 {
+    using IRunes.Models;
     using SIS.HTTP.Common;
     using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
@@ -33,12 +34,24 @@
             return httpRequest.Session.ContainsParameter(GlobalConstants.username);
         }
 
+        protected void SignIn(IHttpRequest httpRequest, User user)
+        {
+            httpRequest.Session.AddParameter(GlobalConstants.id, user.Id);
+            httpRequest.Session.AddParameter(GlobalConstants.username, user.Username);
+            httpRequest.Session.AddParameter(GlobalConstants.email, user.Email);
+        }
+
+        protected void SignOut(IHttpRequest httpRequest)
+        {
+            httpRequest.Session.ClearParameters();
+        }
+
         protected IHttpResponse View([CallerMemberName] string view = null)
         {
             var controllerName = this.GetType().Name.Replace(GlobalConstants.Controller, string.Empty);
             var viewName = view;
 
-            var viewContent = File.ReadAllText(GlobalConstants.Views + controllerName + viewName + GlobalConstants.HtmlSuffix);
+            var viewContent = File.ReadAllText(GlobalConstants.Views + controllerName + "/" + viewName + GlobalConstants.HtmlSuffix);
 
             viewContent = this.ParseTemplate(viewContent);
 

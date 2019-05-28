@@ -39,19 +39,19 @@
             #region User Routes
 
             serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersLoginPath, request => 
-            new UserController().Login(request));
+            new UsersController().Login(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Post, GlobalConstants.UsersLoginPath, request =>
-            new UserController().LoginConfirm(request));
+            new UsersController().LoginConfirm(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersRegisterPath, request =>
-            new UserController().Register(request));
+            new UsersController().Register(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Post, GlobalConstants.UsersRegisterPath, request =>
-            new UserController().RegisterConfirm(request));
+            new UsersController().RegisterConfirm(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersLogoutPath, request =>
-            new UserController().Logout(request));
+            new UsersController().Logout(request));
 
             #endregion
         }

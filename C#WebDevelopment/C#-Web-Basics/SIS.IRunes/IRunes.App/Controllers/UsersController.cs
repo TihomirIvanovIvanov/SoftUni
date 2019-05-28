@@ -10,7 +10,7 @@
     using System.Security.Cryptography;
     using System.Text;
 
-    public class UserController : BaseController
+    public class UsersController : BaseController
     {
         private string HashPassword(string password)
         {

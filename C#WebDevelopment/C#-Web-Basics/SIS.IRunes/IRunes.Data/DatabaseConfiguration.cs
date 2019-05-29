@@ -1,7 +1,7 @@
 ﻿namespace IRunes.Data
 {
-    public static class DatabaseConfiguration
+    public class DatabaseConfiguration
     {
-        public static string ConnectionString = "Server=TI6OPACATA;Database=IRunesDBB;Integrated Security=True";
+        public const string ConnectionString = @"Server=TI6OPACATA;Database=IRunesDB;Trusted_Connection=True;Integrated Security=True;";
     }
 }

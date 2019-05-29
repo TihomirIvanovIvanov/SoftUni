@@ -20,7 +20,7 @@
             }
         }
 
-        public IHttpResponse Login(IHttpRequest request)
+        public IHttpResponse Login(IHttpRequest httpRequest)
         {
             return this.View();
         }

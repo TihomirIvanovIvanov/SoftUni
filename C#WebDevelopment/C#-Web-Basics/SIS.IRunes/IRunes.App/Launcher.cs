@@ -28,17 +28,17 @@
         {
             #region Home Routes
 
-            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.HomeRedirectPath, request => 
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.HomeRedirectPath, request =>
             new RedirectResult(GlobalConstants.HomeIndexPath));
 
-            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.HomeIndexPath, request => 
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.HomeIndexPath, request =>
             new HomeController().Index(request));
 
             #endregion
 
-            #region User Routes
+            #region Users Routes
 
-            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersLoginPath, request => 
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersLoginPath, request =>
             new UsersController().Login(request));
 
             serverRoutingTable.Add(HttpRequestMethod.Post, GlobalConstants.UsersLoginPath, request =>
@@ -52,6 +52,35 @@
 
             serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.UsersLogoutPath, request =>
             new UsersController().Logout(request));
+
+            #endregion
+
+            #region Albums Routes
+
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.AlbumsAllPath, request =>
+            new AlbumsController().All(request));
+
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.AlbumsCreatePath, request =>
+            new AlbumsController().Create(request));
+
+            serverRoutingTable.Add(HttpRequestMethod.Post, GlobalConstants.AlbumsCreatePath, request =>
+            new AlbumsController().CreateConfirm(request));
+
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.AlbumsDetailsPath, request =>
+            new AlbumsController().Details(request));
+
+            #endregion
+
+            #region Tracks Routes
+
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.TracksCreatePath, request =>
+            new TracksController().Create(request));
+
+            serverRoutingTable.Add(HttpRequestMethod.Post, GlobalConstants.TracksCreatePath, request =>
+            new TracksController().CreateConfirm(request));
+
+            serverRoutingTable.Add(HttpRequestMethod.Get, GlobalConstants.TracksDetailsPath, request =>
+            new TracksController().Details(request));
 
             #endregion
         }

@@ -1,6 +1,6 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using IRunes.Models;
+    using Models;
     using SIS.HTTP.Common;
     using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
@@ -10,7 +10,7 @@
     using System.IO;
     using System.Runtime.CompilerServices;
 
-    public class BaseController
+    public abstract class BaseController
     {
         protected BaseController()
         {
@@ -29,7 +29,7 @@
             return viewContent;
         }
 
-        protected bool IsLogedIn(IHttpRequest httpRequest)
+        protected bool IsLoggedIn(IHttpRequest httpRequest)
         {
             return httpRequest.Session.ContainsParameter(GlobalConstants.username);
         }

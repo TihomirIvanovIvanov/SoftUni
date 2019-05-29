@@ -8,9 +8,10 @@
     {
         public IHttpResponse Index(IHttpRequest httpRequest)
         {
-            if (this.IsLogedIn(httpRequest))
+            if (this.IsLoggedIn(httpRequest))
             {
                 this.ViewData[GlobalConstants.Username] = httpRequest.Session.GetParameter(GlobalConstants.username);
+
                 return this.View(GlobalConstants.Home);
             }
 

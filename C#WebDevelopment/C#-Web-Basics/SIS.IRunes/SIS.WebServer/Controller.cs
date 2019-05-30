@@ -1,18 +1,17 @@
-﻿namespace IRunes.App.Controllers
+﻿namespace SIS.MvcFramework
 {
-    using Models;
-    using SIS.HTTP.Common;
-    using SIS.HTTP.Enums;
-    using SIS.HTTP.Requests;
-    using SIS.HTTP.Responses;
-    using SIS.WebServer.Result;
+    using HTTP.Common;
+    using HTTP.Enums;
+    using HTTP.Requests;
+    using HTTP.Responses;
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.CompilerServices;
+    using WebServer.Result;
 
-    public abstract class BaseController
+    public abstract class Controller
     {
-        protected BaseController()
+        protected Controller()
         {
             this.ViewData = new Dictionary<string, object>();
         }
@@ -34,11 +33,11 @@
             return httpRequest.Session.ContainsParameter(GlobalConstants.username);
         }
 
-        protected void SignIn(IHttpRequest httpRequest, User user)
+        protected void SignIn(IHttpRequest httpRequest, string id, string username, string email)
         {
-            httpRequest.Session.AddParameter(GlobalConstants.id, user.Id);
-            httpRequest.Session.AddParameter(GlobalConstants.username, user.Username);
-            httpRequest.Session.AddParameter(GlobalConstants.email, user.Email);
+            httpRequest.Session.AddParameter(GlobalConstants.id, id);
+            httpRequest.Session.AddParameter(GlobalConstants.username, username);
+            httpRequest.Session.AddParameter(GlobalConstants.email, email);
         }
 
         protected void SignOut(IHttpRequest httpRequest)
@@ -55,7 +54,7 @@
 
             viewContent = this.ParseTemplate(viewContent);
 
-            var htmlResult = new HtmlResult(viewContent, HttpResponseStatusCode.Ok);
+            var htmlResult = new HtmlResult(viewContent);
 
             return htmlResult;
         }

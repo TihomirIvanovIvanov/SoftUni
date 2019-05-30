@@ -7,14 +7,16 @@
     using SIS.HTTP.Common;
     using SIS.HTTP.Requests;
     using SIS.HTTP.Responses;
+    using SIS.MvcFramework;
+    using SIS.MvcFramework.Attributes;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AlbumsController : BaseController
+    public class AlbumsController : Controller
     {
         public IHttpResponse All(IHttpRequest httpRequest)
         {
-            if (this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn(httpRequest))
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -40,7 +42,7 @@
 
         public IHttpResponse Create(IHttpRequest httpRequest)
         {
-            if (this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn(httpRequest))
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -48,9 +50,10 @@
             return this.View();
         }
 
+        [HttpPost(ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
-            if (this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn(httpRequest))
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -76,7 +79,7 @@
 
         public IHttpResponse Details(IHttpRequest httpRequest)
         {
-            if (this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn(httpRequest))
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }

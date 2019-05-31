@@ -1,8 +1,9 @@
 ﻿namespace SIS.MvcFramework
 {
-    using Attributes;
+    using Attributes.Http;
     using HTTP.Enums;
     using HTTP.Responses;
+    using SIS.MvcFramework.Attributes.Action;
     using System;
     using System.Linq;
     using System.Reflection;
@@ -34,7 +35,9 @@
                 var actions = controller.GetMethods(BindingFlags.DeclaredOnly
                     | BindingFlags.Public
                     | BindingFlags.Instance)
-                    .Where(type => !type.IsSpecialName && type.DeclaringType == controller);
+                    .Where(type => !type.IsSpecialName && type.DeclaringType == controller)
+                    .Where(action => action.GetCustomAttributes()
+                    .All(a => a.GetType() != typeof(NonActionAttribute)));
 
                 foreach (var action in actions)
                 {

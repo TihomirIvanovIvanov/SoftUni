@@ -21,13 +21,7 @@
 
         public ActionResult Json(IHttpRequest request)
         {
-            return Xml(new Model
-            {
-                Name = "Pesho",
-                Age = 25,
-                Occupation = "Bezraboten",
-                IsMarried = true
-            });
+            return Json(new { });
         }
 
         public ActionResult File(IHttpRequest request)

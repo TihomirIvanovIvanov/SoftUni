@@ -4,6 +4,7 @@
     using HTTP.Enums;
     using HTTP.Responses;
     using SIS.MvcFramework.Attributes.Action;
+    using SIS.MvcFramework.Attributes.Security;
     using SIS.MvcFramework.Result;
     using System;
     using System.Linq;
@@ -69,6 +70,18 @@
                     {
                         var controllerInstance = Activator.CreateInstance(controller);
                         ((Controller)controllerInstance).Request = request;
+
+                        // Security Authorization - TODO: Refactor this
+                        var controllerPrincipal = ((Controller)controllerInstance).User;
+                        var authorizeAttribute = action
+                            .GetCustomAttributes().LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+                        if (authorizeAttribute == null || authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        {
+                            // TODO: Redirect to configure URL
+                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
+                        }
+
                         var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
                         return response;
                     });

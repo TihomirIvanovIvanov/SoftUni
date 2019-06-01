@@ -6,29 +6,15 @@
 
         public const string HomeRedirectPath = "/";
 
-        public const string HomeIndexPath = "/Home/Index";
-
         public const string UsersLoginPath = "/Users/Login";
 
         public const string UsersRegisterPath = "/Users/Register";
 
-        public const string UsersLogoutPath = "/Users/Logout";
-
         public const string AlbumsAllPath = "/Albums/All";
-
-        public const string AlbumsCreatePath = "/Albums/Create";
-
-        public const string AlbumsDetailsPath = "/Albums/Details";
-
-        public const string TracksCreatePath = "/Tracks/Create";
-
-        public const string TracksDetailsPath = "/Tracks/Details";
 
         #endregion
 
         public const string HttpOneProtocolFragment = "HTTP/1.1";
-
-        public const string HostHeaderKey = "Host";
 
         public const string HttpNewLine = "\r\n";
 

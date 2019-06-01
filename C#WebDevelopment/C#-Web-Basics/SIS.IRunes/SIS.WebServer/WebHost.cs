@@ -4,6 +4,7 @@
     using HTTP.Enums;
     using HTTP.Responses;
     using SIS.MvcFramework.Attributes.Action;
+    using SIS.MvcFramework.Result;
     using System;
     using System.Linq;
     using System.Reflection;
@@ -67,7 +68,8 @@
                     serverRoutingTable.Add(httpMethod, path, request =>
                     {
                         var controllerInstance = Activator.CreateInstance(controller);
-                        var response = action.Invoke(controllerInstance, new[] { request }) as IHttpResponse;
+                        ((Controller)controllerInstance).Request = request;
+                        var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
                         return response;
                     });
 

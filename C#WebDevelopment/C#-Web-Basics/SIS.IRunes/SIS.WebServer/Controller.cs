@@ -2,11 +2,11 @@
 {
     using HTTP.Common;
     using HTTP.Requests;
+    using Identity;
     using Result;
     using SIS.MvcFramework.Extensions;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using System.Xml.Serialization;
 
     public abstract class Controller
     {
@@ -16,6 +16,10 @@
         }
 
         protected Dictionary<string, object> ViewData;
+
+        protected Principal User => (Principal)this.Request.Session.GetParameter("principal");
+
+        public IHttpRequest Request { get; set; }
 
         private string ParseTemplate(string viewContent)
         {
@@ -27,21 +31,24 @@
             return viewContent;
         }
 
-        protected bool IsLoggedIn(IHttpRequest httpRequest)
+        protected bool IsLoggedIn()
         {
-            return httpRequest.Session.ContainsParameter(GlobalConstants.username);
+            return this.User != null;
         }
 
-        protected void SignIn(IHttpRequest httpRequest, string id, string username, string email)
+        protected void SignIn(string id, string username, string email)
         {
-            httpRequest.Session.AddParameter(GlobalConstants.id, id);
-            httpRequest.Session.AddParameter(GlobalConstants.username, username);
-            httpRequest.Session.AddParameter(GlobalConstants.email, email);
+            this.Request.Session.AddParameter("principal", new Principal
+            {
+                Id = id,
+                Username = username,
+                Email = email,
+            }); 
         }
 
-        protected void SignOut(IHttpRequest httpRequest)
+        protected void SignOut()
         {
-            httpRequest.Session.ClearParameters();
+            this.Request.Session.ClearParameters();
         }
 
         protected ActionResult View([CallerMemberName] string view = null)

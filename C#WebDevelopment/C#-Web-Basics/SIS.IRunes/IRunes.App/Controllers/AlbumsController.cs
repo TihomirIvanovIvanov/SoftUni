@@ -16,7 +16,7 @@
     {
         public IHttpResponse All(IHttpRequest httpRequest)
         {
-            if (!this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn())
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -42,7 +42,7 @@
 
         public IHttpResponse Create(IHttpRequest httpRequest)
         {
-            if (!this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn())
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -53,7 +53,7 @@
         [HttpPost(ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
-            if (!this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn())
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }
@@ -79,7 +79,7 @@
 
         public IHttpResponse Details(IHttpRequest httpRequest)
         {
-            if (!this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn())
             {
                 return this.Redirect(GlobalConstants.UsersLoginPath);
             }

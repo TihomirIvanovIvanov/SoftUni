@@ -1,11 +1,10 @@
-﻿namespace SIS.WebServer.Result
+﻿namespace SIS.MvcFramework.Result
 {
     using HTTP.Common;
     using HTTP.Enums;
     using HTTP.Headers;
-    using HTTP.Responses;
 
-    public class InlineResourceResult : HttpResponse
+    public class InlineResourceResult : ActionResult
     {
         public InlineResourceResult(byte[] content, HttpResponseStatusCode responseStatusCode)
             : base(responseStatusCode)

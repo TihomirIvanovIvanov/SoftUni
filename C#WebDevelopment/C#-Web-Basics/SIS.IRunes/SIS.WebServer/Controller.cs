@@ -1,13 +1,12 @@
 ﻿namespace SIS.MvcFramework
 {
     using HTTP.Common;
-    using HTTP.Enums;
     using HTTP.Requests;
-    using HTTP.Responses;
+    using Result;
+    using SIS.MvcFramework.Extensions;
     using System.Collections.Generic;
-    using System.IO;
     using System.Runtime.CompilerServices;
-    using WebServer.Result;
+    using System.Xml.Serialization;
 
     public abstract class Controller
     {
@@ -45,12 +44,12 @@
             httpRequest.Session.ClearParameters();
         }
 
-        protected IHttpResponse View([CallerMemberName] string view = null)
+        protected ActionResult View([CallerMemberName] string view = null)
         {
             var controllerName = this.GetType().Name.Replace(GlobalConstants.Controller, string.Empty);
             var viewName = view;
 
-            var viewContent = File.ReadAllText(GlobalConstants.Views + controllerName + "/" + viewName + GlobalConstants.HtmlSuffix);
+            var viewContent = System.IO.File.ReadAllText(GlobalConstants.Views + controllerName + "/" + viewName + GlobalConstants.HtmlSuffix);
 
             viewContent = this.ParseTemplate(viewContent);
 
@@ -59,9 +58,29 @@
             return htmlResult;
         }
 
-        protected IHttpResponse Redirect(string url)
+        protected ActionResult Redirect(string url)
         {
             return new RedirectResult(url);
+        }
+
+        protected ActionResult Xml(object obj)
+        {
+            return new XmlResult(obj.ToXml());
+        }
+
+        protected ActionResult Json(object obj)
+        {
+            return new JsonResult(obj.ToJson());
+        }
+
+        protected ActionResult File(byte[] fileContent)
+        {
+            return new FileResult(fileContent);
+        }
+
+        protected ActionResult NotFound(string message = "")
+        {
+            return new NotFoundResult(message);
         }
     }
 }

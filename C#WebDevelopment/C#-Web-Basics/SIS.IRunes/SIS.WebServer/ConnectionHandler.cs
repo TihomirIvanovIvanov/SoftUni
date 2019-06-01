@@ -1,21 +1,21 @@
-﻿using SIS.HTTP.Common;
-using SIS.HTTP.Cookies;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Exceptions;
-using SIS.HTTP.Requests;
-using SIS.HTTP.Responses;
-using SIS.WebServer.Result;
-using SIS.WebServer.Routing;
-using SIS.WebServer.Sessions;
-using System;
-using System.IO;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SIS.WebServer
+﻿namespace SIS.MvcFramework
 {
+    using HTTP.Common;
+    using HTTP.Cookies;
+    using HTTP.Enums;
+    using HTTP.Exceptions;
+    using HTTP.Requests;
+    using HTTP.Responses;
+    using Result;
+    using SIS.WebServer.Routing;
+    using SIS.WebServer.Sessions;
+    using System;
+    using System.IO;
+    using System.Net.Sockets;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class ConnectionHandler
     {
         private readonly Socket client;
@@ -75,7 +75,7 @@ namespace SIS.WebServer
             if (File.Exists(fullPathToResource))
             {
                 var content = File.ReadAllBytes(fullPathToResource);
-                return new InlineResourceResult(content, HttpResponseStatusCode.Found);
+                return new InlineResourceResult(content, HttpResponseStatusCode.Ok);
             }
             else
             {

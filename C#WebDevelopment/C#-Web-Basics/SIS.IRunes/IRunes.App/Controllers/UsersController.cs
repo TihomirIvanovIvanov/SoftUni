@@ -2,6 +2,7 @@
 {
     using Data;
     using Models;
+    using Services;
     using SIS.HTTP.Common;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Action;
@@ -14,6 +15,13 @@
 
     public class UsersController : Controller
     {
+        private readonly IUserService userService;
+
+        public UsersController()
+        {
+            this.userService = new UserService();
+        }
+
         [NonAction]
         private string HashPassword(string password)
         {
@@ -31,23 +39,17 @@
         [HttpPost(ActionName = "Login")]
         public ActionResult LoginConfirm()
         {
-            using (var context = new RunesDbContext())
+            var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
+            var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
+
+            var userFromDb = this.userService.GetUserByUsernameAndPassword(username, this.HashPassword(password));
+
+            if (userFromDb == null)
             {
-                var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
-                var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
-
-                var userFromDb = context
-                    .Users
-                    .FirstOrDefault
-                    (user => (user.Username == username || user.Email == username) && user.Password == this.HashPassword(password));
-
-                if (userFromDb == null)
-                {
-                    return this.Redirect(GlobalConstants.UsersLoginPath);
-                }
-
-                this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
+                return this.Redirect(GlobalConstants.UsersLoginPath);
             }
+
+            this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
 
             return this.Redirect(GlobalConstants.HomeRedirectPath);
         }
@@ -60,28 +62,24 @@
         [HttpPost(ActionName = "Register")]
         public ActionResult RegisterConfirm()
         {
-            using (var context = new RunesDbContext())
+            var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
+            var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
+            var confirmPassword = ((ISet<string>)this.Request.FormData[GlobalConstants.confirmPassword]).FirstOrDefault();
+            var email = ((ISet<string>)this.Request.FormData[GlobalConstants.email]).FirstOrDefault();
+
+            if (password != confirmPassword)
             {
-                var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
-                var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
-                var confirmPassword = ((ISet<string>)this.Request.FormData[GlobalConstants.confirmPassword]).FirstOrDefault();
-                var email = ((ISet<string>)this.Request.FormData[GlobalConstants.email]).FirstOrDefault();
-
-                if (password != confirmPassword)
-                {
-                    return this.Redirect(GlobalConstants.UsersRegisterPath);
-                }
-
-                var user = new User
-                {
-                    Username = username,
-                    Password = this.HashPassword(password),
-                    Email = email
-                };
-
-                context.Users.Add(user);
-                context.SaveChanges();
+                return this.Redirect(GlobalConstants.UsersRegisterPath);
             }
+
+            var user = new User
+            {
+                Username = username,
+                Password = this.HashPassword(password),
+                Email = email
+            };
+
+            this.userService.CreateUser(user); 
 
             return this.Redirect(GlobalConstants.UsersLoginPath);
         }

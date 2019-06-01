@@ -76,7 +76,7 @@
                         var authorizeAttribute = action
                             .GetCustomAttributes().LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
 
-                        if (authorizeAttribute == null || authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
                         {
                             // TODO: Redirect to configure URL
                             return new HttpResponse(HttpResponseStatusCode.Forbidden);

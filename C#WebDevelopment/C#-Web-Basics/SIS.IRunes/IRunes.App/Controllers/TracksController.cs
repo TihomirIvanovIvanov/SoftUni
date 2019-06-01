@@ -1,8 +1,8 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using Data;
     using Extensions;
     using Models;
+    using Services;
     using SIS.HTTP.Common;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
@@ -13,6 +13,15 @@
 
     public class TracksController : Controller
     {
+        private readonly ITrackService trackService;
+
+        private readonly IAlbumService albumService;
+        public TracksController()
+        {
+            this.trackService = new TrackService();
+            this.albumService = new AlbumService();
+        }
+
         [Authorize]
         public ActionResult Create()
         {
@@ -27,35 +36,20 @@
         public ActionResult CreateConfirm()
         {
             var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();
+            var name = ((ISet<string>)this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
+            var link = ((ISet<string>)this.Request.FormData[GlobalConstants.link]).FirstOrDefault();
+            var price = ((ISet<string>)this.Request.FormData[GlobalConstants.price]).FirstOrDefault();
 
-            using (var context = new RunesDbContext())
+            var trackForDb = new Track
             {
-                var albumFromDb = context.Albums.SingleOrDefault(album => album.Id == albumId);
+                Name = name,
+                Link = link,
+                Price = decimal.Parse(price)
+            };
 
-                if (albumFromDb == null)
-                {
-                    return this.Redirect(GlobalConstants.AlbumsAllPath);
-                }
-
-                var name = ((ISet<string>)this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
-                var link = ((ISet<string>)this.Request.FormData[GlobalConstants.link]).FirstOrDefault();
-                var price = ((ISet<string>)this.Request.FormData[GlobalConstants.price]).FirstOrDefault();
-
-                var trackForDb = new Track
-                {
-                    Name = name,
-                    Link = link,
-                    Price = decimal.Parse(price)
-                };
-
-                albumFromDb.Tracks.Add(trackForDb);
-                albumFromDb.Price = albumFromDb
-                    .Tracks
-                    .Select(track => track.Price)
-                    .Sum() * 87 / 100;
-
-                context.Update(albumFromDb);
-                context.SaveChanges();
+            if (!this.albumService.AddTrackToAlbum(albumId, trackForDb))
+            {
+                return this.Redirect(GlobalConstants.AlbumsAllPath);
             }
 
             return this.Redirect(string.Format(GlobalConstants.AlbumsDetailsQueryIdParam, albumId));
@@ -67,20 +61,17 @@
             var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();
             var trackId = this.Request.QueryData[GlobalConstants.trackId].ToString();
 
-            using (var context = new RunesDbContext())
+            var trackFromDb = this.trackService.GetTrackById(trackId);
+
+            if (trackFromDb == null)
             {
-                var trackFromDb = context.Tracks.SingleOrDefault(track => track.Id == trackId);
+                return this.Redirect(string.Format(GlobalConstants.AlbumsDetailsQueryIdParam, albumId));
+            }
 
-                if (trackFromDb == null)
-                {
-                    return this.Redirect(string.Format(GlobalConstants.AlbumsDetailsQueryIdParam, albumId));
-                }
+            this.ViewData[GlobalConstants.AlbumId] = albumId;
+            this.ViewData[GlobalConstants.Track] = trackFromDb.ToHtmlDetails(albumId);
 
-                this.ViewData[GlobalConstants.AlbumId] = albumId;
-                this.ViewData[GlobalConstants.Track] = trackFromDb.ToHtmlDetails(albumId);
-
-                return this.View();
-            } 
+            return this.View();
         }
     }
 }

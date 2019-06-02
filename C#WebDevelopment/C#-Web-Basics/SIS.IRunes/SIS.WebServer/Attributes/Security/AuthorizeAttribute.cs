@@ -1,5 +1,6 @@
 ﻿namespace SIS.MvcFramework.Attributes.Security
 {
+    using HTTP.Common;
     using Identity;
     using System;
 
@@ -7,7 +8,7 @@
     {
         private readonly string authority;
 
-        public AuthorizeAttribute(string authority = "authorized")
+        public AuthorizeAttribute(string authority = GlobalConstants.authorized)
         {
             this.authority = authority;
         }
@@ -21,10 +22,10 @@
         {
             if (!this.IsLoggedIn(principal))
             {
-                return this.authority == "anonymous";
+                return this.authority == GlobalConstants.anonymous;
             }
 
-            return this.authority == "authorized" || principal.Roles.Contains(this.authority.ToLower());
+            return this.authority == GlobalConstants.authorized || principal.Roles.Contains(this.authority.ToLower());
         }
     }
 }

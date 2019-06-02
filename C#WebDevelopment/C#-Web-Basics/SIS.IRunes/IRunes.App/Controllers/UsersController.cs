@@ -1,6 +1,5 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using Data;
     using Models;
     using Services;
     using SIS.HTTP.Common;
@@ -36,7 +35,7 @@
             return this.View();
         }
 
-        [HttpPost(ActionName = "Login")]
+        [HttpPost(ActionName = GlobalConstants.LoginActionPathName)]
         public ActionResult LoginConfirm()
         {
             var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
@@ -59,7 +58,7 @@
             return this.View();
         }
 
-        [HttpPost(ActionName = "Register")]
+        [HttpPost(ActionName = GlobalConstants.RegisterActionPathName)]
         public ActionResult RegisterConfirm()
         {
             var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();

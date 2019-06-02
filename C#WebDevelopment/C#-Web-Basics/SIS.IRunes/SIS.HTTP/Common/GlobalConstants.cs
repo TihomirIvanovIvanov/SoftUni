@@ -14,6 +14,20 @@
 
         #endregion
 
+        #region Action Name Path
+
+        public const string CreateActionPathName = "Create";
+
+        public const string LoginActionPathName = "Login";
+
+        public const string RegisterActionPathName = "Register";
+
+        #endregion
+
+        public const string ResourcesPath = "Resources/";
+
+        public const string Location = "Location";
+
         public const string HttpOneProtocolFragment = "HTTP/1.1";
 
         public const string HttpNewLine = "\r\n";
@@ -21,6 +35,24 @@
         public const string UnsupportedHttpMethodExceptionMessage = "The HTTP method - {0} is not supported.";
 
         public const string InlineResourceResult = "inline";
+
+        public const string AttachmentResourceResult = "attachment";
+
+        public const string TextHtmlResourceResult = "text/html; charset=utf-8";
+
+        public const string TextPlainResourceResult = "text/plain; charset=utf-8";
+
+        public const string ApplicationJsonResourceResult = "application/json";
+
+        public const string ApplicationXmlResourceResult = "application/xml";
+
+        public const string principal = "principal";
+
+        public const string file = "file";
+
+        public const string authorized = "authorized";
+
+        public const string anonymous = "anonymous";
 
         public const string username = "username";
 

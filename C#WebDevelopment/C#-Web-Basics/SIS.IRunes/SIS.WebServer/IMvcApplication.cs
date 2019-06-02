@@ -1,6 +1,6 @@
 ﻿namespace SIS.MvcFramework
 {
-    using WebServer.Routing;
+    using Routing;
 
     public interface IMvcApplication
     {

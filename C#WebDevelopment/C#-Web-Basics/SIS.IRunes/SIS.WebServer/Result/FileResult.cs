@@ -1,5 +1,6 @@
 ﻿namespace SIS.MvcFramework.Result
 {
+    using HTTP.Common;
     using HTTP.Enums;
     using HTTP.Headers;
 
@@ -9,7 +10,7 @@
             : base(httpResponseStatusCode)
         {                                                         // TODO: constant in GlobalConstant -> Mime type
             this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentLength, fileContent.Length.ToString()));
-            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, "attacment"));
+            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, GlobalConstants.AttachmentResourceResult));
             this.Content = fileContent;
         }
     }

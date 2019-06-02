@@ -1,10 +1,10 @@
-﻿using SIS.HTTP.Enums;
-using SIS.HTTP.Requests;
-using SIS.HTTP.Responses;
-using System;
-
-namespace SIS.WebServer.Routing
+﻿namespace SIS.MvcFramework.Routing
 {
+    using HTTP.Enums;
+    using HTTP.Requests;
+    using HTTP.Responses;
+    using System;
+
     public interface IServerRoutingTable
     {
         void Add(HttpRequestMethod method, string path, Func<IHttpRequest, IHttpResponse> func);

@@ -7,8 +7,8 @@
     using HTTP.Requests;
     using HTTP.Responses;
     using Result;
-    using SIS.WebServer.Routing;
-    using SIS.WebServer.Sessions;
+    using Routing;
+    using Sessions;
     using System;
     using System.IO;
     using System.Net.Sockets;
@@ -67,7 +67,7 @@
         {
             var folderPrefix = "/../";
             var assemblyLocation = Assembly.GetExecutingAssembly().Location;
-            var resourceFolderPath = "Resources/";
+            var resourceFolderPath = GlobalConstants.ResourcesPath;
             var requestedResource = httpRequest.Path;
 
             var fullPathToResource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;

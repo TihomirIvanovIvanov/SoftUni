@@ -1,8 +1,8 @@
-﻿using SIS.HTTP.Sessions;
-using System.Collections.Concurrent;
-
-namespace SIS.WebServer.Sessions
+﻿namespace SIS.MvcFramework.Sessions
 {
+    using HTTP.Sessions;
+    using System.Collections.Concurrent;
+
     public class HttpSessionStorage
     {
         public const string SessionCookieKey = "SIS_ID";

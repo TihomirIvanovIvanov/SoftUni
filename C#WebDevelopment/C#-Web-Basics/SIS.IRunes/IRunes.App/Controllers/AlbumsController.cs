@@ -1,6 +1,5 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using SIS.MvcFramework.Mapping;
     using Extensions;
     using IRunes.App.ViewModels;
     using Models;
@@ -9,6 +8,7 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Attributes.Security;
+    using SIS.MvcFramework.Mapping;
     using SIS.MvcFramework.Result;
     using System.Collections.Generic;
     using System.Linq;
@@ -48,7 +48,7 @@
         }
 
         [Authorize]
-        [HttpPost(ActionName = "Create")]
+        [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
         public ActionResult CreateConfirm()
         {
             var name = ((ISet<string>)this.Request.FormData[GlobalConstants.name]).FirstOrDefault();

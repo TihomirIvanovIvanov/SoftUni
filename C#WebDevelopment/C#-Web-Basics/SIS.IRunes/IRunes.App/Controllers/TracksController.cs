@@ -32,7 +32,7 @@
         }
 
         [Authorize]
-        [HttpPost(ActionName = "Create")]
+        [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
         public ActionResult CreateConfirm()
         {
             var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();

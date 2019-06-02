@@ -1,5 +1,6 @@
 ﻿namespace SIS.MvcFramework.Result
 {
+    using HTTP.Common;
     using HTTP.Enums;
     using HTTP.Headers;
 
@@ -7,7 +8,7 @@
     {
         public RedirectResult(string location) : base(HttpResponseStatusCode.SeeOther)
         {
-            this.Headers.AddHeader(new HttpHeader("Location", location));
+            this.Headers.AddHeader(new HttpHeader(GlobalConstants.Location, location));
         }
     }
 }

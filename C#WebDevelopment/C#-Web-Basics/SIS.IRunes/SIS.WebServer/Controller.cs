@@ -1,10 +1,10 @@
 ﻿namespace SIS.MvcFramework
 {
+    using Extensions;
     using HTTP.Common;
     using HTTP.Requests;
     using Identity;
     using Result;
-    using SIS.MvcFramework.Extensions;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
 
@@ -18,8 +18,8 @@
         protected Dictionary<string, object> ViewData;
 
         public Principal User =>
-            this.Request.Session.ContainsParameter("principal")
-            ? (Principal)this.Request.Session.GetParameter("principal")
+            this.Request.Session.ContainsParameter(GlobalConstants.principal)
+            ? (Principal)this.Request.Session.GetParameter(GlobalConstants.principal)
             : null;
 
         public IHttpRequest Request { get; set; }
@@ -36,12 +36,12 @@
 
         protected bool IsLoggedIn()
         {
-            return this.Request.Session.ContainsParameter("principal");
+            return this.Request.Session.ContainsParameter(GlobalConstants.principal);
         }
 
         protected void SignIn(string id, string username, string email)
         {
-            this.Request.Session.AddParameter("principal", new Principal
+            this.Request.Session.AddParameter(GlobalConstants.principal, new Principal
             {
                 Id = id,
                 Username = username,

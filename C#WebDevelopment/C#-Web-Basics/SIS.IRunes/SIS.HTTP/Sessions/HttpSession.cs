@@ -1,8 +1,8 @@
-﻿using SIS.HTTP.Common;
-using System.Collections.Generic;
-
-namespace SIS.HTTP.Sessions
+﻿namespace SIS.HTTP.Sessions
 {
+    using Common;
+    using System.Collections.Generic;
+
     public class HttpSession : IHttpSession
     {
         private readonly Dictionary<string, object> sessionParameters;

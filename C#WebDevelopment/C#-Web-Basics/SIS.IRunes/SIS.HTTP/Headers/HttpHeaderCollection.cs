@@ -1,9 +1,9 @@
-﻿using SIS.HTTP.Common;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SIS.HTTP.Headers
+﻿namespace SIS.HTTP.Headers
 {
+    using Common;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class HttpHeaderCollection : IHttpHeaderCollection
     {
         private Dictionary<string, HttpHeader> httpHeaders;

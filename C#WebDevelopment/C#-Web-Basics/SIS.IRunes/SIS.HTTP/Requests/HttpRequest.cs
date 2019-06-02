@@ -1,22 +1,22 @@
-﻿using SIS.HTTP.Common;
-using SIS.HTTP.Cookies;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Exceptions;
-using SIS.HTTP.Headers;
-using SIS.HTTP.Sessions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SIS.HTTP.Requests
+﻿namespace SIS.HTTP.Requests
 {
+    using Common;
+    using Cookies;
+    using Enums;
+    using Exceptions;
+    using Headers;
+    using Sessions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class HttpRequest : IHttpRequest
     {
         public HttpRequest(string requestString)
         {
             CoreValidator.ThrowIfNullOrEmpty(requestString, nameof(requestString));
 
-            this.FormData = new Dictionary<string,object>();
+            this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
             this.Cookies = new HttpCookieCollection();
@@ -37,7 +37,7 @@ namespace SIS.HTTP.Requests
         public IHttpCookieCollection Cookies { get; }
 
         public HttpRequestMethod RequestMethod { get; private set; }
-        
+
         public IHttpSession Session { get; set; }
 
         private bool IsValidRequestLine(string[] requestLineParams)
@@ -141,7 +141,7 @@ namespace SIS.HTTP.Requests
                     }
 
                     ((ISet<string>)this.FormData[key]).Add(value);
-                }                
+                }
             }
         }
 

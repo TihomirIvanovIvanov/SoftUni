@@ -1,16 +1,16 @@
 ﻿namespace SIS.MvcFramework
 {
+    using Attributes.Action;
     using Attributes.Http;
+    using Attributes.Security;
     using HTTP.Enums;
     using HTTP.Responses;
-    using SIS.MvcFramework.Attributes.Action;
-    using SIS.MvcFramework.Attributes.Security;
-    using SIS.MvcFramework.Result;
+    using Result;
+    using SIS.HTTP.Common;
     using System;
     using System.Linq;
     using System.Reflection;
-    using WebServer;
-    using WebServer.Routing;
+    using Routing;
 
     public static class WebHost
     {
@@ -43,7 +43,7 @@
 
                 foreach (var action in actions)
                 {
-                    var path = $"/{controller.Name.Replace("Controller", string.Empty)}/{action.Name}";
+                    var path = $"/{controller.Name.Replace(GlobalConstants.Controller, string.Empty)}/{action.Name}";
 
                     var attribute = action
                         .GetCustomAttributes()
@@ -63,7 +63,7 @@
 
                     if (attribute?.ActionName != null)
                     {
-                        path = $"/{controller.Name.Replace("Controller", string.Empty)}/{attribute.ActionName}";
+                        path = $"/{controller.Name.Replace(GlobalConstants.Controller, string.Empty)}/{attribute.ActionName}";
                     }
 
                     serverRoutingTable.Add(httpMethod, path, request =>

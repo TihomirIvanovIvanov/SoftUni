@@ -1,12 +1,12 @@
-﻿using SIS.HTTP.Common;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Requests;
-using SIS.HTTP.Responses;
-using System;
-using System.Collections.Generic;
-
-namespace SIS.WebServer.Routing
+﻿namespace SIS.MvcFramework.Routing
 {
+    using HTTP.Common;
+    using HTTP.Enums;
+    using HTTP.Requests;
+    using HTTP.Responses;
+    using System;
+    using System.Collections.Generic;
+
     public class ServerRoutingTable : IServerRoutingTable
     {
         private Dictionary<HttpRequestMethod, Dictionary<string, Func<IHttpRequest, IHttpResponse>>> routingTable;

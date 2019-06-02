@@ -7,7 +7,7 @@
 
     public class HomeController : Controller
     {
-        [HttpGet(Url = "/")]
+        [HttpGet(Url = GlobalConstants.HomeRedirectPath)]
         public ActionResult IndexSlash()
         {
             return Index();

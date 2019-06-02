@@ -2,7 +2,6 @@
 {
     using Data;
     using Models;
-    using System;
     using System.Linq;
 
     public class UserService : IUserService

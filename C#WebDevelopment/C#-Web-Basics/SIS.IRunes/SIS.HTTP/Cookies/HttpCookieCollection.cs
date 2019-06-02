@@ -1,10 +1,10 @@
-﻿using SIS.HTTP.Common;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SIS.HTTP.Cookies
+﻿namespace SIS.HTTP.Cookies
 {
+    using Common;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class HttpCookieCollection : IHttpCookieCollection
     {
         private Dictionary<string, HttpCookie> httpCookies;
@@ -60,7 +60,7 @@ namespace SIS.HTTP.Cookies
             StringBuilder sb = new StringBuilder();
 
             foreach (var cookie in this.httpCookies.Values)
-            {                
+            {
                 sb.Append($"Set-Cookie: {cookie}").Append(GlobalConstants.HttpNewLine);
             }
 

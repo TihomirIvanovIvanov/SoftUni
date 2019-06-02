@@ -1,13 +1,11 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using SIS.HTTP.Enums;
+    using SIS.HTTP.Common;
     using SIS.HTTP.Requests;
     using SIS.HTTP.Responses;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Action;
     using SIS.MvcFramework.Result;
-    using System.Collections.Generic;
-    using System.Reflection;
 
     public class InfoController : Controller
     {
@@ -28,8 +26,8 @@
         {
             var folderPrefix = "/../";
             var assemblyLocation = this.GetType().Assembly.Location;
-            var resourceFolderPath = "Resources/";
-            var requestedResource = request.QueryData["file"].ToString();
+            var resourceFolderPath = GlobalConstants.ResourcesPath;
+            var requestedResource = request.QueryData[GlobalConstants.file].ToString();
 
             var fullPathToResource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;
 

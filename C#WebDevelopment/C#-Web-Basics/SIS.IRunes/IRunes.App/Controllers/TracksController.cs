@@ -10,6 +10,7 @@
     using SIS.MvcFramework.Result;
     using System.Collections.Generic;
     using System.Linq;
+    using ViewModels;
 
     public class TracksController : Controller
     {
@@ -71,7 +72,7 @@
             this.ViewData[GlobalConstants.AlbumId] = albumId;
             this.ViewData[GlobalConstants.Track] = trackFromDb.ToHtmlDetails(albumId);
 
-            return this.View();
+            return this.View(new AlbumDetailsViewModel { AlbumId = albumId });
         }
     }
 }

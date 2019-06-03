@@ -15,7 +15,7 @@
 
         public User CreateUser(User user)
         {
-            user = this.context.Add(user).Entity;
+            user = this.context.Users.Add(user).Entity;
             this.context.SaveChanges();
 
             return user;

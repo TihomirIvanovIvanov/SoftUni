@@ -7,9 +7,12 @@
     using Result;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+    using ViewEngine;
 
     public abstract class Controller
     {
+        private IViewEngine viewEngine = new SisViewEngine();
+
         protected Controller()
         {
             this.ViewData = new Dictionary<string, object>();
@@ -56,14 +59,24 @@
 
         protected ActionResult View([CallerMemberName] string view = null)
         {
+            return this.View<object>(null, view);
+        }
+
+        protected ActionResult View<T>(T model = null, [CallerMemberName] string view = null)
+            where T : class
+        {
+            // TODO: Support for layout
             var controllerName = this.GetType().Name.Replace(GlobalConstants.Controller, string.Empty);
             var viewName = view;
 
             var viewContent = System.IO.File.ReadAllText(GlobalConstants.Views + controllerName + "/" + viewName + GlobalConstants.HtmlSuffix);
+            viewContent = this.viewEngine.GetHtml(viewContent, model);
 
-            viewContent = this.ParseTemplate(viewContent);
+            var layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
+            layoutContent = this.viewEngine.GetHtml(layoutContent, model);
+            layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
 
-            var htmlResult = new HtmlResult(viewContent);
+            var htmlResult = new HtmlResult(layoutContent);
 
             return htmlResult;
         }

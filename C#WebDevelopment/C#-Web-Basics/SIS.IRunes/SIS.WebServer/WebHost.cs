@@ -6,21 +6,24 @@
     using HTTP.Enums;
     using HTTP.Responses;
     using Result;
+    using Routing;
+    using Sessions;
     using SIS.HTTP.Common;
     using System;
     using System.Linq;
     using System.Reflection;
-    using Routing;
 
     public static class WebHost
     {
         public static void Start(IMvcApplication application)
         {
             IServerRoutingTable serverRoutingTable = new ServerRoutingTable();
+            IHttpSessionStorage httpSessionStorage = new HttpSessionStorage();
+
             AutoRegisterRoutes(application, serverRoutingTable);
             application.ConfigureServices();
             application.Configure(serverRoutingTable);
-            Server server = new Server(8000, serverRoutingTable);
+            Server server = new Server(8000, serverRoutingTable, httpSessionStorage);
             server.Run();
         }
 
@@ -29,7 +32,6 @@
             var controllers = application.GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass && !type.IsAbstract && typeof(Controller).IsAssignableFrom(type));
 
-            // type.IsSubclassOf(typeof(Controller))
             // TODO: RemoveToString From InfoController
 
             foreach (var controller in controllers)
@@ -38,8 +40,7 @@
                     | BindingFlags.Public
                     | BindingFlags.Instance)
                     .Where(type => !type.IsSpecialName && type.DeclaringType == controller)
-                    .Where(action => action.GetCustomAttributes()
-                    .All(a => a.GetType() != typeof(NonActionAttribute)));
+                    .Where(action => action.GetCustomAttributes().All(a => a.GetType() != typeof(NonActionAttribute)));
 
                 foreach (var action in actions)
                 {
@@ -68,6 +69,7 @@
 
                     serverRoutingTable.Add(httpMethod, path, request =>
                     {
+                        // request => new UsersController().Login(request)
                         var controllerInstance = Activator.CreateInstance(controller);
                         ((Controller)controllerInstance).Request = request;
 

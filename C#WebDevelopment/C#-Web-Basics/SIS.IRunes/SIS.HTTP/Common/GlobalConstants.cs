@@ -34,17 +34,17 @@
 
         public const string UnsupportedHttpMethodExceptionMessage = "The HTTP method - {0} is not supported.";
 
-        public const string InlineResourceResult = "inline";
+        public const string InlineMimeType = "inline";
 
-        public const string AttachmentResourceResult = "attachment";
+        public const string AttachmentMimeType = "attachment";
 
-        public const string TextHtmlResourceResult = "text/html; charset=utf-8";
+        public const string TextHtmlMimeType = "text/html; charset=utf-8";
 
-        public const string TextPlainResourceResult = "text/plain; charset=utf-8";
+        public const string TextPlainMimeType = "text/plain; charset=utf-8";
 
-        public const string ApplicationJsonResourceResult = "application/json";
+        public const string ApplicationJsonMimeType = "application/json";
 
-        public const string ApplicationXmlResourceResult = "application/xml";
+        public const string ApplicationXmlMimeType = "application/xml";
 
         public const string principal = "principal";
 

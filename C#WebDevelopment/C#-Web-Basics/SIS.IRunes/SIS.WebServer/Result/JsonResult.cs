@@ -10,7 +10,7 @@
         public JsonResult(string jsonContent, HttpResponseStatusCode httpResponseStatusCode = HttpResponseStatusCode.Ok)
             : base(httpResponseStatusCode)
         {
-            this.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.ApplicationJsonResourceResult));
+            this.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.ApplicationJsonMimeType));
             this.Content = Encoding.UTF32.GetBytes(jsonContent);
         }
     }

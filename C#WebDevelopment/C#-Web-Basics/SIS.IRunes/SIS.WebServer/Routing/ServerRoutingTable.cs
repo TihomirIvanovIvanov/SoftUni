@@ -1,15 +1,15 @@
 ﻿namespace SIS.MvcFramework.Routing
 {
-    using HTTP.Common;
     using HTTP.Enums;
     using HTTP.Requests;
     using HTTP.Responses;
+    using SIS.Common;
     using System;
     using System.Collections.Generic;
 
     public class ServerRoutingTable : IServerRoutingTable
     {
-        private Dictionary<HttpRequestMethod, Dictionary<string, Func<IHttpRequest, IHttpResponse>>> routingTable;
+        private readonly Dictionary<HttpRequestMethod, Dictionary<string, Func<IHttpRequest, IHttpResponse>>> routingTable;
         public ServerRoutingTable()
         {
             this.routingTable = new Dictionary<HttpRequestMethod, Dictionary<string, Func<IHttpRequest, IHttpResponse>>>
@@ -23,25 +23,25 @@
 
         public void Add(HttpRequestMethod method, string path, Func<IHttpRequest, IHttpResponse> func)
         {
-            CoreValidator.ThrowIfNull(method, nameof(method));
-            CoreValidator.ThrowIfNullOrEmpty(path, nameof(path));
-            CoreValidator.ThrowIfNull(func, nameof(func));
+            method.ThrowIfNull(nameof(method));
+            path.ThrowIfNullOrEmpty(nameof(path));
+            func.ThrowIfNull(nameof(func));
 
             this.routingTable[method].Add(path, func);
         }
 
         public bool Contains(HttpRequestMethod method, string path)
         {
-            CoreValidator.ThrowIfNull(method, nameof(method));
-            CoreValidator.ThrowIfNullOrEmpty(path, nameof(path));
+            method.ThrowIfNull(nameof(method));
+            path.ThrowIfNullOrEmpty(nameof(path));
 
             return this.routingTable.ContainsKey(method) && this.routingTable[method].ContainsKey(path);
         }
 
         public Func<IHttpRequest, IHttpResponse> Get(HttpRequestMethod method, string path)
         {
-            CoreValidator.ThrowIfNull(method, nameof(method));
-            CoreValidator.ThrowIfNullOrEmpty(path, nameof(path));
+            method.ThrowIfNull(nameof(method));
+            path.ThrowIfNullOrEmpty(nameof(path));
 
             return this.routingTable[method][path];
         }

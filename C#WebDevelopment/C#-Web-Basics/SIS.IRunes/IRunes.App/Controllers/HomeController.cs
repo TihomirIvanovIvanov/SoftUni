@@ -4,6 +4,7 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Result;
+    using ViewModels;
 
     public class HomeController : Controller
     {
@@ -17,9 +18,7 @@
         {
             if (this.IsLoggedIn())
             {
-                this.ViewData[GlobalConstants.Username] = this.User.Username; ;
-
-                return this.View(GlobalConstants.Home);
+                return this.View(new UserHomeViewModel { Username = this.User.Username }, GlobalConstants.Home);
             }
 
             return this.View();

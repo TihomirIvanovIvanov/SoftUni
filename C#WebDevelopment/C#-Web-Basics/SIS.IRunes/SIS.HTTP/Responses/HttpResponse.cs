@@ -5,6 +5,7 @@
     using Enums;
     using Extensions;
     using Headers;
+    using SIS.Common;
     using System.Text;
 
     public class HttpResponse : IHttpResponse
@@ -16,9 +17,10 @@
             this.Content = new byte[0];
         }
 
-        public HttpResponse(HttpResponseStatusCode statusCode) : this()
+        public HttpResponse(HttpResponseStatusCode statusCode)
+            : this()
         {
-            CoreValidator.ThrowIfNull(statusCode, nameof(statusCode));
+            statusCode.ThrowIfNull(nameof(statusCode));
             this.StatusCode = statusCode;
         }
 

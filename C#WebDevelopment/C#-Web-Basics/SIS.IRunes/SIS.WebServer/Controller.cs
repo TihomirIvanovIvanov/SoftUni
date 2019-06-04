@@ -11,14 +11,14 @@
 
     public abstract class Controller
     {
-        private IViewEngine viewEngine = new SisViewEngine();
+        private readonly IViewEngine viewEngine;
 
         protected Controller()
         {
-            this.ViewData = new Dictionary<string, object>();
+            this.viewEngine = new SisViewEngine();
         }
 
-        protected Dictionary<string, object> ViewData;
+        // TODO: Refactor this
 
         public Principal User =>
             this.Request.Session.ContainsParameter(GlobalConstants.principal)
@@ -26,16 +26,6 @@
             : null;
 
         public IHttpRequest Request { get; set; }
-
-        private string ParseTemplate(string viewContent)
-        {
-            foreach (var param in this.ViewData)
-            {
-                viewContent = viewContent.Replace($"@Model.{param.Key}", param.Value.ToString());
-            }
-
-            return viewContent;
-        }
 
         protected bool IsLoggedIn()
         {
@@ -70,10 +60,10 @@
             var viewName = view;
 
             var viewContent = System.IO.File.ReadAllText(GlobalConstants.Views + controllerName + "/" + viewName + GlobalConstants.HtmlSuffix);
-            viewContent = this.viewEngine.GetHtml(viewContent, model);
+            viewContent = this.viewEngine.GetHtml(viewContent, model, this.User);
 
             var layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
-            layoutContent = this.viewEngine.GetHtml(layoutContent, model);
+            layoutContent = this.viewEngine.GetHtml(layoutContent, model, this.User);
             layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
 
             var htmlResult = new HtmlResult(layoutContent);

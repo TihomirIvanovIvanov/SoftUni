@@ -10,7 +10,7 @@
             : base(httpResponseStatusCode)
         {                                                         // TODO: constant in GlobalConstant -> Mime type
             this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentLength, fileContent.Length.ToString()));
-            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, GlobalConstants.AttachmentResourceResult));
+            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, GlobalConstants.AttachmentMimeType));
             this.Content = fileContent;
         }
     }

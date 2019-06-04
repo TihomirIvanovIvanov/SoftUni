@@ -10,7 +10,7 @@
         public XmlResult(string xmlContent, HttpResponseStatusCode httpResponseStatusCode = HttpResponseStatusCode.Ok)
             : base(httpResponseStatusCode)
         {
-            this.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.ApplicationXmlResourceResult));
+            this.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.ApplicationXmlMimeType));
             this.Content = Encoding.UTF32.GetBytes(xmlContent);
         }
     }

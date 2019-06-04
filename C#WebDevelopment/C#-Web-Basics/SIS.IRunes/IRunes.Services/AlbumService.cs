@@ -16,8 +16,8 @@
 
         public Album CreateAlbum(Album album)
         {
-            album = context.Albums.Add(album).Entity;
-            context.SaveChanges();
+            album = this.context.Albums.Add(album).Entity;
+            this.context.SaveChanges();
 
             return album;
         }
@@ -29,7 +29,7 @@
 
         public Album GetAlbumById(string id)
         {
-            return context.Albums.Include(album => album.Tracks).SingleOrDefault(album => album.Id == id);
+            return this.context.Albums.Include(album => album.Tracks).SingleOrDefault(album => album.Id == id);
         }
 
         public bool AddTrackToAlbum(string albumId, Track trackFromDb)

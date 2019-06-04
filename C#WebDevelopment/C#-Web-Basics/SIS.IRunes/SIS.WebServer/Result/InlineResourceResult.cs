@@ -10,7 +10,7 @@
             : base(responseStatusCode)
         {
             this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentLength, content.Length.ToString()));
-            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, GlobalConstants.InlineResourceResult));
+            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, GlobalConstants.InlineMimeType));
             this.Content = content;
         }
     }

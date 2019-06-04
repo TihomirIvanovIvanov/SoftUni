@@ -12,7 +12,8 @@
             using (var stringWriter = new StringWriter())
             {
                 var serializer = new XmlSerializer(obj.GetType());
-                serializer.Serialize(stringWriter, obj, null);
+                // TODO : Maybe use the third overload for namespace -> null
+                serializer.Serialize(stringWriter, obj);
                 return stringWriter.ToString();
             }
         }

@@ -10,7 +10,7 @@
         public HtmlResult(string content, HttpResponseStatusCode responseStatusCode = HttpResponseStatusCode.Ok)
             : base(responseStatusCode)
         {
-            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.TextHtmlResourceResult));
+            this.Headers.AddHeader(new HttpHeader(HttpHeader.ContentType, GlobalConstants.TextHtmlMimeType));
             this.Content = Encoding.UTF8.GetBytes(content);
         }
     }

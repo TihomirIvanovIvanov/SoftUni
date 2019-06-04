@@ -1,6 +1,5 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using Extensions;
     using IRunes.App.ViewModels;
     using Models;
     using Services;
@@ -27,18 +26,12 @@
         {
             ICollection<Album> allAlbums = this.albumService.GetAllAlbums();
 
-            if (allAlbums.Count == 0)
+            if (allAlbums.Count != 0)
             {
-                this.ViewData[GlobalConstants.Albums] = GlobalConstants.NoAlbumsInDb;
-            }
-            else
-            {
-                this.ViewData[GlobalConstants.Albums] =
-                    string.Join(string.Empty,
-                    allAlbums.Select(album => album.ToHtmlAll()).ToList());
+                return this.View(allAlbums.Select(ModelMapper.ProjectTo<AlbumAllViewModel>).ToList());
             }
 
-            return this.View();
+            return this.View(new List<AlbumAllViewModel>());
         }
 
         [Authorize]
@@ -72,15 +65,14 @@
             var albumId = this.Request.QueryData[GlobalConstants.id].ToString();
             var albumFromDb = this.albumService.GetAlbumById(albumId);
 
-            AlbumViewModel albumViewModel = ModelMapper.ProjectTo<AlbumViewModel>(albumFromDb);
+            AlbumDetailsViewModel albumViewModel = ModelMapper.ProjectTo<AlbumDetailsViewModel>(albumFromDb);
 
             if (albumFromDb == null)
             {
                 return this.Redirect(GlobalConstants.AlbumsAllPath);
             }
 
-            this.ViewData[GlobalConstants.Album] = albumFromDb.ToHtmlDetails();
-            return this.View();
+            return this.View(albumViewModel);
         }
     }
 }

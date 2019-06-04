@@ -1,6 +1,6 @@
 ﻿namespace SIS.HTTP.Cookies
 {
-    using Common;
+    using SIS.Common;
     using System;
     using System.Text;
 
@@ -19,8 +19,8 @@
             string path = HttpCookieDefaultPath)
 
         {
-            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            CoreValidator.ThrowIfNullOrEmpty(value, nameof(value));
+            key.ThrowIfNullOrEmpty(nameof(key));
+            value.ThrowIfNullOrEmpty(nameof(value));
 
             this.Key = key;
             this.Value = value;

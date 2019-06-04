@@ -6,14 +6,14 @@
     {
         private const string InternalServerErrorExceptionDefaultMessage = "The Server has encountered an error.";
 
-        public InternalServerErrorException() : this(InternalServerErrorExceptionDefaultMessage)
+        public InternalServerErrorException()
+            : this(InternalServerErrorExceptionDefaultMessage)
         {
-
         }
 
-        public InternalServerErrorException(string name) : base(name)
+        public InternalServerErrorException(string name)
+            : base(name)
         {
-
         }
     }
 }

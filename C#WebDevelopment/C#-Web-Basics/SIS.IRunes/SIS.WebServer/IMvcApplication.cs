@@ -1,11 +1,12 @@
 ﻿namespace SIS.MvcFramework
 {
     using Routing;
+    using SIS.MvcFramework.DependencyContainer;
 
     public interface IMvcApplication
     {
         void Configure(IServerRoutingTable serverRoutingTable);
 
-        void ConfigureServices();
+        void ConfigureServices(IServiceProvider serviceProvider);
     }
 }

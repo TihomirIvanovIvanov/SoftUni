@@ -11,6 +11,8 @@
     using Result;
     using Routing;
     using Sessions;
+    using SIS.HTTP.Requests;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -36,8 +38,6 @@
         {
             var controllers = application.GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass && !type.IsAbstract && typeof(Controller).IsAssignableFrom(type));
-
-            // TODO: RemoveToString From InfoController
 
             foreach (var controllerType in controllers)
             {
@@ -72,30 +72,55 @@
                         path = $"/{controllerType.Name.Replace(GlobalConstants.Controller, string.Empty)}/{attribute.ActionName}";
                     }
 
-                    serverRoutingTable.Add(httpMethod, path, request =>
-                    {
-                        // request => new UsersController().Login(request)
-                        var controllerInstance = serviceProvider.CreateInstance(controllerType) as Controller;
-                        controllerInstance.Request = request;
-
-                        // Security Authorization - TODO: Refactor this
-                        var controllerPrincipal = controllerInstance.User;
-                        var authorizeAttribute = action
-                            .GetCustomAttributes().LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
-
-                        if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
-                        {
-                            // TODO: Redirect to configure URL
-                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
-                        }
-
-                        var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
-                        return response;
-                    });
+                    serverRoutingTable.Add(httpMethod, path,
+                        (request) => ProcessRequest(serviceProvider, controllerType, action, request));
 
                     System.Console.WriteLine(httpMethod + " " + path);
                 }
             }
+        }
+
+        private static IHttpResponse ProcessRequest(
+            IServiceProvider serviceProvider, System.Type controllerType, MethodInfo action, IHttpRequest httpRequest)
+        {
+            var controllerInstance = serviceProvider.CreateInstance(controllerType) as Controller;
+            controllerInstance.Request = httpRequest;
+
+            // Security Authorization - TODO: Refactor this
+            var controllerPrincipal = controllerInstance.User;
+            var authorizeAttribute = action
+                .GetCustomAttributes().LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+            if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
+            {
+                // TODO: Redirect to configure URL
+                return new HttpResponse(HttpResponseStatusCode.Forbidden);
+            }
+
+            var parameters = action.GetParameters();
+            var parameterValues = new List<object>();
+
+            foreach (var parameter in parameters)
+            {
+                var parameterName = parameter.Name.ToLower();
+                //ISet<string> httpDataValue = null;
+
+                //if (httpRequest.QueryData.Any(elem => elem.Key.ToLower() == parameterName))
+                //{
+                //    httpDataValue = httpRequest.QueryData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName);
+                //}
+
+                //if (httpRequest.FormData.Any(elem => elem.Key.ToLower() == parameterName))
+                //{
+                //    httpDataValue = httpRequest.FormData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName);
+                //}
+
+
+                //System.Convert.ChangeType()
+            }
+
+            var response = action.Invoke(controllerInstance, parameterValues.ToArray()) as ActionResult;
+            return response;
         }
     }
 }

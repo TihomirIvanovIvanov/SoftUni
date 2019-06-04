@@ -26,7 +26,7 @@
         [Authorize]
         public ActionResult Create()
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();
+            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
 
             return this.View(new TrackCreateViewModel { AlbumId = albumId });
         }
@@ -35,10 +35,10 @@
         [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
         public ActionResult CreateConfirm()
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();
-            var name = ((ISet<string>)this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
-            var link = ((ISet<string>)this.Request.FormData[GlobalConstants.link]).FirstOrDefault();
-            var price = ((ISet<string>)this.Request.FormData[GlobalConstants.price]).FirstOrDefault();
+            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
+            var name = (this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
+            var link = (this.Request.FormData[GlobalConstants.link]).FirstOrDefault();
+            var price = (this.Request.FormData[GlobalConstants.price]).FirstOrDefault();
 
             var trackForDb = new Track
             {
@@ -58,8 +58,8 @@
         [Authorize]
         public ActionResult Details()
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].ToString();
-            var trackId = this.Request.QueryData[GlobalConstants.trackId].ToString();
+            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
+            var trackId = this.Request.QueryData[GlobalConstants.trackId].FirstOrDefault();
 
             var trackFromDb = this.trackService.GetTrackById(trackId);
 

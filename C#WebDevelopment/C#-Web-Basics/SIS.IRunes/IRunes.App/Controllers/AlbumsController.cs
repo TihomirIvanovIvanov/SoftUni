@@ -42,11 +42,8 @@
 
         [Authorize]
         [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
-        public ActionResult CreateConfirm()
+        public ActionResult CreateConfirm(string name, string cover)
         {
-            var name = (this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
-            var cover = (this.Request.FormData[GlobalConstants.albumCover]).FirstOrDefault();
-
             var album = new Album
             {
                 Name = name,
@@ -60,10 +57,9 @@
         }
 
         [Authorize]
-        public ActionResult Details()
+        public ActionResult Details(string id)
         { 
-            var albumId = this.Request.QueryData[GlobalConstants.id].FirstOrDefault();
-            var albumFromDb = this.albumService.GetAlbumById(albumId);
+            var albumFromDb = this.albumService.GetAlbumById(id);
 
             AlbumDetailsViewModel albumViewModel = ModelMapper.ProjectTo<AlbumDetailsViewModel>(albumFromDb);
 

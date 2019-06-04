@@ -103,20 +103,22 @@
             foreach (var parameter in parameters)
             {
                 var parameterName = parameter.Name.ToLower();
-                //ISet<string> httpDataValue = null;
+                ISet<string> httpDataValue = null;
 
-                //if (httpRequest.QueryData.Any(elem => elem.Key.ToLower() == parameterName))
-                //{
-                //    httpDataValue = httpRequest.QueryData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName);
-                //}
+                if (httpRequest.QueryData.Any(elem => elem.Key.ToLower() == parameterName))
+                {
+                    httpDataValue = httpRequest.QueryData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName).Value;
+                }
+                else if (httpRequest.FormData.Any(elem => elem.Key.ToLower() == parameterName))
+                {
+                    httpDataValue = httpRequest.FormData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName).Value;
+                }
 
-                //if (httpRequest.FormData.Any(elem => elem.Key.ToLower() == parameterName))
-                //{
-                //    httpDataValue = httpRequest.FormData.FirstOrDefault(elem => elem.Key.ToLower() == parameterName);
-                //}
+                // TODO: Support lists
 
-
-                //System.Convert.ChangeType()
+                var httpStringValue = httpDataValue.FirstOrDefault();
+                var parameterValue = System.Convert.ChangeType(httpStringValue, parameter.ParameterType);
+                parameterValues.Add(parameterValue);
             }
 
             var response = action.Invoke(controllerInstance, parameterValues.ToArray()) as ActionResult;

@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using SIS.Common;
+    using System.Net;
 
     public class HttpRequest : IHttpRequest
     {
@@ -119,14 +120,11 @@
 
                 foreach (var parameter in parameters)
                 {
-                    if (this.QueryData.ContainsKey(parameter[0]))
+                    if (!this.QueryData.ContainsKey(parameter[0]))
                     {
-                        this.QueryData[parameter[0]].Add(parameter[1]);
+                        this.QueryData.Add(parameter[0], new HashSet<string>());
                     }
-                    else
-                    {
-                        this.QueryData.Add(parameter[0], new HashSet<string> { parameter[1] });
-                    }
+                    this.QueryData[parameter[0]].Add(WebUtility.UrlDecode(parameter[1]));
                 }
             }
         }
@@ -151,7 +149,7 @@
                         this.FormData.Add(key, new HashSet<string>());
                     }
 
-                    ((ISet<string>)this.FormData[key]).Add(value);
+                    this.FormData[key].Add(WebUtility.UrlDecode(value));
                 }
             }
         }

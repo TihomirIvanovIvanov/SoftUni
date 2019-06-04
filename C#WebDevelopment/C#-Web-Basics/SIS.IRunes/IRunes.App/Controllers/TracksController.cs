@@ -8,8 +8,6 @@
     using SIS.MvcFramework.Attributes.Security;
     using SIS.MvcFramework.Mapping;
     using SIS.MvcFramework.Result;
-    using System.Collections.Generic;
-    using System.Linq;
     using ViewModels;
 
     public class TracksController : Controller
@@ -24,27 +22,20 @@
         }
 
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(string albumId)
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
-
             return this.View(new TrackCreateViewModel { AlbumId = albumId });
         }
 
         [Authorize]
         [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
-        public ActionResult CreateConfirm()
+        public ActionResult CreateConfirm(string albumId, string name, string link, decimal price)
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
-            var name = (this.Request.FormData[GlobalConstants.name]).FirstOrDefault();
-            var link = (this.Request.FormData[GlobalConstants.link]).FirstOrDefault();
-            var price = (this.Request.FormData[GlobalConstants.price]).FirstOrDefault();
-
             var trackForDb = new Track
             {
                 Name = name,
                 Link = link,
-                Price = decimal.Parse(price)
+                Price = price
             };
 
             if (!this.albumService.AddTrackToAlbum(albumId, trackForDb))
@@ -56,11 +47,8 @@
         }
 
         [Authorize]
-        public ActionResult Details()
+        public ActionResult Details(string albumId, string trackId)
         {
-            var albumId = this.Request.QueryData[GlobalConstants.albumId].FirstOrDefault();
-            var trackId = this.Request.QueryData[GlobalConstants.trackId].FirstOrDefault();
-
             var trackFromDb = this.trackService.GetTrackById(trackId);
 
             if (trackFromDb == null)

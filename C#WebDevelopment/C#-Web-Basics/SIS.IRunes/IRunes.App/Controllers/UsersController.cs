@@ -7,8 +7,6 @@
     using SIS.MvcFramework.Attributes.Action;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Result;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
 
@@ -36,11 +34,8 @@
         }
 
         [HttpPost(ActionName = GlobalConstants.LoginActionPathName)]
-        public ActionResult LoginConfirm()
+        public ActionResult LoginConfirm(string username, string password)
         {
-            var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
-            var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
-
             var userFromDb = this.userService.GetUserByUsernameAndPassword(username, this.HashPassword(password));
 
             if (userFromDb == null)
@@ -59,13 +54,8 @@
         }
 
         [HttpPost(ActionName = GlobalConstants.RegisterActionPathName)]
-        public ActionResult RegisterConfirm()
+        public ActionResult RegisterConfirm(string username, string password, string confirmPassword, string email)
         {
-            var username = ((ISet<string>)this.Request.FormData[GlobalConstants.username]).FirstOrDefault();
-            var password = ((ISet<string>)this.Request.FormData[GlobalConstants.password]).FirstOrDefault();
-            var confirmPassword = ((ISet<string>)this.Request.FormData[GlobalConstants.confirmPassword]).FirstOrDefault();
-            var email = ((ISet<string>)this.Request.FormData[GlobalConstants.email]).FirstOrDefault();
-
             if (password != confirmPassword)
             {
                 return this.Redirect(GlobalConstants.UsersRegisterPath);
@@ -78,7 +68,7 @@
                 Email = email
             };
 
-            this.userService.CreateUser(user); 
+            this.userService.CreateUser(user);
 
             return this.Redirect(GlobalConstants.UsersLoginPath);
         }

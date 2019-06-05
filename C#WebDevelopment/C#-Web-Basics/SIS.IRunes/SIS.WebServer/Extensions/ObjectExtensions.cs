@@ -1,5 +1,6 @@
 ﻿namespace SIS.MvcFramework.Extensions
 {
+    using Mapping;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using System.IO;
@@ -24,7 +25,11 @@
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });
+        }
 
+        public static TDestination To<TDestination>(this object obj)
+        {
+            return ModelMapper.ProjectTo<TDestination>(obj);
         }
     }
 }

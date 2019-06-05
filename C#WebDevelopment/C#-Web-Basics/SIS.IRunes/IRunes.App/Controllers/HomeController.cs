@@ -4,6 +4,7 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Result;
+    using System.Collections.Generic;
     using ViewModels;
 
     public class HomeController : Controller
@@ -24,7 +25,7 @@
             return this.View();
         }
 
-        public ActionResult Test()
+        public ActionResult Test(IEnumerable<string> list)
         {
             return this.View();
         }

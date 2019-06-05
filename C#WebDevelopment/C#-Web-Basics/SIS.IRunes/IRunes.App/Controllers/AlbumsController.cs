@@ -41,8 +41,8 @@
         }
 
         [Authorize]
-        [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
-        public ActionResult CreateConfirm(string name, string cover)
+        [HttpPost]
+        public ActionResult Create(string name, string cover)
         {
             var album = new Album
             {

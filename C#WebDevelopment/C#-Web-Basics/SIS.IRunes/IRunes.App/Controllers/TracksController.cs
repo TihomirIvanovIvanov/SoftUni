@@ -1,5 +1,6 @@
 ﻿namespace IRunes.App.Controllers
 {
+    using IRunes.App.ViewModels.Tracks;
     using Models;
     using Services;
     using SIS.HTTP.Common;
@@ -28,22 +29,22 @@
         }
 
         [Authorize]
-        [HttpPost(ActionName = GlobalConstants.CreateActionPathName)]
-        public ActionResult CreateConfirm(string albumId, string name, string link, decimal price)
+        [HttpPost]
+        public ActionResult Create(CreateInputModel model)
         {
             var trackForDb = new Track
             {
-                Name = name,
-                Link = link,
-                Price = price
+                Name = model.Name,
+                Link = model.Link,
+                Price = model.Price
             };
 
-            if (!this.albumService.AddTrackToAlbum(albumId, trackForDb))
+            if (!this.albumService.AddTrackToAlbum(model.AlbumId, trackForDb))
             {
                 return this.Redirect(GlobalConstants.AlbumsAllPath);
             }
 
-            return this.Redirect(string.Format(GlobalConstants.AlbumsDetailsQueryIdParam, albumId));
+            return this.Redirect(string.Format(GlobalConstants.AlbumsDetailsQueryIdParam, model.AlbumId));
         }
 
         [Authorize]

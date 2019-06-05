@@ -7,6 +7,7 @@
     using System.Collections;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -154,12 +155,17 @@ namespace AppViewCodeNamespace
                 var compilationResult = compilation.Emit(memoryStream);
                 if (!compilationResult.Success)
                 {
-                    foreach (var error in compilationResult.Diagnostics.Where(x => x.Severity == DiagnosticSeverity.Error))
+                    var errors = compilationResult.Diagnostics.Where(x => x.Severity == DiagnosticSeverity.Error);
+                    var errorsHtml = new StringBuilder();
+                    errorsHtml.AppendLine($"<h1>{errors.Count()} errors:</h1>");
+
+                    foreach (var error in errors)
                     {
-                        Console.WriteLine(error.GetMessage());
+                        errorsHtml.AppendLine($"<div>{error.Location} => {error.GetMessage()}</div>");
                     }
 
-                    return null;
+                    errorsHtml.AppendLine($"<pre>{WebUtility.HtmlDecode(code)}</pre>");
+                    return new ErrorView(errorsHtml.ToString());
                 }
 
                 memoryStream.Seek(0, SeekOrigin.Begin);

@@ -17,7 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRunes.Services", "IRunes.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.MvcFramework.Tests", "Sis.MvcFramework.Tests\SIS.MvcFramework.Tests.csproj", "{722B525B-6265-4192-831A-0F7A396D1EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS.Common", "SIS.Common\SIS.Common.csproj", "{2BA3ABF2-24F7-4CDD-ACDC-625B4DA23483}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.Common", "SIS.Common\SIS.Common.csproj", "{2BA3ABF2-24F7-4CDD-ACDC-625B4DA23483}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Musaca", "Musaca", "{3E9D8D32-4836-41B9-9470-49D58DCD60AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musaca.App", "Musaca.App\Musaca.App.csproj", "{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musaca.Data", "Musaca.Data\Musaca.Data.csproj", "{A427F41A-4018-4833-8743-C40A35DBBBCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musaca.Models", "Musaca.Models\Musaca.Models.csproj", "{FD62DDF6-7EA3-4841-9947-6419D94D3DEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musaca.Services", "Musaca.Services\Musaca.Services.csproj", "{F9097712-6252-42CB-85F0-2C10947D98C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +67,31 @@ Global
 		{2BA3ABF2-24F7-4CDD-ACDC-625B4DA23483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA3ABF2-24F7-4CDD-ACDC-625B4DA23483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BA3ABF2-24F7-4CDD-ACDC-625B4DA23483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A427F41A-4018-4833-8743-C40A35DBBBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A427F41A-4018-4833-8743-C40A35DBBBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A427F41A-4018-4833-8743-C40A35DBBBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A427F41A-4018-4833-8743-C40A35DBBBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD62DDF6-7EA3-4841-9947-6419D94D3DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD62DDF6-7EA3-4841-9947-6419D94D3DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD62DDF6-7EA3-4841-9947-6419D94D3DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD62DDF6-7EA3-4841-9947-6419D94D3DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9097712-6252-42CB-85F0-2C10947D98C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9097712-6252-42CB-85F0-2C10947D98C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9097712-6252-42CB-85F0-2C10947D98C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9097712-6252-42CB-85F0-2C10947D98C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE9DE926-1E88-4DDC-A1ED-1448ED85C8E1} = {3E9D8D32-4836-41B9-9470-49D58DCD60AB}
+		{A427F41A-4018-4833-8743-C40A35DBBBCD} = {3E9D8D32-4836-41B9-9470-49D58DCD60AB}
+		{FD62DDF6-7EA3-4841-9947-6419D94D3DEE} = {3E9D8D32-4836-41B9-9470-49D58DCD60AB}
+		{F9097712-6252-42CB-85F0-2C10947D98C2} = {3E9D8D32-4836-41B9-9470-49D58DCD60AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95749778-C448-4913-B813-04C78D964222}

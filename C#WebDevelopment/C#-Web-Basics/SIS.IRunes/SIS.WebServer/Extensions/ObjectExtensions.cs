@@ -26,10 +26,5 @@
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });
         }
-
-        public static TDestination To<TDestination>(this object obj)
-        {
-            return ModelMapper.ProjectTo<TDestination>(obj);
-        }
     }
 }

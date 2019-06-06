@@ -12,6 +12,7 @@
     using Routing;
     using Sessions;
     using SIS.HTTP.Requests;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -104,16 +105,15 @@
             {
                 ISet<string> httpDataValue = TryGetHttpParameter(httpRequest, parameter.Name);
 
-                // TODO: Support lists
-
-                //if (parameter.ParameterType.GetInterfaces().Any(i =>
-                //        i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
-                //{
-                //    var colletion = httpDataValue
-                //        .Select(x => System.Convert.ChangeType(x, parameter.ParameterType.GenericTypeArguments.First()));
-                //    parameterValues.Add(colletion);
-                //    continue;
-                //}
+                if (parameter.ParameterType.GetInterfaces().Any(i =>
+                        i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                        && parameter.ParameterType != typeof(string))
+                {
+                    var colletion = httpDataValue
+                        .Select(x => System.Convert.ChangeType(x, parameter.ParameterType.GenericTypeArguments.First()));
+                    parameterValues.Add(colletion);
+                    continue;
+                }
 
                 try
                 {
@@ -128,6 +128,20 @@
                     foreach (var property in properties)
                     {
                         ISet<string> propertyHttpDataValue = TryGetHttpParameter(httpRequest, property.Name);
+
+                        if (property.PropertyType.GetInterfaces()
+                                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                                && property.PropertyType != typeof(string))
+                        {
+                            var propertyVal = (IList)System.Activator.CreateInstance(property.PropertyType);
+                            foreach (var parameterElement in propertyHttpDataValue)
+                            {
+                                propertyVal.Add(parameterElement);
+                            }
+
+                            property.SetMethod.Invoke(parameterValue, new object[] { propertyVal });
+                        }
+
                         var firstValue = propertyHttpDataValue.FirstOrDefault();
                         var propertyValue = System.Convert.ChangeType(firstValue, property.PropertyType);
                         property.SetMethod.Invoke(parameterValue, new object[] { propertyValue });

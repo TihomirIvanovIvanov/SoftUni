@@ -1,27 +1,23 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using SIS.HTTP.Common;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Result;
-    using System.Collections.Generic;
     using ViewModels;
 
-    public class HomeController : Controller
+    public class InfoController : Controller
     {
-        [HttpGet(Url = GlobalConstants.HomeRedirectPath)]
-        public ActionResult IndexSlash()
-        {
-            return Index();
-        }
-
+        [HttpGet]
         public ActionResult Index()
         {
             return this.View();
         }
 
-        public ActionResult Test(IEnumerable<string> list)
+        [HttpPost]
+        public ActionResult Index(TestCreateModel testCreateModel)
         {
+            testCreateModel.Selections.ForEach(System.Console.WriteLine);
+
             return this.View();
         }
     }

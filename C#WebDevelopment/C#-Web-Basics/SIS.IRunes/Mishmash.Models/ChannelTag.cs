@@ -2,13 +2,13 @@
 {
     public class ChannelTag
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public int ChannelId { get; set; }
+        public string ChannelId { get; set; }
 
         public virtual Channel Channel { get; set; }
 
-        public int TagId { get; set; }
+        public string TagId { get; set; }
 
         public virtual Tag Tag { get; set; }
     }

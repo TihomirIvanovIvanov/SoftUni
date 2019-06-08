@@ -1,6 +1,7 @@
 ﻿namespace Mishmash.App
 {
     using Data;
+    using Services;
     using SIS.MvcFramework;
     using SIS.MvcFramework.DependencyContainer;
     using SIS.MvcFramework.Routing;
@@ -17,6 +18,9 @@
 
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
+            //serviceProvider.Add<IAlbumService, AlbumService>();
+            //serviceProvider.Add<ITrackService, TrackService>();
+            serviceProvider.Add<IUserService, UserService>();
         }
     }
 }

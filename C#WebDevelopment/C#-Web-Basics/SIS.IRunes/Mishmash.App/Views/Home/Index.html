@@ -1,23 +1,23 @@
 ﻿@if(User == null)
 {
-<hr class="bg-dark" style="height: 2px" />
+<hr class="bg-mishmash" style="height: 2px" />
 <main>
     <div class="jumbotron mt-3 bg-mishmash">
         <h1 class="text-white">Welcome to Mish-Mash Media Channels</h1>
         <hr class="bg-white" style="height: 2px" />
-        <h2 class="text-white"><a class="text-warning" href="/login">Login</a> if you have an account.</h2>
-        <h2 class="text-white"><a class="text-warning" href="/register">Register</a> if you don't.</h2>
+        <h2 class="text-white"><a class="text-warning" href="/Users/Login">Login</a> if you have an account.</h2>
+        <h2 class="text-white"><a class="text-warning" href="/Users/Register">Register</a> if you don't.</h2>
     </div>
 </main>
 }
 @else
 {
-<hr class="bg-success" style="height: 2px" />
+<hr class="bg-mishmash" style="height: 2px" />
 <main>
-    <div class="jumbotron bg-success text-white">
-        <h1>Welcome, <span class="text-warning">@User.Username</span></h1>
-        <hr class="bg-white" style="height: 2px" />
-        <h2>IRunes wishes you a fun experience.</h2>
+    <div class="jumbotron mt-3 bg-mishmash">
+        <h1 class="text-white">Welcome, <span class="text-warning">@User.Username</span></h1>
+        <hr class="bg-mishmash" style="height: 2px" />
+        <h2 class="text-white">IRunes wishes you a fun experience.</h2>
     </div>
 </main>
 }

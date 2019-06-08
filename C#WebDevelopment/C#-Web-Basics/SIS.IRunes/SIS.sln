@@ -31,11 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musaca.Services", "Musaca.S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MishMash", "MishMash", "{93B2825A-0510-4F15-87A4-7A019423E77D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishmash.App", "Mishmash.App\Mishmash.App.csproj", "{0C3BDDC6-ECCC-4A1A-AD7B-329B361DB32C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mishmash.App", "Mishmash.App\Mishmash.App.csproj", "{0C3BDDC6-ECCC-4A1A-AD7B-329B361DB32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishmash.Data", "Mishmash.Data\Mishmash.Data.csproj", "{67AC0291-37EC-488A-A069-986403C7E4F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mishmash.Data", "Mishmash.Data\Mishmash.Data.csproj", "{67AC0291-37EC-488A-A069-986403C7E4F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishmash.Models", "Mishmash.Models\Mishmash.Models.csproj", "{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mishmash.Models", "Mishmash.Models\Mishmash.Models.csproj", "{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishmash.Services", "Mishmash.Services\Mishmash.Services.csproj", "{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{0C3BDDC6-ECCC-4A1A-AD7B-329B361DB32C} = {93B2825A-0510-4F15-87A4-7A019423E77D}
 		{67AC0291-37EC-488A-A069-986403C7E4F4} = {93B2825A-0510-4F15-87A4-7A019423E77D}
 		{C304AF8F-C0A0-484E-BDB2-2E5F92F04D5F} = {93B2825A-0510-4F15-87A4-7A019423E77D}
+		{CD3AE4B9-5A9D-4E9B-ADF6-355DB53CFD55} = {93B2825A-0510-4F15-87A4-7A019423E77D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95749778-C448-4913-B813-04C78D964222}

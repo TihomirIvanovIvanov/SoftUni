@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\js\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +32,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\js\popper.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Channels\Details.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Views\Home\Index.html">

@@ -67,7 +67,8 @@
             {
                 Username = username,
                 Password = this.HashPassword(password),
-                Email = email
+                Email = email,
+                Role = Role.User
             };
 
             this.userService.CreateUser(user);

@@ -4,14 +4,13 @@
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;
     using SIS.MvcFramework.Result;
-    using System.Collections.Generic;
 
     public class HomeController : Controller
     {
         [HttpGet(Url = GlobalConstants.HomeRedirectPath)]
         public ActionResult IndexSlash()
         {
-            return Index();
+            return this.Index();
         }
 
         public ActionResult Index()
@@ -19,9 +18,18 @@
             return this.View();
         }
 
-        public ActionResult Test(IEnumerable<string> list)
-        {
-            return this.View();
-        }
+        //[HttpGet(Url = "/Home/Index")]
+        //public ActionResult HomeIndex()
+        //{
+        //    if (this.User != null)
+        //    {
+        //        // TODO: prepare view model
+        //        return this.View("Home/LoggedInIndex");
+        //    }
+        //    else
+        //    {
+        //        return this.View("Home/Index");
+        //    }
+        //}
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Mishmash.App.Controllers
 {
     using Data;
-    using Mishmash.Models;
+    using Models;
     using SIS.HTTP.Common;
     using SIS.MvcFramework;
     using SIS.MvcFramework.Attributes.Http;

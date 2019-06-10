@@ -5,6 +5,11 @@
 
     public class ChannelViewModel
     {
+        public ChannelViewModel()
+        {
+
+        }
+
         public string Name { get; set; }
 
         public ChannelType Type { get; set; }

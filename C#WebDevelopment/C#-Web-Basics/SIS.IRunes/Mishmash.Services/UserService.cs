@@ -1,6 +1,7 @@
 ﻿namespace Mishmash.Services
 {
     using Data;
+    using Microsoft.EntityFrameworkCore;
     using Models;
     using System.Linq;
 
@@ -25,6 +26,31 @@
         {
             return this.context.Users
                 .SingleOrDefault(user => (user.Username == username || user.Email == username) && user.Password == password);
+        }
+
+        public User GetUserById(string id)
+        {
+            return this.context.Users
+                .Include(user => user.Channels)
+                .SingleOrDefault(ch => ch.Id == id);
+        }
+
+
+        public bool AddFollowersInChannel(string userId, UserInChannel followersFromDb)
+        {
+            var channelFromDb = this.GetUserById(userId);
+
+            if (channelFromDb == null)
+            {
+                return false;
+            }
+
+            channelFromDb.Channels.Add(followersFromDb);
+
+            this.context.Update(channelFromDb);
+            this.context.SaveChanges();
+
+            return true;
         }
     }
 }

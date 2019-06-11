@@ -1,6 +1,7 @@
 ﻿namespace Mishmash.App.Controllers
 {
     using Data;
+    using Mishmash.Services;
     using Models;
     using SIS.HTTP.Common;
     using SIS.MvcFramework;
@@ -34,7 +35,8 @@
                     Name = ch.Name,
                     Tags = ch.Tags.Select(t => t.Tag.Name),
                     Description = ch.Description,
-                    FollowersCount = ch.Followers.Count()
+                    FollowersCount = ch.Followers.Count(),
+                    Followers = ch.Followers.ToList()
                 })
                 .FirstOrDefault();
 
@@ -110,7 +112,7 @@
                 this.dbContext.UserInChannel.Remove(userInChannel);
                 this.dbContext.SaveChanges();
             }
-             
+
             return this.Redirect("/Channels/Followed");
         }
     }

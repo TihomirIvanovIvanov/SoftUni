@@ -18,9 +18,10 @@
 
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
-            //serviceProvider.Add<IAlbumService, AlbumService>();
-            //serviceProvider.Add<ITrackService, TrackService>();
             serviceProvider.Add<IUserService, UserService>();
+            serviceProvider.Add<IChannelService, ChannelService>();
+            serviceProvider.Add<ITagService, TagService>();
+            //serviceProvider.Add<ITagService, TagService>();
         }
     }
 }

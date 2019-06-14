@@ -1,15 +1,15 @@
-﻿namespace SIS.HTTP.Cookies
-{
-    using Common;
-    using Contracts;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using SIS.Common;
+using SIS.HTTP.Common;
+using SIS.HTTP.Cookies.Contracts;
 
+namespace SIS.HTTP.Cookies
+{
     public class HttpCookieCollection : IHttpCookieCollection
     {
-        private readonly Dictionary<string, HttpCookie> httpCookies;
+        private Dictionary<string, HttpCookie> httpCookies;
 
         public HttpCookieCollection()
         {
@@ -18,21 +18,23 @@
 
         public void AddCookie(HttpCookie httpCookie)
         {
-            CoreValidator.ThrowIfNull(httpCookie, nameof(httpCookie));
+            httpCookie.ThrowIfNull(nameof(httpCookie));
 
             this.httpCookies.Add(httpCookie.Key, httpCookie);
         }
 
         public bool ContainsCookie(string key)
         {
-            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
+            key.ThrowIfNullOrEmpty(nameof(key));
 
             return this.httpCookies.ContainsKey(key);
         }
 
         public HttpCookie GetCookie(string key)
         {
-            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
+            key.ThrowIfNullOrEmpty(nameof(key));
+
+            // TODO: Validation for existing parameter (maybe throw exception)
 
             return this.httpCookies[key];
         }
@@ -49,15 +51,15 @@
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
             foreach (var cookie in this.httpCookies.Values)
-            {
+            {                
                 sb.Append($"Set-Cookie: {cookie}").Append(GlobalConstants.HttpNewLine);
             }
 

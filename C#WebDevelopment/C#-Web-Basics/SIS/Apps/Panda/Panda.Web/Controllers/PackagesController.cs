@@ -1,9 +1,12 @@
-﻿using Panda.Services;
+﻿using Panda.Models;
+using Panda.Services;
 using Panda.Web.ViewModels.Packages;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
+using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Panda.Web.Controllers
 {
@@ -19,6 +22,7 @@ namespace Panda.Web.Controllers
             this.usersService = usersService;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             var list = this.usersService.GetUsernames();
@@ -27,6 +31,7 @@ namespace Panda.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateInputModel model)
         {
             if (!ModelState.IsValid)
@@ -37,6 +42,47 @@ namespace Panda.Web.Controllers
             this.packagesService.Create(model.Description, model.Weight, model.ShippingAddress, model.RecipientName);
 
             return this.Redirect("/Packages/Pending");
+        }
+
+        [Authorize]
+        public IActionResult Delivered()
+        {
+            var packages = this.packagesService.GetAllByStatus(PackageStatus.Delivered)
+                .Select(x => new PackageViewModel
+                {
+                    Description = x.Description,
+                    Id = x.Id,
+                    Weight = x.Weight,
+                    ShippingAddress = x.ShippingAddress,
+                    RecipientName = x.Recipient.Username
+                })
+                .ToList();
+
+            return this.View(new PackagesListViewModel { Packages = packages });
+        }
+
+        [Authorize]
+        public IActionResult Pending()
+        {
+            var packages = this.packagesService.GetAllByStatus(PackageStatus.Pending)
+                .Select(x => new PackageViewModel
+                {
+                    Description = x.Description,
+                    Id = x.Id,
+                    Weight = x.Weight,
+                    ShippingAddress = x.ShippingAddress,
+                    RecipientName = x.Recipient.Username
+                })
+                .ToList();
+
+            return this.View(new PackagesListViewModel { Packages = packages });
+        }
+
+        [Authorize]
+        public IActionResult Deliver(string id)
+        {
+            this.packagesService.Deliver(id);
+            return this.Redirect("Packages/Delivered");
         }
     }
 }

@@ -1,89 +1,97 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using Panda.Models;
-//using Panda.Services;
+﻿using Panda.Models;
+using Panda.Services;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
-using SIS.MvcFramework.Attributes.Action;
 using SIS.MvcFramework.Result;
 
-namespace Panda.App.Controllers
+namespace Panda.Web.Controllers
 {
-    //using ViewModels.Users;
+    using SIS.MvcFramework.Attributes.Action;
+    using SIS.MvcFramework.Attributes.Security;
+    using System.Security.Cryptography;
+    using System.Text;
+    using ViewModels.Users;
 
     public class UsersController : Controller
     {
-        //private readonly IUserService userService;
+        private readonly IUsersService userService;
 
-        //public UsersController(IUserService userService)
-        //{
-        //    this.userService = userService;
-        //}
+        public UsersController(IUsersService userService)
+        {
+            this.userService = userService;
+        }
 
-        //public IActionResult Login()
-        //{
-        //    return this.View();
-        //}
+        public IActionResult Login()
+        {
+            return this.View();
+        }
 
-        //[HttpPost]
-        //public IActionResult Login(UserLoginInputModel model)
-        //{
-        //    User userFromDb = this.userService.GetUserByUsernameAndPassword(model.Username, this.HashPassword(model.Password));
+        [HttpPost]
+        public IActionResult Login(LoginInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.Redirect("/Users/Login");
+            }
 
-        //    if (userFromDb == null)
-        //    {
-        //        return this.Redirect("/Users/Login");
-        //    }
+            User userFromDb = this.userService.GetUserByUsernameAndPassword(model.Username, this.HashPassword(model.Password));
 
-        //    this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
+            if (userFromDb == null)
+            {
+                return this.Redirect("/Users/Login");
+            }
 
-        //    return this.Redirect("/");
-        //}
+            this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
 
-        //public IActionResult Register()
-        //{
-        //    return this.View();
-        //}
+            return this.Redirect("/");
+        }
 
-        //[HttpPost]
-        //public IActionResult Register(UserRegisterInputModel model)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return this.Redirect("/Users/Register");
-        //    }
+        public IActionResult Register()
+        {
+            return this.View();
+        }
 
-        //    if (model.Password != model.ConfirmPassword)
-        //    {
-        //        return this.Redirect("/Users/Register");
-        //    }
+        [HttpPost]
+        public IActionResult Register(RegisterInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Users/Register");
+            }
 
-        //    User user = new User
-        //    {
-        //        Username = model.Username,
-        //        Password = this.HashPassword(model.Password),
-        //        Email = model.Email
-        //    };
+            if (model.Password != model.ConfirmPassword)
+            {
+                return this.Redirect("/Users/Register");
+            }
 
-        //    this.userService.CreateUser(user);
+            User user = new User
+            {
+                Username = model.Username,
+                Email = model.Email,
+                Password = this.HashPassword(model.Password),
+            };
 
-        //    return this.Redirect("/Users/Login");
-        //}
+            this.userService.CreateUser(user);
+            this.SignIn(user.Id, user.Username, user.Email);
 
-        //public IActionResult Logout()
-        //{
-        //    this.SignOut();
+            return this.Redirect("/");
+        }
 
-        //    return this.Redirect("/");
-        //}
+        [Authorize]
+        public IActionResult Logout()
+        {
+            this.SignOut();
 
-        //[NonAction]
-        //private string HashPassword(string password)
-        //{
-        //    using (SHA256 sha256Hash = SHA256.Create())
-        //    {
-        //        return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
-        //    }
-        //}
+            return this.Redirect("/");
+        }
+
+        [NonAction]
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
+            }
+        }
     }
 }

@@ -21,6 +21,14 @@ namespace Panda.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasMany(u => u.Packages)
+               .WithOne(p => p.Recipient).HasForeignKey(u => u.RecipientId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>().HasMany(u => u.Receipts)
+                .WithOne(r => r.Recipient).HasForeignKey(u => u.RecipientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -5,7 +5,7 @@
     using HTTP.Responses;
     using System.Text;
 
-    class HtmlResult : HttpResponse
+    public class HtmlResult : HttpResponse
     {
         public HtmlResult(string content, HttpResponseStatusCode responseStatusCode)
            : base(responseStatusCode)

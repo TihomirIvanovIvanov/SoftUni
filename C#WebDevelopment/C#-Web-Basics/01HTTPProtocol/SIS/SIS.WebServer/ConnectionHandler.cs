@@ -11,6 +11,7 @@
     using System;
     using System.Net.Sockets;
     using System.Text;
+    using System.Threading.Tasks;
 
     public class ConnectionHandler
     {
@@ -26,15 +27,42 @@
             this.client = client;
             this.serverRoutingTable = serverRoutingTable;
         }
+        public async Task ProcessRequestAsync()
+        {
+            IHttpResponse httpResponse = null;
 
-        private IHttpRequest ReadRequest()
+            try
+            {
+                IHttpRequest httpRequest = await this.ReadRequestAsync();
+
+                if (httpRequest != null)
+                {
+                    Console.WriteLine($"Processing: {httpRequest.RequestMethod} {httpRequest.Path}...");
+
+                    httpResponse = this.HandleRequest(httpRequest);
+                }
+            }
+            catch (BadRequestException e)
+            {
+                httpResponse = new TextResult(e.Message, HttpResponseStatusCode.BadRequest);
+            }
+            catch (Exception e)
+            {
+                httpResponse = new TextResult(e.Message, HttpResponseStatusCode.InternalServerError);
+            }
+
+            await this.PrepareResponseAsync(httpResponse);
+            this.client.Shutdown(SocketShutdown.Both);
+        }
+
+        private async Task<IHttpRequest> ReadRequestAsync()
         {
             var result = new StringBuilder();
             var data = new ArraySegment<byte>(new byte[1024]);
 
             while (true)
             {
-                int numberOfBytesToRead = this.client.Receive(data.Array, SocketFlags.None);
+                var numberOfBytesToRead = await this.client.ReceiveAsync(data, SocketFlags.None);
 
                 if (numberOfBytesToRead == 0)
                 {
@@ -68,39 +96,12 @@
             return this.serverRoutingTable.Get(httpRequest.RequestMethod, httpRequest.Path).Invoke(httpRequest);
         }
 
-        private void PrepareResponse(IHttpResponse httpResponse)
+        private async Task PrepareResponseAsync(IHttpResponse httpResponse)
         {
             byte[] byteSegments = httpResponse.GetBytes();
 
-            this.client.Send(byteSegments, SocketFlags.None);
+            await this.client.SendAsync(byteSegments, SocketFlags.None);
         }
 
-        public void ProcessRequestAsync()
-        {
-            IHttpResponse httpResponse = null;
-
-            try
-            {
-                IHttpRequest httpRequest = this.ReadRequest();
-
-                if (httpRequest != null)
-                {
-                    Console.WriteLine($"Processing: {httpRequest.RequestMethod} {httpRequest.Path}...");
-
-                    httpResponse = this.HandleRequest(httpRequest);
-                }
-            }
-            catch (BadRequestException e)
-            {
-                httpResponse = new TextResult(e.Message, HttpResponseStatusCode.BadRequest);
-            }
-            catch (Exception e)
-            {
-                httpResponse = new TextResult(e.Message, HttpResponseStatusCode.InternalServerError);
-            }
-
-            this.PrepareResponse(httpResponse);
-            this.client.Shutdown(SocketShutdown.Both);
-        }
     }
 }

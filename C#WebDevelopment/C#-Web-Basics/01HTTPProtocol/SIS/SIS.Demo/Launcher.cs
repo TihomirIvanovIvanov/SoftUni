@@ -11,7 +11,10 @@
         {
             var serverRountingTable = new ServerRoutingTable();
 
-            serverRountingTable.Add(HttpRequestMethod.Get, "/", httpRequest => new HomeController().Home(httpRequest));
+            serverRountingTable.Add(
+                HttpRequestMethod.Get, 
+                "/", 
+                httpRequest => new HomeController().Home(httpRequest));
 
             var server = new Server(8000, serverRountingTable);
             server.Run();

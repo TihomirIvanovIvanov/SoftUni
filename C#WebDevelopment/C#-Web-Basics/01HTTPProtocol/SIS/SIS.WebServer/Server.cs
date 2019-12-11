@@ -40,16 +40,16 @@
             {
                 Console.WriteLine("Waiting for client...");
 
-                var client = this.tcpListener.AcceptSocket();
+                var client = this.tcpListener.AcceptSocketAsync().GetAwaiter().GetResult();
 
-                this.Listen(client);
+                Task.Run(() => this.ListenAsync(client));
             }
         }
 
-        public async Task Listen(Socket client)
+        public async Task ListenAsync(Socket client)
         {
             var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
-            connectionHandler.ProcessRequest();
+            await connectionHandler.ProcessRequestAsync();
         }
     }
 }

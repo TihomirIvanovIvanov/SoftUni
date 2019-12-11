@@ -75,7 +75,7 @@
             this.client.Send(byteSegments, SocketFlags.None);
         }
 
-        public void ProcessRequest()
+        public void ProcessRequestAsync()
         {
             IHttpResponse httpResponse = null;
 

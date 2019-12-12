@@ -9,12 +9,12 @@
     {
         public IHttpResponse View([CallerMemberName] string view = null)
         {
-            var controllerName = this.GetType().Name.Replace("Controller", string.Empty);
-            var viewName = view;
+            string controllerName = this.GetType().Name.Replace("Controller", string.Empty);
+            string viewName = view;
 
-            var viewContent = File.ReadAllText("Views" + controllerName + "/" + viewName + ".html");
+            string viewContent = File.ReadAllText("Views/" + controllerName + "/" + viewName + ".html");
 
-            return new HtmlResult(viewContent, HTTP.Enums.HttpResponseStatusCode.Ok);
+            return new HtmlResult(viewContent, SIS.HTTP.Enums.HttpResponseStatusCode.Ok);
         }
     }
 }

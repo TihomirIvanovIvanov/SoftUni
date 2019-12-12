@@ -7,7 +7,7 @@
 
     public class HttpHeaderCollection : IHttpHeaderCollection
     {
-        private readonly Dictionary<string, HttpHeader> httpHeaders;
+        private Dictionary<string, HttpHeader> httpHeaders;
 
         public HttpHeaderCollection()
         {

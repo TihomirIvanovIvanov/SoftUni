@@ -102,6 +102,5 @@
 
             await this.client.SendAsync(byteSegments, SocketFlags.None);
         }
-
     }
 }

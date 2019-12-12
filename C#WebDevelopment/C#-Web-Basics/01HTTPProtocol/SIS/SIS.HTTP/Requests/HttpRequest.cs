@@ -19,6 +19,8 @@
             this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
+
+            this.ParseRequest(requestString);
         }
 
         public string Path { get; private set; }
@@ -41,7 +43,7 @@
                 return false;
             }
 
-            return false;
+            return true;
         }
 
         private bool IsValidRequestQueryString(string queryString, string[] queryParameters)
@@ -58,7 +60,7 @@
 
         private IEnumerable<string> ParsePlainRequestHeaders(string[] requestLines)
         {
-            for (int i = 1; i < requestLines.Length; i++)
+            for (int i = 1; i < requestLines.Length - 1; i++)
             {
                 if (!string.IsNullOrEmpty(requestLines[i]))
                 {
@@ -69,12 +71,14 @@
 
         private void ParseRequestMethod(string[] requestLineParams)
         {
-            var parseResult = HttpRequestMethod.TryParse(requestLineParams[0], true, out HttpRequestMethod method);
+            bool parseResult = HttpRequestMethod.TryParse(requestLineParams[0], true,
+                out HttpRequestMethod method);
 
             if (!parseResult)
             {
                 throw new BadRequestException(
-                    string.Format(GlobalConstants.UnsupportedHttpMethodExceptionMessage, requestLineParams[0]));
+                    string.Format(GlobalConstants.UnsupportedHttpMethodExceptionMessage,
+                        requestLineParams[0]));
             }
 
             this.RequestMethod = method;
@@ -92,7 +96,8 @@
 
         private void ParseRequestHeaders(string[] plainHeaders)
         {
-            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ':', ' ' }, StringSplitOptions.RemoveEmptyEntries))
+            plainHeaders.Select(plainHeader => plainHeader.Split(new[] { ':', ' ' }
+                , StringSplitOptions.RemoveEmptyEntries))
                 .ToList()
                 .ForEach(headerKeyValuePair => this.Headers.AddHeader(new HttpHeader(headerKeyValuePair[0], headerKeyValuePair[1])));
         }
@@ -103,7 +108,7 @@
             {
                 this.Url.Split('?', '#')[1]
                     .Split('&')
-                    .Select(plainQueryParameters => plainQueryParameters.Split('='))
+                    .Select(plainQueryParameter => plainQueryParameter.Split('='))
                     .ToList()
                     .ForEach(queryParameterKeyValuePair =>
                         this.QueryData.Add(queryParameterKeyValuePair[0], queryParameterKeyValuePair[1]));
@@ -126,15 +131,15 @@
         private void ParseRequestParameters(string requestBody)
         {
             this.ParseRequestQueryParameters();
-            this.ParseRequestFormDataParameters(requestBody);
+            this.ParseRequestFormDataParameters(requestBody); //TODO: Split
         }
 
         private void ParseRequest(string requestString)
         {
-            var splitRequestString = requestString
+            string[] splitRequestString = requestString
                 .Split(new[] { GlobalConstants.HttpNewLine }, StringSplitOptions.None);
 
-            var requestLineParams = splitRequestString[0]
+            string[] requestLineParams = splitRequestString[0]
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (!this.IsValidRequestLine(requestLineParams))

@@ -4,19 +4,19 @@
     using HTTP.Enums;
     using WebServer;
     using WebServer.Routing;
+    using WebServer.Routing.Contracts;
 
     public class Launcher
     {
         static void Main(string[] args)
         {
-            var serverRountingTable = new ServerRoutingTable();
+            IServerRoutingTable serverRoutingTable = new ServerRoutingTable();
 
-            serverRountingTable.Add(
-                HttpRequestMethod.Get, 
-                "/", 
-                httpRequest => new HomeController().Home(httpRequest));
+            serverRoutingTable.Add(HttpRequestMethod.Get, 
+                "/", httpRequest
+                => new HomeController().Home(httpRequest));
 
-            var server = new Server(8000, serverRountingTable);
+            Server server = new Server(8000, serverRoutingTable);
             server.Run();
         }
     }

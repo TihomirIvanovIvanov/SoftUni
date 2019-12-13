@@ -1,8 +1,7 @@
 ﻿namespace SIS.HTTP.Cookies
 {
-    using SIS.HTTP.Common;
+    using Common;
     using System;
-    using System.Collections.Generic;
     using System.Text;
 
     public class HttpCookie
@@ -13,7 +12,7 @@
 
         public HttpCookie(string key, string value, int expires = HttpCookieDefaultExpirationDays,
             string path = HttpCookieDefaultPath)
-            : (key, value, true, expires, path)
+            : this(key, value, true, expires, path)
         {
         }
 

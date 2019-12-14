@@ -8,6 +8,7 @@
     using Exceptions;
     using Headers;
     using Headers.Contracts;
+    using Sessions.Contracts;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -37,6 +38,8 @@
         public IHttpHeaderCollection Headers { get; }
 
         public IHttpCookieCollection Cookies { get; }
+
+        public IHttpSession Session { get; set; }
 
         public HttpRequestMethod RequestMethod { get; private set; }
 

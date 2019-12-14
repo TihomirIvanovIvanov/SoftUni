@@ -38,6 +38,11 @@
             this.Headers.AddHeader(header);
         }
 
+        public void AddCookie(HttpCookie cookie)
+        {
+            this.Cookies.AddCookie(cookie);
+        }
+
         public byte[] GetBytes()
         {
             var httpResponseBytesWithoutBody = Encoding.UTF8.GetBytes(this.ToString());

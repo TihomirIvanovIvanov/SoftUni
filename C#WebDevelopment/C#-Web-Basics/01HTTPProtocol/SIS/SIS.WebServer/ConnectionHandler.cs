@@ -5,9 +5,12 @@
     using HTTP.Exceptions;
     using HTTP.Requests;
     using HTTP.Requests.Contracts;
+    using HTTP.Responses;
     using HTTP.Responses.Contracts;
+    using HTTP.Sessions;
     using Results;
     using Routing.Contracts;
+    using SIS.HTTP.Cookies;
     using System;
     using System.Net.Sockets;
     using System.Text;
@@ -39,7 +42,11 @@
                 {
                     Console.WriteLine($"Processing: {httpRequest.RequestMethod} {httpRequest.Path}...");
 
+                    var sessionId = this.SetRequestSession(httpRequest);
+
                     httpResponse = this.HandleRequest(httpRequest);
+
+                    this.SetResponseSession(httpResponse, sessionId);
                 }
             }
             catch (BadRequestException e)
@@ -53,6 +60,37 @@
 
             await this.PrepareResponseAsync(httpResponse);
             this.client.Shutdown(SocketShutdown.Both);
+        }
+
+        private string SetRequestSession(IHttpRequest httpRequest)
+        {
+            if (httpRequest.Cookies.ContainsCookie(HttpSessionStorage.SessionCookieKey))
+            {
+                var cookie = httpRequest.Cookies.GetCookie(HttpSessionStorage.SessionCookieKey);
+
+                var sessionId = cookie.Value;
+
+                if (HttpSessionStorage.ContainsSession(sessionId))
+                {
+                    httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
+                }
+            }
+
+            return httpRequest.Session?.Id;
+        }
+
+        private void SetResponseSession(IHttpResponse httpResponse, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                sessionId = Guid.NewGuid().ToString();
+            }
+
+            if (!HttpSessionStorage.ContainsSession(sessionId))
+            {
+                var newSession = HttpSessionStorage.AddOrUpdateSession(sessionId);
+                httpResponse.AddCookie(new HttpCookie(HttpSessionStorage.SessionCookieKey, newSession.Id));
+            }
         }
 
         private async Task<IHttpRequest> ReadRequestAsync()

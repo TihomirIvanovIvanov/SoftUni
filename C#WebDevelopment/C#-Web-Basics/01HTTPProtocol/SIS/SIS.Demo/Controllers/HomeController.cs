@@ -10,8 +10,6 @@
             this.HttpRequest = httpRequest;
         }
 
-        public IHttpRequest HttpRequest { get; set; }
-
         public IHttpResponse Index(IHttpRequest httpRequest)
         {
             return this.View();
@@ -21,7 +19,7 @@
         {
             if (!this.IsLoggedIn())
             {
-                return this.Redirect("/users/login");
+                return this.Redirect("/user/login");
             }
 
             this.ViewData["Username"] = this.HttpRequest.Session.GetParameter("username");

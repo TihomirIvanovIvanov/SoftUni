@@ -26,7 +26,7 @@
 
                 if (userFromDb == null)
                 {
-                    return this.Redirect("/users/login");
+                    return this.Redirect("/user/login");
                 }
 
                 httpRequest.Session.AddParameter("username", userFromDb.Username);
@@ -50,7 +50,7 @@
 
                 if (password != confrimPassword)
                 {
-                    return this.Redirect("/users/register");
+                    return this.Redirect("/user/register");
                 }
 
                 var user = new User
@@ -63,7 +63,7 @@
                 context.SaveChanges();
             }
 
-            return this.Redirect("/users/login");
+            return this.Redirect("/user/login");
         }
 
         public IHttpResponse Logout(IHttpRequest httpRequest)

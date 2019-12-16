@@ -68,7 +68,9 @@
 
         public IHttpResponse Logout(IHttpRequest httpRequest)
         {
+            httpRequest.Session.ClearParameters();
 
+            return this.Redirect("/");
         }
     }
 }

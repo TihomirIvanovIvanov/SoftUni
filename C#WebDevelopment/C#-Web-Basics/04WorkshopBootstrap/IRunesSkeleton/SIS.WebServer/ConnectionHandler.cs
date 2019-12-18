@@ -64,18 +64,6 @@ namespace SIS.WebServer
             return new HttpRequest(result.ToString());
         }
 
-        private IHttpResponse HandleRequest(IHttpRequest httpRequest)
-        {
-            if (this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
-            {
-                return this.ReturnIfResource(httpRequest);
-            }
-
-            return this.serverRoutingTable
-                .Get(httpRequest.RequestMethod, httpRequest.Path)
-                .Invoke(httpRequest);
-        }
-
         private IHttpResponse ReturnIfResource(IHttpRequest httpRequest)
         {
             var folderPrefix = "/../";
@@ -92,9 +80,19 @@ namespace SIS.WebServer
             }
             else
             {
-                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.",
-                    HttpResponseStatusCode.NotFound);
+                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.", HttpResponseStatusCode.NotFound);
             }
+        }
+
+        private IHttpResponse HandleRequest(IHttpRequest httpRequest)
+        {
+            // EXECUTE FUNCTION FOR CURRENT REQUEST -> RETURNS RESPONSE
+            if (!this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
+            {
+                return ReturnIfResource(httpRequest);
+            }
+
+            return this.serverRoutingTable.Get(httpRequest.RequestMethod, httpRequest.Path).Invoke(httpRequest);
         }
 
         private string SetRequestSession(IHttpRequest httpRequest)

@@ -31,9 +31,6 @@
                 .Add(HttpRequestMethod.Get, "/user/logout", httpRequest => new UsersController().Logout(httpRequest));
 
             serverRoutingTable
-                .Add(HttpRequestMethod.Get, "/user/logout", httpRequest => new UsersController().Logout(httpRequest));
-
-            serverRoutingTable
                 .Add(HttpRequestMethod.Get, "/home", httpRequest => new HomeController(httpRequest).Home(httpRequest));
 
             serverRoutingTable

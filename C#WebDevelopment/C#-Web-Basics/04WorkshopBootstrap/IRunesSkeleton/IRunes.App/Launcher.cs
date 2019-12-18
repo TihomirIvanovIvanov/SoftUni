@@ -10,10 +10,10 @@
     {
         public static void Main(string[] args)
         {
-            using (var context = new RunesDbContext())
-            {
-                context.Database.EnsureCreated();
-            }
+            //using (var context = new RunesDbContext())
+            //{
+            //    context.Database.EnsureCreated();
+            //}
 
             ServerRoutingTable serverRoutingTable = new ServerRoutingTable();
             Configure(serverRoutingTable);

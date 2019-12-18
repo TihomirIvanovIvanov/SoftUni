@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SIS.HTTP.Common;
@@ -64,13 +66,35 @@ namespace SIS.WebServer
 
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
-            // EXECUTE FUNCTION FOR CURRENT REQUEST -> RETURNS RESPONSE
-            if (!this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
+            if (this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
             {
-                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.", HttpResponseStatusCode.NotFound);
+                return this.ReturnIfResource(httpRequest);
             }
 
-            return this.serverRoutingTable.Get(httpRequest.RequestMethod, httpRequest.Path).Invoke(httpRequest);
+            return this.serverRoutingTable
+                .Get(httpRequest.RequestMethod, httpRequest.Path)
+                .Invoke(httpRequest);
+        }
+
+        private IHttpResponse ReturnIfResource(IHttpRequest httpRequest)
+        {
+            var folderPrefix = "/../";
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var resourceFolderPath = "Resources/";
+            var requestedResource = httpRequest.Path;
+
+            var fullPathToResource = assemblyLocation + folderPrefix + resourceFolderPath + requestedResource;
+
+            if (File.Exists(fullPathToResource))
+            {
+                var content = File.ReadAllBytes(fullPathToResource);
+                return new InlineResourceResult(content, HttpResponseStatusCode.Found);
+            }
+            else
+            {
+                return new TextResult($"Route with method {httpRequest.RequestMethod} and path \"{httpRequest.Path}\" not found.",
+                    HttpResponseStatusCode.NotFound);
+            }
         }
 
         private string SetRequestSession(IHttpRequest httpRequest)

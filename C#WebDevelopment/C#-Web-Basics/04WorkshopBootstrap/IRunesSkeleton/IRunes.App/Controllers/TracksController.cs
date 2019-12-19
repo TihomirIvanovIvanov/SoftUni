@@ -29,7 +29,6 @@ namespace IRunes.App.Controllers
             {
                 return this.Redirect("/Users/Login");
             }
-
             var albumId = httpRequest.QueryData["albumId"].ToString();
 
             using (var context = new RunesDbContext())
@@ -53,8 +52,8 @@ namespace IRunes.App.Controllers
                 };
 
                 albumFromDb.Tracks.Add(trackForDb);
-                albumFromDb.Price = albumFromDb.Tracks
-                    .Select(track => track.Price)
+                albumFromDb.Price = albumFromDb
+                    .Tracks.Select(track => track.Price)
                     .Sum() * 87 / 100;
 
                 context.Update(albumFromDb);

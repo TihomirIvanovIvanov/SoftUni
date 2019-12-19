@@ -1,11 +1,11 @@
-﻿using IRunes.Data;
+﻿using IRunes.App.Extensions;
+using IRunes.Data;
 using IRunes.Models;
-using IRunes.App.Extensions;
+using Microsoft.EntityFrameworkCore;
 using SIS.HTTP.Requests.Contracts;
 using SIS.HTTP.Responses.Contracts;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace IRunes.App.Controllers
 {
@@ -24,7 +24,7 @@ namespace IRunes.App.Controllers
 
                 if (allAlbums.Count == 0)
                 {
-                    this.ViewData["Albums"] = "There currently no albums";
+                    this.ViewData["Albums"] = "There currently no albums.";
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace IRunes.App.Controllers
                 {
                     Name = name,
                     Cover = cover,
-                    Price = 0m,
+                    Price = 0m
                 };
 
                 context.Albums.Add(album);

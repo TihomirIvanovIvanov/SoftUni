@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 using SIS.WebServer;
+using SIS.WebServer.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,7 +26,7 @@ namespace IRunes.App.Controllers
 
                 if (allAlbums.Count == 0)
                 {
-                    this.ViewData["Albums"] = "There currently no albums.";
+                    this.ViewData["Albums"] = "There are currently no albums.";
                 }
                 else
                 {
@@ -46,6 +47,7 @@ namespace IRunes.App.Controllers
             return this.View();
         }
 
+        [PostHttp(ActionName = "Create")]
         public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
         {
             if (!this.IsLoggedIn(httpRequest))

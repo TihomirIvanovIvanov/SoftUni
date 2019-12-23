@@ -1,9 +1,9 @@
-﻿using System;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Requests.Contracts;
-using SIS.HTTP.Responses.Contracts;
+﻿using SIS.HTTP.Enums;
+using SIS.HTTP.Requests;
+using SIS.HTTP.Responses;
+using System;
 
-namespace SIS.WebServer.Routing.Contracts
+namespace SIS.WebServer.Routing
 {
     public interface IServerRoutingTable
     {

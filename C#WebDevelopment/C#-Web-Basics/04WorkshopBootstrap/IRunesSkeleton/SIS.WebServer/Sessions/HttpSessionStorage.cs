@@ -14,5 +14,10 @@ namespace SIS.WebServer.Sessions
         {
             return httpSessions.GetOrAdd(id, _ => new HttpSession(id));
         }
+
+        public static bool ContainsSession(string id)
+        {
+            return httpSessions.ContainsKey(id);
+        }
     }
 }

@@ -1,5 +1,10 @@
-﻿using SIS.WebServer.Routing;
+﻿using SIS.HTTP.Enums;
+using SIS.HTTP.Responses;
+using SIS.WebServer.Attributes;
+using SIS.WebServer.Routing;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace SIS.WebServer
 {
@@ -18,7 +23,6 @@ namespace SIS.WebServer
 
         private static void AutoRegisterRoutes(IMvcApplication application, IServerRoutingTable serverRoutingTable)
         {
-            throw new NotImplementedException();
         }
     }
 }

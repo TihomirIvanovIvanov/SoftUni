@@ -1,10 +1,18 @@
 ﻿using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
+using SIS.WebServer;
+using SIS.WebServer.Attributes;
 
 namespace IRunes.App.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
+        [GetHttp(Url = "/")]
+        public IHttpResponse IndexSlash(IHttpRequest httpRequest)
+        {
+            return Index(httpRequest);
+        }
+
         public IHttpResponse Index(IHttpRequest httpRequest)
         {
             if (this.IsLoggedIn(httpRequest))

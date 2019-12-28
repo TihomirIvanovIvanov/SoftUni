@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using SIS.HTTP.Common;
+﻿using SIS.Common;
 using SIS.HTTP.Cookies;
 using SIS.HTTP.Enums;
 using SIS.HTTP.Exceptions;
@@ -14,6 +8,12 @@ using SIS.HTTP.Sessions;
 using SIS.MvcFramework.Result;
 using SIS.WebServer.Routing;
 using SIS.WebServer.Sessions;
+using System;
+using System.IO;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SIS.WebServer
 {
@@ -25,8 +25,8 @@ namespace SIS.WebServer
 
         public ConnectionHandler(Socket client, IServerRoutingTable serverRoutingTable)
         {
-            CoreValidator.ThrowIfNull(client, nameof(client));
-            CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+            client.ThrowIfNull(nameof(client));
+            serverRoutingTable.ThrowIfNull(nameof(serverRoutingTable));
 
             this.client = client;
             this.serverRoutingTable = serverRoutingTable;

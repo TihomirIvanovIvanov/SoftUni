@@ -5,7 +5,7 @@ using SIS.HTTP.Responses;
 using System;
 using System.Collections.Generic;
 
-namespace SIS.WebServer.Routing
+namespace SIS.MvcFramework.Routing
 {
     public class ServerRoutingTable : IServerRoutingTable
     {

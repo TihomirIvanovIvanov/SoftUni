@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SIS.Common;
+using SIS.MvcFramework.Routing;
+using SIS.MvcFramework.Sessions;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using SIS.HTTP.Common;
-using SIS.WebServer.Routing;
 
-namespace SIS.WebServer
+namespace SIS.MvcFramework
 {
     public class Server
     {
@@ -17,21 +18,25 @@ namespace SIS.WebServer
 
         private IServerRoutingTable serverRoutingTable;
 
+        private IHttpSessionStorage httpSessionStorage;
+
         private bool isRunning;
 
-        public Server(int port, IServerRoutingTable serverRoutingTable)
+        public Server(int port, IServerRoutingTable serverRoutingTable, IHttpSessionStorage httpSessionStorage)
         {
-            CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+            serverRoutingTable.ThrowIfNull(nameof(serverRoutingTable));
+            httpSessionStorage.ThrowIfNull(nameof(httpSessionStorage));
 
             this.port = port;
             this.serverRoutingTable = serverRoutingTable;
+            this.httpSessionStorage = httpSessionStorage;
 
             this.tcpListener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
         }
 
         private async Task ListenAsync(Socket client)
         {
-            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
+            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable, this.httpSessionStorage);
             await connectionHandler.ProcessRequestAsync();
         }
 

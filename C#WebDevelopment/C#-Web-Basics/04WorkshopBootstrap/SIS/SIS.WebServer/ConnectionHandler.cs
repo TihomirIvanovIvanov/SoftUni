@@ -6,8 +6,8 @@ using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 using SIS.HTTP.Sessions;
 using SIS.MvcFramework.Result;
+using SIS.MvcFramework.Sessions;
 using SIS.WebServer.Routing;
-using SIS.WebServer.Sessions;
 using System;
 using System.IO;
 using System.Net.Sockets;
@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIS.WebServer
+namespace SIS.MvcFramework
 {
     public class ConnectionHandler
     {
@@ -23,13 +23,17 @@ namespace SIS.WebServer
 
         private readonly IServerRoutingTable serverRoutingTable;
 
-        public ConnectionHandler(Socket client, IServerRoutingTable serverRoutingTable)
+        private readonly IHttpSessionStorage httpSessionStorage;
+
+        public ConnectionHandler(Socket client, IServerRoutingTable serverRoutingTable, IHttpSessionStorage httpSessionStorage)
         {
             client.ThrowIfNull(nameof(client));
             serverRoutingTable.ThrowIfNull(nameof(serverRoutingTable));
+            httpSessionStorage.ThrowIfNull(nameof(httpSessionStorage));
 
             this.client = client;
             this.serverRoutingTable = serverRoutingTable;
+            this.httpSessionStorage = httpSessionStorage;
         }
 
         private async Task<IHttpRequest> ReadRequestAsync()
@@ -105,9 +109,9 @@ namespace SIS.WebServer
 
                 string sessionId = cookie.Value;
 
-                if (HttpSessionStorage.ContainsSession(sessionId))
+                if (this.httpSessionStorage.ContainsSession(sessionId))
                 {
-                    httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
+                    httpRequest.Session = this.httpSessionStorage.GetSession(sessionId);
                 }
             }
 
@@ -115,7 +119,7 @@ namespace SIS.WebServer
             {
                 string sessionId = Guid.NewGuid().ToString();
 
-                httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
+                httpRequest.Session = this.httpSessionStorage.GetSession(sessionId);
             }
 
             return httpRequest.Session?.Id;
@@ -123,7 +127,7 @@ namespace SIS.WebServer
 
         private void SetResponseSession(IHttpResponse httpResponse, string sessionId)
         {
-            IHttpSession responseSession = HttpSessionStorage.GetSession(sessionId);
+            IHttpSession responseSession = this.httpSessionStorage.GetSession(sessionId);
 
             if (responseSession.IsNew)
             {

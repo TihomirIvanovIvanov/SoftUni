@@ -9,6 +9,7 @@ using SIS.HTTP.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace SIS.HTTP.Requests
 {
@@ -18,7 +19,7 @@ namespace SIS.HTTP.Requests
         {
             requestString.ThrowIfNullOrEmpty(nameof(requestString));
 
-            this.FormData = new Dictionary<string,object>();
+            this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
             this.Cookies = new HttpCookieCollection();
@@ -39,7 +40,7 @@ namespace SIS.HTTP.Requests
         public IHttpCookieCollection Cookies { get; }
 
         public HttpRequestMethod RequestMethod { get; private set; }
-        
+
         public IHttpSession Session { get; set; }
 
         private bool IsValidRequestLine(string[] requestLineParams)
@@ -93,7 +94,7 @@ namespace SIS.HTTP.Requests
 
         private void ParseRequestUrl(string[] requestLineParams)
         {
-            this.Url = requestLineParams[1];
+            this.Url = HttpUtility.UrlDecode(requestLineParams[1]);
         }
 
         private void ParseRequestPath()
@@ -143,7 +144,7 @@ namespace SIS.HTTP.Requests
                     }
 
                     ((ISet<string>)this.FormData[key]).Add(value);
-                }                
+                }
             }
         }
 

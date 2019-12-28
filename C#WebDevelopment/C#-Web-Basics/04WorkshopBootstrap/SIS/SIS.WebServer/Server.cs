@@ -16,9 +16,9 @@ namespace SIS.MvcFramework
 
         private readonly TcpListener tcpListener;
 
-        private IServerRoutingTable serverRoutingTable;
+        private readonly IServerRoutingTable serverRoutingTable;
 
-        private IHttpSessionStorage httpSessionStorage;
+        private readonly IHttpSessionStorage httpSessionStorage;
 
         private bool isRunning;
 

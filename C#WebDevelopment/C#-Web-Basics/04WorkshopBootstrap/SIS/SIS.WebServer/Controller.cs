@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using SIS.HTTP.Requests;
+﻿using SIS.HTTP.Requests;
 using SIS.MvcFramework.Extensions;
 using SIS.MvcFramework.Identity;
 using SIS.MvcFramework.Result;
 using SIS.MvcFramework.ViewEngine;
+using System.Runtime.CompilerServices;
 
 namespace SIS.MvcFramework
 {
     public abstract class Controller
     {
-        private IViewEngine viewEngine = new SisViewEngine();
+        private readonly IViewEngine viewEngine;
 
         protected Controller()
         {
-            ViewData = new Dictionary<string, object>();
+            this.viewEngine = new SisViewEngine();
         }
 
-        protected Dictionary<string, object> ViewData;
-
         // TODO: Refactor this
-        public Principal User => 
+        public Principal User =>
             this.Request.Session.ContainsParameter("principal")
-            ? (Principal) this.Request.Session.GetParameter("principal")
+            ? (Principal)this.Request.Session.GetParameter("principal")
             : null;
 
         public IHttpRequest Request { get; set; }
@@ -61,10 +57,10 @@ namespace SIS.MvcFramework
             string viewName = view;
 
             string viewContent = System.IO.File.ReadAllText("Views/" + controllerName + "/" + viewName + ".html");
-            viewContent = this.viewEngine.GetHtml(viewContent, model);
+            viewContent = this.viewEngine.GetHtml(viewContent, model, this.User);
 
             string layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
-            layoutContent = this.viewEngine.GetHtml(layoutContent, model);
+            layoutContent = this.viewEngine.GetHtml(layoutContent, model, this.User);
             layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
 
             var htmlResult = new HtmlResult(layoutContent);

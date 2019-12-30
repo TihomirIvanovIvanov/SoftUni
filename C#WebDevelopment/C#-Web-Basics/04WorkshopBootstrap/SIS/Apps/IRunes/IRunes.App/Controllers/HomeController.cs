@@ -17,7 +17,7 @@ namespace IRunes.App.Controllers
         {
             if (this.IsLoggedIn())
             {
-                return this.View(new UserHomeViewModel { Username = this.User.Username }, "Home");
+                return this.View(new UserHomeViewModel{ Username = this.User.Username }, "Home");
             }
 
             return this.View();

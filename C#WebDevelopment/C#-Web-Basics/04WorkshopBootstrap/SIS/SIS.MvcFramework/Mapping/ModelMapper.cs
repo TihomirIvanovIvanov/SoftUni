@@ -6,32 +6,39 @@ namespace SIS.MvcFramework.Mapping
 {
     public static class ModelMapper
     {
-        private static void MapProperty(object originInstance, object destinationInstance, PropertyInfo originProperty, PropertyInfo destinationProperty)
+
+        private static void MapProperty(object originInstance, object destinationInstance,
+            PropertyInfo originProperty, PropertyInfo destinationProperty)
         {
             if (destinationProperty != null)
             {
                 if (destinationProperty.PropertyType == typeof(string))
                 {
-                    destinationProperty.SetValue(destinationInstance, originProperty.GetValue(originInstance).ToString());
+                    destinationProperty.SetValue(destinationInstance,
+                        originProperty.GetValue(originInstance).ToString());
                 }
                 else if (typeof(IEnumerable).IsAssignableFrom(destinationProperty.PropertyType))
                 {
+                    //TODO: Support other collections
+
                     var originCollection = (IEnumerable)originProperty.GetValue(originInstance);
                     var destinationElementType = destinationProperty.GetValue(destinationInstance)
-                        .GetType().GetGenericArguments()[0];
+                        .GetType()
+                        .GetGenericArguments()[0];
 
-                    var destinationCollection = (IList)Activator.CreateInstance(destinationProperty.PropertyType);
+                    var destinationCollection = (IList) Activator.CreateInstance(destinationProperty.PropertyType);
 
                     foreach (var originElement in originCollection)
                     {
                         destinationCollection.Add(MapObject(originElement, destinationElementType));
                     }
-
+                    
                     destinationProperty.SetValue(destinationInstance, destinationCollection);
                 }
                 else
                 {
-                    destinationProperty.SetValue(destinationInstance, originProperty.GetValue(originInstance));
+                    destinationProperty.SetValue(destinationInstance,
+                        originProperty.GetValue(originInstance));
                 }
             }
         }
@@ -42,8 +49,8 @@ namespace SIS.MvcFramework.Mapping
 
             foreach (var originProperty in origin.GetType().GetProperties())
             {
-                var propertyName = originProperty.Name;
-                var destinationProperty = destinationInstance.GetType().GetProperty(propertyName);
+                string propertyName = originProperty.Name;
+                PropertyInfo destinationProperty = destinationInstance.GetType().GetProperty(propertyName);
 
                 MapProperty(origin, destinationInstance, originProperty, destinationProperty);
             }
@@ -53,7 +60,7 @@ namespace SIS.MvcFramework.Mapping
 
         public static TDestination ProjectTo<TDestination>(object origin)
         {
-            return (TDestination)MapObject(origin, typeof(TDestination));
+            return (TDestination) MapObject(origin, typeof(TDestination));
         }
     }
 }

@@ -17,9 +17,9 @@ namespace SIS.MvcFramework
         }
 
         // TODO: Refactor this
-        public Principal User =>
+        public Principal User => 
             this.Request.Session.ContainsParameter("principal")
-            ? (Principal)this.Request.Session.GetParameter("principal")
+            ? (Principal) this.Request.Session.GetParameter("principal")
             : null;
 
         public IHttpRequest Request { get; set; }

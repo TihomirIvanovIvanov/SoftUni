@@ -4,7 +4,6 @@ namespace IRunes.App.ViewModels
 {
     public class AlbumDetailsViewModel
     {
-
         public AlbumDetailsViewModel()
         {
             this.Tracks = new List<TrackAlbumAllViewModel>();

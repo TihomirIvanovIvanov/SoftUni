@@ -28,7 +28,7 @@ namespace IRunes.App.Controllers
         {
             string albumId = this.Request.QueryData["albumId"].ToString();
 
-            return this.View(new TrackCreateViewModel { AlbumId = albumId });
+            return this.View(new TrackCreateViewModel{ AlbumId = albumId });
         }
 
         [Authorize]

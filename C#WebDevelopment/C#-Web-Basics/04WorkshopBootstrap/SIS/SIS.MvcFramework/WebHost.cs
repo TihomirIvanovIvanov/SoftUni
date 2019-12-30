@@ -31,7 +31,9 @@ namespace SIS.MvcFramework
         }
 
         private static void AutoRegisterRoutes(
-            IMvcApplication application, IServerRoutingTable serverRoutingTable, IServiceProvider serviceProvider)
+            IMvcApplication application,
+            IServerRoutingTable serverRoutingTable,
+            IServiceProvider serviceProvider)
         {
             var controllers = application.GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass && !type.IsAbstract
@@ -71,7 +73,7 @@ namespace SIS.MvcFramework
                     {
                         // request => new UsersController().Login(request)
                         var controllerInstance = serviceProvider.CreateInstance(controllerType) as Controller;
-                       controllerInstance.Request = request;
+                        controllerInstance.Request = request;
 
                         // Security Authorization - TODO: Refactor this
                         var controllerPrincipal = controllerInstance.User;

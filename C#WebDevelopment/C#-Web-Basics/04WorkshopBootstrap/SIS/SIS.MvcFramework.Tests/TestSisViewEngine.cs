@@ -1,6 +1,8 @@
-using SIS.MvcFramework.ViewEngine;
+﻿using SIS.MvcFramework.ViewEngine;
+
 using System.Collections.Generic;
 using System.IO;
+
 using Xunit;
 
 namespace SIS.MvcFramework.Tests
@@ -24,7 +26,7 @@ namespace SIS.MvcFramework.Tests
             {
                 StringValue = "str",
                 ListValues = new List<string> { "123", "val1", string.Empty },
-            });
+            }, new Identity.Principal() { });
             Assert.Equal(expectedResult.TrimEnd(), actualResult.TrimEnd());
         }
     }

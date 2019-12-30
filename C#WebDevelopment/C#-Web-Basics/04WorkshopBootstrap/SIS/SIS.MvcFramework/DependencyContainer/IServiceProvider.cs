@@ -4,9 +4,11 @@ namespace SIS.MvcFramework.DependencyContainer
 {
     public interface IServiceProvider
     {
-        void Add<TSourse, TDestination>()
-            where TDestination : TSourse;
+        void Add<TSource, TDestination>()
+            where TDestination : TSource;
 
         object CreateInstance(Type type);
+
+        // T CreateInstance<T>();
     }
 }

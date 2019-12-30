@@ -17,6 +17,7 @@ namespace IRunes.App.Controllers
 
         public AlbumsController(IAlbumService albumService)
         {
+            // new is glue
             this.albumService = albumService;
         }
 

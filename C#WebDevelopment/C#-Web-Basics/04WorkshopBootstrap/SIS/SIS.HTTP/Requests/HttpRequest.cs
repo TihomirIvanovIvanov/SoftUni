@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using SIS.Common;
 using SIS.HTTP.Common;
@@ -121,14 +122,11 @@ namespace SIS.HTTP.Requests
 
                 foreach (var parameter in parameters)
                 {
-                    if (this.QueryData.ContainsKey(parameter[0]))
+                    if (!this.QueryData.ContainsKey(parameter[0]))
                     {
-                        this.QueryData[parameter[0]].Add(parameter[1]);
+                        this.QueryData.Add(parameter[0], new HashSet<string>());
                     }
-                    else
-                    {
-                        this.QueryData.Add(parameter[0], new HashSet<string> { parameter[1] });
-                    }
+                    this.QueryData[parameter[0]].Add(WebUtility.UrlDecode(parameter[1]));
                 }
             }
         }
@@ -153,7 +151,7 @@ namespace SIS.HTTP.Requests
                         this.FormData.Add(key, new HashSet<string>());
                     }
 
-                    ((ISet<string>)this.FormData[key]).Add(value);
+                    this.FormData[key].Add(WebUtility.UrlDecode(value));
                 }                
             }
         }

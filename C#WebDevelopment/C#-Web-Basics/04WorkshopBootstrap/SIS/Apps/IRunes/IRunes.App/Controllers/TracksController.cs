@@ -26,7 +26,7 @@ namespace IRunes.App.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            string albumId = this.Request.QueryData["albumId"].ToString();
+            string albumId = this.Request.QueryData["albumId"].FirstOrDefault();
 
             return this.View(new TrackCreateViewModel{ AlbumId = albumId });
         }
@@ -35,10 +35,10 @@ namespace IRunes.App.Controllers
         [HttpPost(ActionName = "Create")]
         public ActionResult CreateConfirm()
         {
-            string albumId = this.Request.QueryData["albumId"].ToString();
-            string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
-            string link = ((ISet<string>)this.Request.FormData["link"]).FirstOrDefault();
-            string price = ((ISet<string>)this.Request.FormData["price"]).FirstOrDefault();
+            string albumId = this.Request.QueryData["albumId"].FirstOrDefault();
+            string name = this.Request.FormData["name"].FirstOrDefault();
+            string link = this.Request.FormData["link"].FirstOrDefault();
+            string price = this.Request.FormData["price"].FirstOrDefault();
 
             Track trackForDb = new Track
             {
@@ -58,8 +58,8 @@ namespace IRunes.App.Controllers
         [Authorize]
         public ActionResult Details()
         {
-            string albumId = this.Request.QueryData["albumId"].ToString();
-            string trackId = this.Request.QueryData["trackId"].ToString();
+            string albumId = this.Request.QueryData["albumId"].FirstOrDefault();
+            string trackId = this.Request.QueryData["trackId"].FirstOrDefault();
 
             Track trackFromDb = this.trackService.GetTrackById(trackId);
 

@@ -1,4 +1,9 @@
-﻿using SIS.HTTP.Enums;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using SIS.HTTP.Enums;
 using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework.Attributes;
@@ -9,9 +14,7 @@ using SIS.MvcFramework.Logging;
 using SIS.MvcFramework.Result;
 using SIS.MvcFramework.Routing;
 using SIS.MvcFramework.Sessions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using IServiceProvider = SIS.MvcFramework.DependencyContainer.IServiceProvider;
 
 namespace SIS.MvcFramework
 {
@@ -105,13 +108,17 @@ namespace SIS.MvcFramework
             foreach (var parameter in parameters)
             {
                 ISet<string> httpDataValue = TryGetHttpParameter(request, parameter.Name);
-                /* TODO : if (parameter.ParameterType.GetInterfaces().Any(i =>
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+
+                if (parameter.ParameterType.GetInterfaces().Any(
+                    i => i.IsGenericType
+                    && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    && parameter.ParameterType != typeof(string))
                 {
-                    var collection = httpDataValue
-                        .Select(x => System.Convert.ChangeType(x, parameter.ParameterType.GenericTypeArguments.First()));
+                    var collection = httpDataValue.Select(x => System.Convert.ChangeType(x,
+                        parameter.ParameterType.GenericTypeArguments.First()));
+                    parameterValues.Add(collection);
                     continue;
-                }*/
+                }
 
                 try
                 {
@@ -119,16 +126,35 @@ namespace SIS.MvcFramework
                     var parameterValue = System.Convert.ChangeType(httpStringValue, parameter.ParameterType);
                     parameterValues.Add(parameterValue);
                 }
-                catch 
+                catch
                 {
                     var parameterValue = System.Activator.CreateInstance(parameter.ParameterType);
                     var properties = parameter.ParameterType.GetProperties();
+
                     foreach (var property in properties)
                     {
                         ISet<string> propertyHttpDataValue = TryGetHttpParameter(request, property.Name);
-                        var firstValue = propertyHttpDataValue.FirstOrDefault();
-                        var propertyValue = System.Convert.ChangeType(firstValue, property.PropertyType);
-                        property.SetMethod.Invoke(parameterValue, new object[] { propertyValue });
+
+                        if (property.PropertyType.GetInterfaces().Any(
+                            i => i.IsGenericType &&
+                                 i.GetGenericTypeDefinition() == typeof(IEnumerable<>)) &&
+                                 property.PropertyType != typeof(string))
+                        {
+                            var propertyValue = (IList)Activator.CreateInstance(property.PropertyType);
+
+                            foreach (var parameterElement in propertyHttpDataValue)
+                            {
+                                propertyValue.Add(parameterElement);
+                            }
+
+                            property.SetMethod.Invoke(parameterValue, new object[] { propertyValue });
+                        }
+                        else
+                        {
+                            var firstValue = propertyHttpDataValue.FirstOrDefault();
+                            var propertyValue = System.Convert.ChangeType(firstValue, property.PropertyType);
+                            property.SetMethod.Invoke(parameterValue, new object[] { propertyValue });
+                        }
                     }
 
                     parameterValues.Add(parameterValue);

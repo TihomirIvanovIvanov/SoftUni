@@ -11,5 +11,10 @@ namespace SIS.MvcFramework.Mapping
                 .Select(ModelMapper.ProjectTo<TDestination>)
                 .ToList();
         }
+
+        public static TDestination To<TDestination>(this object obj)
+        {
+            return ModelMapper.ProjectTo<TDestination>(obj);
+        }
     }
 }

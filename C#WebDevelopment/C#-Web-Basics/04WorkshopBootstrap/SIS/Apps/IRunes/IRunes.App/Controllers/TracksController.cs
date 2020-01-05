@@ -1,5 +1,4 @@
-﻿using IRunes.App.ViewModels;
-using IRunes.App.ViewModels.Tracks;
+﻿using IRunes.App.ViewModels.Tracks;
 using IRunes.Models;
 using IRunes.Services;
 using SIS.MvcFramework;
@@ -30,14 +29,14 @@ namespace IRunes.App.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(CreateInputModel model)
+        public IActionResult Create(TrackCreateInputModel model)
         {
-            Track trackForDb = new Track
+            if (!ModelState.IsValid)
             {
-                Name = model.Name,
-                Link = model.Link,
-                Price = model.Price
-            };
+                return this.Redirect("/");
+            }
+
+            Track trackForDb = ModelMapper.ProjectTo<Track>(model);
 
             if (!this.albumService.AddTrackToAlbum(model.AlbumId, trackForDb))
             {
@@ -48,17 +47,22 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public IActionResult Details(string albumId, string trackId)
+        public IActionResult Details(TrackDetailsInputModel model)
         {
-            Track trackFromDb = this.trackService.GetTrackById(trackId);
+            if (!ModelState.IsValid)
+            {
+                return this.Redirect("/Albums/All");
+            }
+
+            Track trackFromDb = this.trackService.GetTrackById(model.TrackId);
 
             if (trackFromDb == null)
             {
-                return this.Redirect($"/Albums/Details?id={albumId}");
+                return this.Redirect($"/Albums/Details?id={model.AlbumId}");
             }
 
             TrackDetailsViewModel trackDetailsViewModel = ModelMapper.ProjectTo<TrackDetailsViewModel>(trackFromDb);
-            trackDetailsViewModel.AlbumId = albumId;
+            trackDetailsViewModel.AlbumId = model.AlbumId;
 
             return this.View(trackDetailsViewModel);
         }

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using IRunes.App.ViewModels.Tracks;
+using System.Collections.Generic;
 
-namespace IRunes.App.ViewModels
+namespace IRunes.App.ViewModels.Albums
 {
     public class AlbumDetailsViewModel
     {
         public AlbumDetailsViewModel()
         {
-            this.Tracks = new List<TrackAlbumAllViewModel>();
+            Tracks = new List<TrackAlbumAllViewModel>();
         }
 
         public string Id { get; set; }

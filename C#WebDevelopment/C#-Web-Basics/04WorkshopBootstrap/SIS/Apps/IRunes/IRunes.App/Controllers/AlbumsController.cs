@@ -1,4 +1,4 @@
-﻿using IRunes.App.ViewModels;
+﻿using IRunes.App.ViewModels.Albums;
 using IRunes.Models;
 using IRunes.Services;
 using SIS.MvcFramework;
@@ -42,14 +42,14 @@ namespace IRunes.App.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(string name, string cover)
+        public IActionResult Create(AlbumCreateInputModel model)
         {
-            Album album = new Album
+            if (!ModelState.IsValid)
             {
-                Name = name,
-                Cover = cover,
-                Price = 0M
-            };
+                return this.Redirect("/Albums/Create");
+            }
+
+            var album = ModelMapper.ProjectTo<Album>(model);
 
             this.albumService.CreateAlbum(album);
 

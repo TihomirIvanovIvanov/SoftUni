@@ -22,7 +22,7 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public ActionResult All()
+        public IActionResult All()
         {
             ICollection<Album> allAlbums = this.albumService.GetAllAlbums();
 
@@ -35,14 +35,14 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return this.View();
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(string name, string cover)
+        public IActionResult Create(string name, string cover)
         {
             Album album = new Album
             {
@@ -57,7 +57,7 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(string id)
+        public IActionResult Details(string id)
         {
             Album albumFromDb = this.albumService.GetAlbumById(id);
 

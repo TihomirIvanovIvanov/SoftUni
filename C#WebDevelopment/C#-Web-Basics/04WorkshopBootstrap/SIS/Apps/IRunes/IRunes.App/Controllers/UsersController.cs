@@ -20,22 +20,13 @@ namespace IRunes.App.Controllers
             this.userService = userService;
         }
 
-        [NonAction]
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
-            }
-        }
-
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return this.View();
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public IActionResult Login(string username, string password)
         {
             User userFromDb = this.userService.GetUserByUsernameAndPassword(username, this.HashPassword(password));
 
@@ -49,13 +40,13 @@ namespace IRunes.App.Controllers
             return this.Redirect("/");
         }
 
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return this.View();
         }
 
         [HttpPost]
-        public ActionResult Register(string username, string password, string confirmPassword, string email)
+        public IActionResult Register(string username, string password, string confirmPassword, string email)
         {
             if (password != confirmPassword)
             {
@@ -74,11 +65,20 @@ namespace IRunes.App.Controllers
             return this.Redirect("/Users/Login");
         }
 
-        public ActionResult Logout()
+        public IActionResult Logout()
         {
             this.SignOut();
 
             return this.Redirect("/");
+        }
+
+        [NonAction]
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
+            }
         }
     }
 }

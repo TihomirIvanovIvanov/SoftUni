@@ -23,14 +23,14 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public ActionResult Create(string albumId)
+        public IActionResult Create(string albumId)
         {
             return this.View(new TrackCreateViewModel{ AlbumId = albumId });
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(CreateInputModel model)
+        public IActionResult Create(CreateInputModel model)
         {
             Track trackForDb = new Track
             {
@@ -48,7 +48,7 @@ namespace IRunes.App.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(string albumId, string trackId)
+        public IActionResult Details(string albumId, string trackId)
         {
             Track trackFromDb = this.trackService.GetTrackById(trackId);
 

@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.ViewModels.Tracks
+﻿using SIS.MvcFramework.Attributes.Validation;
+
+namespace IRunes.App.ViewModels.Tracks
 {
     public class TrackCreateInputModel
     {

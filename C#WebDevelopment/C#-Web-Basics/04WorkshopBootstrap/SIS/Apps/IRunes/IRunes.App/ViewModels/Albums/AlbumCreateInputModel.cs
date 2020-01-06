@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.ViewModels.Albums
+﻿using SIS.MvcFramework.Attributes.Validation;
+
+namespace IRunes.App.ViewModels.Albums
 {
     public class AlbumCreateInputModel
     {

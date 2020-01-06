@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.ViewModels.Users
+﻿using SIS.MvcFramework.Attributes.Validation;
+
+namespace IRunes.App.ViewModels.Users
 {
     public class UserLoginInputModel
     {

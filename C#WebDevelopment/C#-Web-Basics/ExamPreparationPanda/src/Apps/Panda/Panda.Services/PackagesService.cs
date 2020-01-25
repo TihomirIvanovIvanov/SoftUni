@@ -37,5 +37,13 @@ namespace Panda.Services
             this.context.Packages.Add(package);
             this.context.SaveChanges();
         }
+
+        public IQueryable<Package> GetAllByStatus(PackageStatus status)
+        {
+            var packages = this.context.Packages
+                .Where(package => package.Status == status);
+
+            return packages;
+        }
     }
 }

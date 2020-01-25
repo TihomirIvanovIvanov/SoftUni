@@ -1,10 +1,12 @@
-﻿using Panda.Services;
+﻿using Panda.Data.Models;
+using Panda.Services;
 using Panda.Web.ViewModels.Packages;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Panda.Web.Controllers
 {
@@ -38,6 +40,40 @@ namespace Panda.Web.Controllers
             this.packagesService.Create(input.Description, input.Weight, input.ShippingAddress, input.RecipientName);
 
             return this.Redirect("/Packages/Pending");
+        }
+
+        [Authorize]
+        public IActionResult Delivered()
+        {
+            var packages = this.packagesService
+                .GetAllByStatus(PackageStatus.Delivered)
+                .Select(package => new PackageViewModel
+                {
+                    Id = package.Id,
+                    Description = package.Description,
+                    Weight = package.Weight,
+                    ShippingAddress = package.ShippingAddress,
+                    RecipientName = package.Recipient.Username
+                }).ToList();
+
+            return this.View(new PackagesListViewModel { Packages = packages });
+        }
+
+        [Authorize]
+        public IActionResult Pending()
+        {
+            var packages = this.packagesService
+                .GetAllByStatus(PackageStatus.Pending)
+                .Select(package => new PackageViewModel
+                {
+                    Id = package.Id,
+                    Description = package.Description,
+                    Weight = package.Weight,
+                    ShippingAddress = package.ShippingAddress,
+                    RecipientName = package.Recipient.Username
+                }).ToList();
+
+            return this.View(new PackagesListViewModel { Packages = packages });
         }
     }
 }

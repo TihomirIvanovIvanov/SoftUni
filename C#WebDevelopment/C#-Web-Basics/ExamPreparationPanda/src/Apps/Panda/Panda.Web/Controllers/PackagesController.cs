@@ -5,7 +5,6 @@ using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Panda.Web.Controllers
@@ -74,6 +73,13 @@ namespace Panda.Web.Controllers
                 }).ToList();
 
             return this.View(new PackagesListViewModel { Packages = packages });
+        }
+
+        [Authorize]
+        public IActionResult Deliver(string id)
+        {
+            this.packagesService.Deliver(id);
+            return this.Redirect("/Packages/Delivered");
         }
     }
 }

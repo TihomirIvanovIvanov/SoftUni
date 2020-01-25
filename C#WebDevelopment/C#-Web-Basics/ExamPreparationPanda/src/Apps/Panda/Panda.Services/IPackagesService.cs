@@ -8,5 +8,6 @@ namespace Panda.Services
         void Create(string description, decimal weight, string shippingAddress, string recipientName);
 
         IQueryable<Package> GetAllByStatus(PackageStatus status);
+        void Deliver(string id);
     }
 }

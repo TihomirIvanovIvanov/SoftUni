@@ -20,6 +20,25 @@ namespace Panda.Web.Controllers
             return this.View();
         }
 
+        [HttpPost]
+        public IActionResult Login(LoginInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var user = this.usersService.GetUserOrNull(input.Username, input.Password);
+
+            if (user == null)
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.SignIn(user.Id, user.Username, user.Email);
+            return Redirect("/");
+        }
+
         public IActionResult Register()
         {
             return this.View();

@@ -1,5 +1,6 @@
 ﻿using Panda.Data;
 using Panda.Data.Models;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -26,6 +27,14 @@ namespace Panda.Services
             this.context.Users.Add(user);
             this.context.SaveChanges();
             return user.Id;
+        }
+
+        public User GetUserOrNull(string username, string password)
+        {
+            var passwordHash = this.HashPassword(password);
+            var user = this.context.Users.FirstOrDefault(u => u.Username == username && u.Password == passwordHash);
+
+            return user;
         }
 
         private string HashPassword(string password)

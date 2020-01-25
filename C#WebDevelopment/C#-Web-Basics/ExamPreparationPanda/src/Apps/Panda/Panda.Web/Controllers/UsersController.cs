@@ -2,6 +2,7 @@
 using Panda.Web.ViewModels.Users;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
+using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
 
 namespace Panda.Web.Controllers
@@ -60,6 +61,13 @@ namespace Panda.Web.Controllers
             var userId = this.usersService.CreateUser(input.Username, input.Email, input.Password);
             this.SignIn(userId, input.Username, input.Email);
 
+            return this.Redirect("/");
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            this.SignOut();
             return this.Redirect("/");
         }
     }

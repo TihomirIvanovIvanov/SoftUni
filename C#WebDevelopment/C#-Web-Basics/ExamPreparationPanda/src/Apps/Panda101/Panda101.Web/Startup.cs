@@ -1,4 +1,5 @@
-﻿using SIS.MvcFramework;
+﻿using Panda101.Data;
+using SIS.MvcFramework;
 using SIS.MvcFramework.DependencyContainer;
 using SIS.MvcFramework.Routing;
 
@@ -8,7 +9,8 @@ namespace Panda101.Web
     {
         public void Configure(IServerRoutingTable serverRoutingTable)
         {
-            throw new System.NotImplementedException();
+            using var context = new Panda101DbContext();
+            context.Database.EnsureCreated();
         }
 
         public void ConfigureServices(IServiceProvider serviceProvider)

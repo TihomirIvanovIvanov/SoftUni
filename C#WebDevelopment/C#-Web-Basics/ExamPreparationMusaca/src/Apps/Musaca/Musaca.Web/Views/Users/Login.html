@@ -1,19 +1,18 @@
-﻿<hr class="bg-success" style="height: 2px" />
-<main>
-    <h1 class="text-center text-success">Login</h1>
-    <hr class="bg-success w-50" style="height: 2px" />
-    <form class="w-50 mx-auto" action="/Users/Login" method="POST">
+﻿<main class="mt-3">
+    <h1 class="text-center text-musaca">Login</h1>
+    <hr class="bg-musaca w-50 hr-2" />
+    <form class="mx-auto w-50" method="post" action="/Users/Login">
         @Widgets.ValidationWidget
         <div class="form-group">
-            <label for="username">Username / Email</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username / Email..." />
+            <label for="username" class="text-musaca">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username..." name="username">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password..." />
+            <label for="password" class="text-musaca">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
         </div>
-        <div class="d-flex justify-content-center mt-3">
-            <button type="submit" class="btn bg-success text-white">Login</button>
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn bg-musaca text-white">Login</button>
         </div>
     </form>
 </main>

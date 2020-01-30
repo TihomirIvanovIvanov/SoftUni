@@ -7,6 +7,7 @@ namespace Musaca.Models
     {
         public Order()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Products = new List<Product>();
         }
 

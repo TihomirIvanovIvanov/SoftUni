@@ -1,7 +1,14 @@
-﻿namespace Musaca.Models
+﻿using System;
+
+namespace Musaca.Models
 {
     public class User
     {
+        public User()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         public string Username { get; set; }

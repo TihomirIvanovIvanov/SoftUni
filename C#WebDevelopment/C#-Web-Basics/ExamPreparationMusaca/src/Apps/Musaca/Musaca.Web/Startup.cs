@@ -1,4 +1,5 @@
 ﻿using Musaca.Data;
+using Musaca.Services;
 using SIS.MvcFramework;
 using SIS.MvcFramework.DependencyContainer;
 using SIS.MvcFramework.Routing;
@@ -15,6 +16,7 @@ namespace Musaca.Web
 
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
+            serviceProvider.Add<IUserService, UserService>();
         }
     }
 }

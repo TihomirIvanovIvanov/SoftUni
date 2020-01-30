@@ -1,4 +1,6 @@
-﻿using Musaca.Web.ViewModels.Users;
+﻿using Musaca.Models;
+using Musaca.Services;
+using Musaca.Web.ViewModels.Users;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Action;
@@ -77,10 +79,8 @@ namespace Musaca.Web.Controllers
         [NonAction]
         private string HashPassword(string password)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
-            }
+            using SHA256 sha256Hash = SHA256.Create();
+            return Encoding.UTF8.GetString(sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Musaca.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Musaca.Data;
 using Musaca.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,17 @@ namespace Musaca.Services
         public OrderService(MusacaDbContext context)
         {
             this.context = context;
+        }
+
+        public bool AddProductToCurrentOrder(Product product, string userId)
+        {
+            var currentActiveOrder = this.GetCurrentActiveOrderByCashierId(userId);
+            currentActiveOrder.Products.Add(product);
+
+            this.context.Update(currentActiveOrder);
+            this.context.SaveChanges();
+
+            return true;
         }
 
         public Order CompleteOrderById(string orderId, string userId)
@@ -41,6 +53,8 @@ namespace Musaca.Services
         public List<Order> GetAllCompletedOrderByCashierId(string userId)
         {
             var orders = this.context.Orders
+                .Include(order => order.Products)
+                .Include(order => order.Cashier)
                 .Where(order => order.CashierId == userId)
                 .Where(order => order.Status == OrderStatus.Completed)
                 .ToList();
@@ -51,6 +65,8 @@ namespace Musaca.Services
         public Order GetCurrentActiveOrderByCashierId(string userId)
         {
             var orders = this.context.Orders
+                .Include(order => order.Products)
+                .Include(order => order.Cashier)
                 .SingleOrDefault(order => order.CashierId == userId && order.Status == OrderStatus.Active);
 
             return orders;

@@ -13,10 +13,12 @@ namespace Musaca.Web.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService userService;
+        private readonly IOrderService orderService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IOrderService orderService)
         {
             this.userService = userService;
+            this.orderService = orderService;
         }
 
         public IActionResult Login()
@@ -65,6 +67,7 @@ namespace Musaca.Web.Controllers
             };
 
             this.userService.CreateUser(user);
+            this.orderService.CreateOrder(new Order { CashierId = user.Id });
 
             return this.Redirect("/Users/Login");
         }

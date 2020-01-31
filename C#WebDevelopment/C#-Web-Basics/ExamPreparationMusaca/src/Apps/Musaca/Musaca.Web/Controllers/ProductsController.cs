@@ -14,10 +14,12 @@ namespace Musaca.Web.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
+        private readonly IOrderService orderService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IOrderService orderService)
         {
             this.productService = productService;
+            this.orderService = orderService;
         }
 
         [Authorize]
@@ -46,6 +48,17 @@ namespace Musaca.Web.Controllers
             this.productService.CreateProduct(product);
 
             return this.Redirect("/Products/All");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Order(ProductOrderBindingModel model)
+        {
+            var productOrder = this.productService.GetByName(model.Name);
+
+            this.orderService.AddProductToCurrentOrder(productOrder, this.User.Id);
+
+            return this.Redirect("/");
         }
     }
 }

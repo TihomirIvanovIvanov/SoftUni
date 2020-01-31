@@ -36,6 +36,12 @@
     <None Update="Views\Home\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Views\Products\All.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Products\Create.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Views\Shared\Validation\ValidationWidget.vwhtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

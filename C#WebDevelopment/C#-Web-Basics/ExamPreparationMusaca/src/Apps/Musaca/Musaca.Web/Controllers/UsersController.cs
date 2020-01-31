@@ -1,10 +1,14 @@
 ﻿using Musaca.Models;
 using Musaca.Services;
 using Musaca.Web.BindingModels.Users;
+using Musaca.Web.ViewModels.Orders;
+using Musaca.Web.ViewModels.Users;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Action;
+using SIS.MvcFramework.Mapping;
 using SIS.MvcFramework.Result;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -77,6 +81,32 @@ namespace Musaca.Web.Controllers
             this.SignOut();
 
             return this.Redirect("/");
+        }
+
+        public IActionResult Profile()
+        {
+            var userProfile = new UserProfileViewModel();
+            var orders = this.orderService.GetAllCompletedOrderByCashierId(this.User.Id);
+
+            userProfile.Orders = orders.To<OrderProfileViewModel>().ToList();
+
+            foreach (var order in userProfile.Orders)
+            {
+                order.CashierName = this.User.Username;
+
+                var totalPriceOfAllProducts = orders
+                    .Where(o => o.Id == order.Id)
+                    .SelectMany(o => o.Products)
+                    .Sum(o => o.Price).ToString();
+
+                order.Price = totalPriceOfAllProducts;
+
+                order.IssuedOn = orders
+                    .SingleOrDefault(o => o.Id == order.Id)
+                    .IssuedOn.ToString("dd/MM/yyyy");
+            }
+
+            return this.View(userProfile);
         }
 
         [NonAction]

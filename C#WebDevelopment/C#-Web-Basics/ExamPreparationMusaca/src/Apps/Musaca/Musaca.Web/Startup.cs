@@ -17,6 +17,8 @@ namespace Musaca.Web
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
             serviceProvider.Add<IUserService, UserService>();
+            serviceProvider.Add<IProductService, ProductService>();
+            serviceProvider.Add<IOrderService, OrderService>();
         }
     }
 }

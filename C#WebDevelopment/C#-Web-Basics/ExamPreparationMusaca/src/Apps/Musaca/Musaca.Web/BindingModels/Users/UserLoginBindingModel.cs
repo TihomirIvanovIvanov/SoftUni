@@ -1,8 +1,8 @@
-﻿namespace Musaca.Web.ViewModels.Users
+﻿namespace Musaca.Web.BindingModels.Users
 {
     using SIS.MvcFramework.Attributes.Validation;
 
-    public class UserLoginInputModel
+    public class UserLoginBindingModel
     {
         private const string ErrorMessage = "Invalid username or password!";
 

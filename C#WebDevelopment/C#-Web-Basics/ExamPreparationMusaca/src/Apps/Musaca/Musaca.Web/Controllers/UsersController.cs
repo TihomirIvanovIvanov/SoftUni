@@ -1,6 +1,6 @@
 ﻿using Musaca.Models;
 using Musaca.Services;
-using Musaca.Web.ViewModels.Users;
+using Musaca.Web.BindingModels.Users;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Action;
@@ -25,7 +25,7 @@ namespace Musaca.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserLoginInputModel model)
+        public IActionResult Login(UserLoginBindingModel model)
         {
             User userFromDb = this.userService.GetUserByUsernameAndPassword(model.Username, this.HashPassword(model.Password));
 
@@ -45,7 +45,7 @@ namespace Musaca.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserRegisterInputModel model)
+        public IActionResult Register(UserRegisterBindingModel model)
         {
             if (!this.ModelState.IsValid)
             {

@@ -1,8 +1,8 @@
-﻿namespace Musaca.Web.ViewModels.Users
+﻿namespace Musaca.Web.BindingModels.Users
 {
     using SIS.MvcFramework.Attributes.Validation;
 
-    public class UserRegisterInputModel
+    public class UserRegisterBindingModel
     {
         private const string UsernameErrorMessage = "Invalid username length! Must be between 5 and 20 symbols!";
 

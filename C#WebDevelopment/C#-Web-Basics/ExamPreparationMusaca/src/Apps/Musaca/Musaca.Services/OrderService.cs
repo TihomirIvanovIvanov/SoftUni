@@ -16,9 +16,11 @@ namespace Musaca.Services
             this.context = context;
         }
 
-        public bool AddProductToCurrentOrder(Product product, string userId)
+        public bool AddProductToCurrentOrder(string productId, string userId)
         {
+            var product = this.context.Products.SingleOrDefault(p => p.Id == productId);
             var currentActiveOrder = this.GetCurrentActiveOrderByCashierId(userId);
+
             currentActiveOrder.Products.Add(product);
 
             this.context.Update(currentActiveOrder);

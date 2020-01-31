@@ -5,7 +5,7 @@ namespace Musaca.Services
 {
     public interface IOrderService
     {
-        bool AddProductToCurrentOrder(Product product, string userId);
+        bool AddProductToCurrentOrder(string productId, string userId);
 
         Order CreateOrder(Order order);
 

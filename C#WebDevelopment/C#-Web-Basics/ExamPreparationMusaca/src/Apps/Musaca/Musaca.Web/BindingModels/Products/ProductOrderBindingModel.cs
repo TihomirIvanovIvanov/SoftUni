@@ -5,6 +5,6 @@ namespace Musaca.Web.BindingModels.Products
     public class ProductOrderBindingModel
     {
         [RequiredSis]
-        public string Name { get; set; }
+        public string Product { get; set; }
     }
 }

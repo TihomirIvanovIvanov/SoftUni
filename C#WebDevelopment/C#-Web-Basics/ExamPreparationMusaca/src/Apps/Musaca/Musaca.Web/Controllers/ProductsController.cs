@@ -54,9 +54,9 @@ namespace Musaca.Web.Controllers
         [Authorize]
         public IActionResult Order(ProductOrderBindingModel model)
         {
-            var productOrder = this.productService.GetByName(model.Name);
+            var productOrder = this.productService.GetByName(model.Product);
 
-            this.orderService.AddProductToCurrentOrder(productOrder, this.User.Id);
+            this.orderService.AddProductToCurrentOrder(productOrder.Id, this.User.Id);
 
             return this.Redirect("/");
         }

@@ -8,9 +8,9 @@ namespace Musaca.Services
     {
         private readonly MusacaDbContext context;
 
-        public UserService(MusacaDbContext runesDbContext)
+        public UserService(MusacaDbContext context)
         {
-            this.context = runesDbContext;
+            this.context = context;
         }
 
         public User CreateUser(User user)

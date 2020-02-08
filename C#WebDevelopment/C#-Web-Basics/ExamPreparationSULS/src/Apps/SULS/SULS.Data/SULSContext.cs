@@ -22,10 +22,12 @@ namespace SULS.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Submission>()
-                .HasOne(submission => submission.Problem);
+                .HasOne(submission => submission.Problem)
+                .WithMany(problem => problem.Submissions);
 
             modelBuilder.Entity<Submission>()
-                .HasOne(submission => submission.User);
+                .HasOne(submission => submission.User)
+                .WithMany(user => user.Submissions);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -2,6 +2,7 @@
 using SIS.MvcFramework;
 using SIS.MvcFramework.DependencyContainer;
 using SIS.MvcFramework.Routing;
+using SULS.Services;
 
 namespace SULS.App
 {
@@ -15,6 +16,7 @@ namespace SULS.App
 
         public void ConfigureServices(IServiceProvider serviceProvider)
         {
+            serviceProvider.Add<IUsersService, UsersService>();
         }
     }
 }

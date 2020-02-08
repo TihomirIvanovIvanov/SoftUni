@@ -65,7 +65,6 @@
     <Folder Include="ViewModels\Home\" />
     <Folder Include="ViewModels\Problems\" />
     <Folder Include="ViewModels\Submissions\" />
-    <Folder Include="ViewModels\Users\" />
   </ItemGroup>
 
 </Project>

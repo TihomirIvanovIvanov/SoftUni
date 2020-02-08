@@ -1,11 +1,14 @@
-﻿namespace SULS.App
-{
-    using SIS.MvcFramework;
+﻿using SIS.MvcFramework;
+using System.Globalization;
+using System.Threading;
 
-    public class Program
+namespace SULS.App
+{
+    public static class Program
     {
         public static void Main()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             WebHost.Start(new StartUp());
         }
     }

@@ -1,6 +1,8 @@
-﻿namespace SULS.App.Controllers
+﻿using SIS.MvcFramework;
+
+namespace SULS.App.Controllers
 {
-    public class UsersController
+    public class UsersController : Controller
     {
         // TODO
     }

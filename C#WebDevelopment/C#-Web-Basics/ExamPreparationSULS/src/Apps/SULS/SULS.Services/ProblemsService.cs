@@ -32,5 +32,14 @@ namespace SULS.Services
             var problems = this.context.Problems.Include(p => p.Submissions).ToList();
             return problems;
         }
+
+        public Problem GetProblemById(string id)
+        {
+            var problem = this.context.Problems
+                
+                .FirstOrDefault(p => p.Id == id);
+
+            return problem;
+        }
     }
 }

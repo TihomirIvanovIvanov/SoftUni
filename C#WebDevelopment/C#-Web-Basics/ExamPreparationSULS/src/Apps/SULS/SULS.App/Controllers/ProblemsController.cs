@@ -3,7 +3,9 @@ using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
 using SULS.App.ViewModels.Problems;
+using SULS.App.ViewModels.Submissions;
 using SULS.Services;
+using System.Linq;
 
 namespace SULS.App.Controllers
 {
@@ -34,6 +36,27 @@ namespace SULS.App.Controllers
             this.problemsService.CreateProblem(input.Name, input.Points);
 
             return this.Redirect("/");
+        }
+
+        [Authorize]
+        public IActionResult Details(string id)
+        {
+            var problem = this.problemsService.GetProblemById(id);
+
+            var details = new ProblemDetailsViewModel
+            {
+                Name = problem.Name,
+                MaxPoints = problem.Points,
+                Submissions = problem.Submissions.Select(s => new SubmissionViewModel
+                {
+                    Username = s.User.Username,
+                    MaxPoints = s.AchievedResult,
+                    CreatedOn = s.CreatedOn.ToString("dd/MM/yyyy"),
+                    SubmissionId = s.Id
+                })
+            };
+
+            return this.View(details);
         }
     }
 }

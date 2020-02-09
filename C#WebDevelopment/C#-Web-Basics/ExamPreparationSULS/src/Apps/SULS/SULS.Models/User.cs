@@ -8,6 +8,7 @@ namespace SULS.Models
     {
         public User()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Submissions = new HashSet<Submission>();
         }
 

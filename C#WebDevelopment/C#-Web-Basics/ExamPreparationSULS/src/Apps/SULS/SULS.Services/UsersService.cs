@@ -20,7 +20,6 @@ namespace SULS.Services
         {
             var user = new User
             {
-                Id = Guid.NewGuid().ToString(),
                 Username = username,
                 Email = email,
                 Password = this.HashPassword(password),

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SULS.Models
@@ -7,6 +8,7 @@ namespace SULS.Models
     {
         public User()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Submissions = new HashSet<Submission>();
         }
 

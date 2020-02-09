@@ -5,6 +5,11 @@ namespace SULS.Models
 {
     public class Submission
     {
+        public Submission()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         [Required]

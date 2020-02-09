@@ -15,7 +15,7 @@ namespace SULS.Services
             this.context = context;
         }
 
-        public string CreateUser(string username, string password, string email)
+        public void CreateUser(string username, string password, string email)
         {
             var user = new User
             {
@@ -26,7 +26,6 @@ namespace SULS.Services
 
             this.context.Users.Add(user);
             this.context.SaveChanges();
-            return user.Id;
         }
 
         public User GetUserOrNull(string username, string password)

@@ -15,6 +15,18 @@ namespace SULS.Services
             this.context = context;
         }
 
+        public void CreateProblem(string name, int points)
+        {
+            var problem = new Problem
+            {
+                Name = name,
+                Points = points,
+            };
+
+            this.context.Problems.Add(problem);
+            this.context.SaveChanges();
+        }
+
         public IEnumerable<Problem> GetAllProblems()
         {
             var problems = this.context.Problems.Include(p => p.Submissions).ToList();

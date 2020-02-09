@@ -22,6 +22,7 @@ namespace SULS.Models
         public string Email { get; set; }
 
         [Required]
+        [MaxLength(64)]
         public string Password { get; set; }
 
         public virtual ICollection<Submission> Submissions { get; set; }

@@ -58,7 +58,7 @@ namespace SULS.App.Controllers
                 return this.Redirect("/Users/Register");
             }
 
-            this.usersService.CreateUser(input.Username, input.Password, input.Email);
+            this.usersService.CreateUser(input.Username, input.Email, input.Password);
 
             return this.Redirect("/Users/Login");
         }

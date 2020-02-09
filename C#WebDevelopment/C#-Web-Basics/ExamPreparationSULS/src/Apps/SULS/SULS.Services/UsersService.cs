@@ -1,5 +1,6 @@
 ﻿using SULS.Data;
 using SULS.Models;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,13 +16,14 @@ namespace SULS.Services
             this.context = context;
         }
 
-        public void CreateUser(string username, string password, string email)
+        public void CreateUser(string username, string email, string password)
         {
             var user = new User
             {
+                Id = Guid.NewGuid().ToString(),
                 Username = username,
+                Email = email,
                 Password = this.HashPassword(password),
-                Email = email
             };
 
             this.context.Users.Add(user);

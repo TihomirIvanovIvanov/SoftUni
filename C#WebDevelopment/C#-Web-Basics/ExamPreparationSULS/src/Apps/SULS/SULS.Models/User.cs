@@ -8,7 +8,6 @@ namespace SULS.Models
     {
         public User()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Submissions = new HashSet<Submission>();
         }
 
@@ -21,7 +20,6 @@ namespace SULS.Models
         [Required]
         public string Email { get; set; }
 
-        [MaxLength(20)]
         [Required]
         public string Password { get; set; }
 

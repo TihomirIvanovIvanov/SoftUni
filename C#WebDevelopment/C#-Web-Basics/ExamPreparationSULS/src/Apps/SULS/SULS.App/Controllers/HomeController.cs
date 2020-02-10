@@ -20,15 +20,16 @@ namespace SULS.App.Controllers
         {
             if (this.IsLoggedIn())
             {
-                var viewModel = this.problemsService.GetAllProblems()
+                var indexModel = this.problemsService.GetAll()
                     .Select(p => new IndexLoggedInViewModel
                     {
                         Id = p.Id,
-                        Name = p.Name,
-                        Count = p.Submissions.Count
-                    }).ToList();
+                        Count = p.Submissions.Count,
+                        Name = p.Name
+                    })
+                    .ToList();
 
-                return this.View(viewModel, "IndexLoggedIn");
+                return this.View(indexModel  ,"IndexLoggedIn");
             }
             return this.View();
         }

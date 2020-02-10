@@ -18,6 +18,7 @@ namespace SULS.App
         {
             serviceProvider.Add<IUsersService, UsersService>();
             serviceProvider.Add<IProblemsService, ProblemsService>();
+            serviceProvider.Add<ISubmissionsService, SubmissionsService>();
         }
     }
 }

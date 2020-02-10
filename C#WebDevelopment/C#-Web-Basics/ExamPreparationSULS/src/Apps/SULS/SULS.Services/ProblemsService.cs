@@ -27,16 +27,17 @@ namespace SULS.Services
             this.context.SaveChanges();
         }
 
-        public IEnumerable<Problem> GetAllProblems()
+        public IQueryable<Problem> GetAll()
         {
-            var problems = this.context.Problems.Include(p => p.Submissions).ToList();
+            var problems = this.context.Problems;
             return problems;
         }
 
-        public Problem GetProblemById(string id)
+        public Problem GetById(string id)
         {
             var problem = this.context.Problems
-                
+                .Include(p => p.Submissions)
+                .ThenInclude(s => s.User)
                 .FirstOrDefault(p => p.Id == id);
 
             return problem;

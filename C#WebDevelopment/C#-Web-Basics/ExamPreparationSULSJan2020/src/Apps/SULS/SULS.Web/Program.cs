@@ -1,12 +1,16 @@
-﻿using System;
+﻿using SIS.MvcFramework;
+using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SULS.Web
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static async Task Main()
         {
-            Console.WriteLine("Hello World!");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            await WebHost.StartAsync(new Startup());
         }
     }
 }

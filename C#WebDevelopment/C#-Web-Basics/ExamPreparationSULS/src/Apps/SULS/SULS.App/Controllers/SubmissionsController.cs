@@ -37,6 +37,11 @@ namespace SULS.App.Controllers
         [Authorize]
         public IActionResult Create(CreateSubmissionViewModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect($"/Submissions/Create?id={input.ProblemId}");
+            }
+
             var userId = this.User.Id;
 
             this.submissionsService.Create(input.ProblemId, userId, input.Code);

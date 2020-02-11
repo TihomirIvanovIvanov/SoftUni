@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\SIS.MvcFramework\SIS.MvcFramework.csproj" />
     <ProjectReference Include="..\SULS.Data\SULS.Data.csproj" />
+    <ProjectReference Include="..\SULS.Services\SULS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

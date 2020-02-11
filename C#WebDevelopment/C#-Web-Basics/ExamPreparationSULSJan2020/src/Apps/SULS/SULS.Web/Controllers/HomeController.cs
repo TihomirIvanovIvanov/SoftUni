@@ -7,6 +7,10 @@ namespace SULS.App.Controllers
     {
         public HttpResponse Index()
         {
+            if (this.IsUserLoggedIn())
+            {
+                return this.View("IndexLoggedIn");
+            }
             return this.View();
         }
 

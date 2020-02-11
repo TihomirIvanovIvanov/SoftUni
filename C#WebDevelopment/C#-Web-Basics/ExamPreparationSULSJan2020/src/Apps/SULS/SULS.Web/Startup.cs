@@ -2,6 +2,7 @@
 using SIS.HTTP;
 using SIS.MvcFramework;
 using SULS.Data;
+using SULS.Services;
 using System.Collections.Generic;
 
 namespace SULS.Web
@@ -16,6 +17,7 @@ namespace SULS.Web
 
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.Add<IUsersService, UsersService>();
         }
     }
 }

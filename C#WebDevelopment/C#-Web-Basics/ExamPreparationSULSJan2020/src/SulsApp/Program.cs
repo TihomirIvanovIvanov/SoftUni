@@ -1,7 +1,6 @@
-﻿using SIS.HTTP;
-using SIS.MvcFramework;
-using SulsApp.Controllers;
-using System.Collections.Generic;
+﻿using SIS.MvcFramework;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SulsApp
@@ -10,6 +9,7 @@ namespace SulsApp
     {
         public static async Task Main()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             await WebHost.StartAsync(new Startup());
         }
     }

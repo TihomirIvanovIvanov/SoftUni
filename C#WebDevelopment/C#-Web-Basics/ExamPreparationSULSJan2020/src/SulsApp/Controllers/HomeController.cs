@@ -1,32 +1,40 @@
 ﻿using SIS.HTTP;
-using SIS.HTTP.Logging;
-using SIS.HTTP.Response;
 using SIS.MvcFramework;
-using SulsApp.Services;
 using SulsApp.ViewModels.Home;
-using System;
+using System.Linq;
 
 namespace SulsApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger logger;
+        private readonly ApplicationDbContext db;
 
-        public HomeController(ILogger logger)
+        public HomeController(ApplicationDbContext db)
         {
-            this.logger = logger;
+            this.db = db;
         }
 
         [HttpGet("/")]
         public HttpResponse Index()
         {
-            this.logger.Log("Hello from Index");
-            var viewModel = new IndexViewModel
+            if (this.IsUserLoggedIn())
             {
-                Message = "Welcome to SULS Platform!",
-                Year = DateTime.UtcNow.Year,
-            };
-            return this.View(viewModel);
+                var problem = db.Problems.Select(p => new IndexProblemViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Count = p.Submissions.Count(),
+                }).ToList();
+
+                var view = new LoggedInViewModel
+                {
+                    Problems = problem,
+                };
+
+                return this.View(view, "IndexLoggedIn");
+            }
+
+            return this.View();
         }
     }
 }

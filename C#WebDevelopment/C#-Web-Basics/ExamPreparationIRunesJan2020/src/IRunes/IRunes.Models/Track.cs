@@ -25,6 +25,6 @@ namespace IRunes.Models
         [Required]
         public string AlbumId { get; set; }
 
-        public Album Album { get; set; }
+        public virtual Album Album { get; set; }
     }
 }

@@ -17,6 +17,8 @@
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.Add<IUsersService, UsersService>();
+            serviceCollection.Add<IAlbumsService, AlbumsService>();
+            serviceCollection.Add<ITracksService, TracksService>();
         }
     }
 }

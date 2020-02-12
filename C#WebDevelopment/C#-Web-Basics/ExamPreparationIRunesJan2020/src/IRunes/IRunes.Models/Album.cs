@@ -24,6 +24,6 @@ namespace IRunes.Models
         [Required]
         public decimal Price { get; set; }
 
-        public ICollection<Track> Tracks { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }

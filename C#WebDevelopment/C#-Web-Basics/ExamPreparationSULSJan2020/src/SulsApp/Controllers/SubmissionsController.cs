@@ -67,5 +67,19 @@ namespace SulsApp.Controllers
 
             return this.Redirect("/");
         }
+
+        public HttpResponse Delete(string id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var submission = this.db.Submissions.FirstOrDefault(s => s.Id == id);
+            this.db.Remove(submission);
+            this.db.SaveChanges();
+
+            return this.Redirect("/");
+        }
     }
 }

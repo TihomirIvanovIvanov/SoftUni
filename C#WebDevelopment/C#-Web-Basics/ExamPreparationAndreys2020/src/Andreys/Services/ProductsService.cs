@@ -34,6 +34,20 @@ namespace Andreys.Services
             this.db.SaveChanges();
         }
 
+        public void Delete(string id)
+        {
+            var product = this.db.Products.FirstOrDefault(p => p.Id == id);
+
+            this.db.Products.Remove(product);
+            this.db.SaveChanges();
+        }
+
+        public Product Details(string id)
+        {
+            var products = this.db.Products.FirstOrDefault(p => p.Id == id);
+            return products;
+        }
+
         public IEnumerable<Product> GetAll()
         {
             var products = this.db.Products;

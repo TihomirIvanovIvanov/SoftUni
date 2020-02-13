@@ -8,5 +8,9 @@ namespace Andreys.Services
         IEnumerable<Product> GetAll();
 
         void Create(string name, string description, string imageUrl, string category, string gender, decimal price);
+
+        Product Details(string id);
+
+        void Delete(string id);
     }
 }

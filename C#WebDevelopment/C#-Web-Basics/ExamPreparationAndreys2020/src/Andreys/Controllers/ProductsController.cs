@@ -1,7 +1,9 @@
-﻿using Andreys.Services;
+﻿using Andreys.Models;
+using Andreys.Services;
 using Andreys.ViewModels.Products;
 using SIS.HTTP;
 using SIS.MvcFramework;
+using System;
 
 namespace Andreys.Controllers
 {
@@ -59,6 +61,41 @@ namespace Andreys.Controllers
 
             this.productsService
                 .Create(input.Name, input.Description, input.ImageUrl, input.Category, input.Gender, input.Price);
+
+            return this.Redirect("/");
+        }
+
+        public HttpResponse Details(string id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var product = this.productsService.Details(id);
+
+            var producsDetails = new DetailsViewModel
+            {
+                Name = product.Name,
+                Gender = product.Gender.ToString(),
+                Category = product.Category.ToString(),
+                ImageUrl = product.ImageUrl,
+                Description = product.Description,
+                Price = product.Price,
+                Id = product.Id,
+            };
+
+            return this.View(producsDetails);
+        }
+
+        public HttpResponse Delete(string id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.productsService.Delete(id);
 
             return this.Redirect("/");
         }

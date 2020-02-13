@@ -58,7 +58,7 @@ namespace Andreys.Controllers
 
             if (input.Password != input.ConfirmPassword)
             {
-                return this.Error("Password should match.");
+                return this.Error("Password must match.");
             }
 
             if (this.usersService.EmailExists(input.Email))

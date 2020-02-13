@@ -6,7 +6,12 @@
     public class HomeController : Controller
     {
         public HttpResponse Index()
-        { 
+        {
+            if (this.IsUserLoggedIn())
+            {
+                return this.View("Home");
+            }
+
             return this.View();
         }
 

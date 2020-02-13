@@ -6,5 +6,7 @@ namespace Andreys.Services
     public interface IProductsService
     {
         IEnumerable<Product> GetAll();
+
+        void Create(string name, string description, string imageUrl, string category, string gender, decimal price);
     }
 }

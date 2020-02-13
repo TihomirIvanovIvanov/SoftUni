@@ -11,10 +11,8 @@
     {
         public void Configure(IList<Route> serverRoutingTable)
         {
-            using (var db = new AndreysDbContext())
-            {
-                db.Database.EnsureCreated();
-            }
+            using var db = new AndreysDbContext();
+            db.Database.EnsureCreated();
         }
 
         public void ConfigureServices(IServiceCollection serviceCollection)

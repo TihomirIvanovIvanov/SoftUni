@@ -72,5 +72,17 @@ namespace SharedTrip.Controllers
 
             return this.Redirect("/Trips/All");
         }
+
+        public HttpResponse Details(string tripId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var detailsView = this.tripsService.GetDetails(tripId);
+
+            return this.View(detailsView);
+        }
     }
 }

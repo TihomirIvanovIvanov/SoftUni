@@ -47,5 +47,23 @@ namespace SharedTrip.Services
 
             return trips;
         }
+
+        public DetailsViewModel GetDetails(string id)
+        {
+            var trips = this.db.Trips.FirstOrDefault(t => t.Id == id);
+
+            var details = new DetailsViewModel
+            {
+                Id = trips.Id,
+                ImagePath = trips.ImagePath,
+                StartPoint = trips.StartPoint,
+                EndPoint = trips.EndPoint,
+                DepartureTime = trips.DepartureTime.ToString(DepartureTimeFormat),
+                Seats = trips.Seats,
+                Description = trips.Descrtiption
+            };
+
+            return details;
+        }
     }
 }

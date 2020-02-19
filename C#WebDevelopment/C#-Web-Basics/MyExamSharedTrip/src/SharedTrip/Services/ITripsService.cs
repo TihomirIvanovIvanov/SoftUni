@@ -6,5 +6,7 @@ namespace SharedTrip.Services
     public interface ITripsService
     {
         IQueryable<AllTripsViewModel> GetAllTrips();
+
+        void Create(string startPoint, string endPoint, string departureTime, string imagePath, int seats, string description);
     }
 }

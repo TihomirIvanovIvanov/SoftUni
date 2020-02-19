@@ -84,5 +84,17 @@ namespace SharedTrip.Controllers
 
             return this.View(detailsView);
         }
+
+        public HttpResponse AddUserToTrip(string tripId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.tripsService.AddUserToTrip(tripId, this.User);
+
+            return this.Redirect("/Trips/All");
+        }
     }
 }

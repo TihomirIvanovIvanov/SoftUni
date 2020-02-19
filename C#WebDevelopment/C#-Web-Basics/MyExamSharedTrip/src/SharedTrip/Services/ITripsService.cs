@@ -11,5 +11,7 @@ namespace SharedTrip.Services
         void Create(string startPoint, string endPoint, string departureTime, string imagePath, int seats, string description);
 
         DetailsViewModel GetDetails(string tripId);
+
+        void AddUserToTrip(string tripId, string userId);
     }
 }

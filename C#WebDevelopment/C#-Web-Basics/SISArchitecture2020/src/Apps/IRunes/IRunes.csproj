@@ -10,7 +10,6 @@
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Views\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>

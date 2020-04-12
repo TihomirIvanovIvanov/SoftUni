@@ -1,7 +1,19 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.HTTP;
+using SIS.MvcFramework;
+
+namespace IRunes.App.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        // TODO
+        public HttpResponse Index()
+        {
+            return this.View();
+        }
+
+        [HttpGet("/")]
+        public HttpResponse IndexSlash()
+        {
+            return this.Index();
+        }
     }
 }

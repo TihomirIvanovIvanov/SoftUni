@@ -1,16 +1,16 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
 
-namespace IRunes.App.Controllers
+namespace IRunes.Controllers
 {
-    public class UsersController : Controller
+    public class TracksController : Controller
     {
-        public HttpResponse Login()
+        public HttpResponse Create()
         {
             return this.View();
         }
 
-        public HttpResponse Register()
+        public HttpResponse Details()
         {
             return this.View();
         }

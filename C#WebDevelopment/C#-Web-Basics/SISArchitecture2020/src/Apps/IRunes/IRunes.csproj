@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Tracks\" />
+    <Folder Include="ViewModels\Albums\" />
+    <Folder Include="ViewModels\Home\" />
     <Folder Include="wwwroot\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +49,7 @@
     <None Update="Views\Users\Register.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Views\_Layout.html">
+    <None Update="Views\Shared\_Layout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="wwwroot\css\bootstrap.min.css">

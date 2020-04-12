@@ -57,9 +57,16 @@ namespace IRunes.Controllers
             return this.Redirect("/Albums/Details?id=" + input.AlbumId);
         }
 
-        public HttpResponse Details()
+        public HttpResponse Details(string trackId)
         {
-            return this.View();
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var trackViewModel = this.tracksService.GetDetails(trackId);
+
+            return this.View(trackViewModel);
         }
     }
 }

@@ -16,7 +16,7 @@
                 @for (int i = 0; i < Model.Tracks.Count(); i++)
                 { var track = Model.Tracks.ToList()[i];
                 <li>
-                    <strong>@i+1</strong>.
+                    <strong>@(i+1)</strong>.
                     <a href="/Tracks/Details?albumId=@Model.Id&trackId=@track.Id">@track.Name</a>
                 </li>
                 }

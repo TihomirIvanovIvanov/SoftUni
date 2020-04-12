@@ -39,5 +39,26 @@ namespace IRunes.Services
 
             return allAlbums;
         }
+
+        public AlbumDetailsViewModel GetDetails(string id)
+        {
+            var album = this.dbContext.Albums
+                .Where(album => album.Id == id)
+                .Select(album => new AlbumDetailsViewModel
+                {
+                    Id = album.Id,
+                    Name = album.Name,
+                    Price = album.Price,
+                    Cover = album.Cover,
+                    Tracks = album.Tracks.Select(tracks => new TrackInfoViewModel
+                    {
+                        Id = tracks.Id,
+                        Name = tracks.Name
+                    })
+                })
+                .FirstOrDefault();
+
+            return album;
+        }
     }
 }

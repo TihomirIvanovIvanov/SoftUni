@@ -8,5 +8,7 @@ namespace IRunes.Services
         void Create(string name, string cover);
 
         IEnumerable<AlbumInfoViewModel> GetAll();
+
+        AlbumDetailsViewModel GetDetails(string id);
     }
 }

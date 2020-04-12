@@ -2,5 +2,6 @@
 {
     public interface IAlbumsService
     {
+        void Create(string name, string cover);
     }
 }

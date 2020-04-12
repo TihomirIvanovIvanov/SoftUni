@@ -19,7 +19,7 @@ namespace IRunes.Models
         public string Name { get; set; }
 
         [Required]
-        public string Link { get; set; }
+        public string Cover { get; set; }
 
         public decimal Price { get; set; }
 

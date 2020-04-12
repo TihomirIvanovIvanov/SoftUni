@@ -16,7 +16,17 @@ namespace IRunes.Controllers
 
         public HttpResponse All()
         {
-            return this.View();
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var allAlbums = new AllAlbumsViewModel
+            {
+                Albums = this.albumsService.GetAll()
+            };
+
+            return this.View(allAlbums);
         }
 
         public HttpResponse Create()
@@ -27,6 +37,11 @@ namespace IRunes.Controllers
         [HttpPost]
         public HttpResponse Create(CreateInputModel input)
         {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
             if (input.Name.Length < 4 || input.Name.Length > 20)
             {
                 return this.Create();

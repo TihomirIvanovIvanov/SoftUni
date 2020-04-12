@@ -1,5 +1,8 @@
 ﻿using IRunes.Data;
 using IRunes.Models;
+using IRunes.ViewModels.Albums;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IRunes.Services
 {
@@ -23,6 +26,18 @@ namespace IRunes.Services
 
             this.dbContext.Albums.Add(album);
             this.dbContext.SaveChanges();
+        }
+
+        public IEnumerable<AlbumInfoViewModel> GetAll()
+        {
+            var allAlbums = this.dbContext.Albums
+                .Select(album => new AlbumInfoViewModel
+                {
+                    Id = album.Id,
+                    Name = album.Name
+                }).ToList();
+
+            return allAlbums;
         }
     }
 }

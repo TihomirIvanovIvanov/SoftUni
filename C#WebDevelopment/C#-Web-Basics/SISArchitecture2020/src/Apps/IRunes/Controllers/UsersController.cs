@@ -61,8 +61,24 @@ namespace IRunes.App.Controllers
                 return this.Register();
             }
 
+            if (this.usersService.EmailExists(input.Email))
+            {
+                return this.Register();
+            }
+
+            if (this.usersService.UsernameExists(input.Username))
+            {
+                return this.Register();
+            }
+
             this.usersService.Register(input.Username, input.Email, input.Password);
             return this.Login();
+        }
+
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return this.Redirect("/");
         }
     }
 }

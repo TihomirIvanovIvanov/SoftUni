@@ -2,6 +2,7 @@
 using Andreys.Models;
 using Andreys.ViewModels.Products;
 using System;
+using System.Linq;
 
 namespace Andreys.Services
 {
@@ -33,6 +34,22 @@ namespace Andreys.Services
             this.dbContext.SaveChanges();
 
             return product.Id;
+        }
+
+        public IQueryable<Product> GetAll()
+        {
+            var allProducts = this.dbContext.Products
+                .Select(product => new Product
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    ImageUrl = product.ImageUrl,
+                    Category = product.Category,
+                    Price = product.Price,
+
+                }).AsQueryable();
+
+            return allProducts;
         }
     }
 }

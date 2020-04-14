@@ -29,7 +29,7 @@ namespace Andreys.Controllers
 
             var productId = this.productsService.Add(input);
 
-            return this.View();
+            return this.Redirect("/");
         }
     }
 }

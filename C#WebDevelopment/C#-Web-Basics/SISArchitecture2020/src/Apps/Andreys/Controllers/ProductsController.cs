@@ -32,6 +32,16 @@ namespace Andreys.Controllers
                 return this.Redirect("/Users/Login");
             }
 
+            if (input.Name.Length < 4 || input.Name.Length > 20)
+            {
+                return this.Add();
+            }
+
+            if (string.IsNullOrEmpty(input.Description) || input.Description.Length > 10)
+            {
+                return this.Add();
+            }
+
             this.productsService.Add(input);
 
             return this.Redirect("/");
@@ -47,6 +57,18 @@ namespace Andreys.Controllers
             var product = this.productsService.GetById(id);
 
             return this.View(product);
+        }
+
+        public HttpResponse Delete(int id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.productsService.DeleteById(id);
+
+            return this.Redirect("/");
         }
     }
 }

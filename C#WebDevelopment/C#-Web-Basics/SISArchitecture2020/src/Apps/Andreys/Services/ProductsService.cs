@@ -34,6 +34,14 @@ namespace Andreys.Services
             this.dbContext.SaveChanges();
         }
 
+        public void DeleteById(int id)
+        {
+            var product = this.GetById(id);
+
+            this.dbContext.Products.Remove(product);
+            this.dbContext.SaveChanges();
+        }
+
         public IQueryable<Product> GetAll()
         {
             var allProducts = this.dbContext.Products

@@ -11,5 +11,7 @@ namespace Andreys.Services
         IQueryable<Product> GetAll();
 
         Product GetById(int id);
+
+        void DeleteById(int id);
     }
 }

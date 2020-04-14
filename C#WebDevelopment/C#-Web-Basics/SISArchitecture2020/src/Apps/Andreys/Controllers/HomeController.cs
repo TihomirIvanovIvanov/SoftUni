@@ -9,5 +9,11 @@ namespace Andreys.Controllers
         {
             return this.View();
         }
+
+        [HttpGet("/")]
+        public HttpResponse IndexSlash()
+        {
+            return this.Index();
+        }
     }
 }

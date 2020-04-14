@@ -16,6 +16,11 @@ namespace Andreys.Controllers
 
         public HttpResponse Add()
         {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
             return this.View();
         }
 
@@ -24,12 +29,24 @@ namespace Andreys.Controllers
         {
             if (!this.IsUserLoggedIn())
             {
-                return this.Add();
+                return this.Redirect("/Users/Login");
             }
 
-            var productId = this.productsService.Add(input);
+            this.productsService.Add(input);
 
             return this.Redirect("/");
+        }
+
+        public HttpResponse Details(int id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var product = this.productsService.GetById(id);
+
+            return this.View(product);
         }
     }
 }

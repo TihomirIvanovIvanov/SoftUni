@@ -15,7 +15,7 @@ namespace Andreys.Services
             this.dbContext = dbContext;
         }
 
-        public int Add(ProductAddInputModel productAddInputModel)
+        public void Add(ProductAddInputModel productAddInputModel)
         {
             var category = Enum.Parse<Category>(productAddInputModel.Category);
             var gender = Enum.Parse<Gender>(productAddInputModel.Gender);
@@ -32,8 +32,6 @@ namespace Andreys.Services
 
             this.dbContext.Products.Add(product);
             this.dbContext.SaveChanges();
-
-            return product.Id;
         }
 
         public IQueryable<Product> GetAll()
@@ -50,6 +48,12 @@ namespace Andreys.Services
                 }).AsQueryable();
 
             return allProducts;
+        }
+
+        public Product GetById(int id)
+        {
+            var product = this.dbContext.Products.FirstOrDefault(product => product.Id == id);
+            return product;
         }
     }
 }

@@ -6,8 +6,10 @@ namespace Andreys.Services
 {
     public interface IProductsService
     {
-        int Add(ProductAddInputModel productAddInputModel);
+        void Add(ProductAddInputModel productAddInputModel);
 
         IQueryable<Product> GetAll();
+
+        Product GetById(int id);
     }
 }

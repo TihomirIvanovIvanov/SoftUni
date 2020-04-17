@@ -1,5 +1,6 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
+using Suls.Data;
 using System.Collections.Generic;
 
 namespace Suls
@@ -8,8 +9,8 @@ namespace Suls
     {
         public void Configure(IList<Route> routeTable)
         {
-            //using var dbContext = new ApplicationDbContext();
-            //dbContext.Database.EnsureCreated();
+            using var dbContext = new ApplicationDbContext();
+            dbContext.Database.EnsureCreated();
         }
 
         public void ConfigureServices(IServiceCollection serviceCollection)

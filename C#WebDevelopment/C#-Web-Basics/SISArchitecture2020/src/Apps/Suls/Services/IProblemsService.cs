@@ -8,5 +8,7 @@ namespace Suls.Services
         IEnumerable<Problem> GetAll();
 
         void Create(string name, int points);
+
+        Problem GetById(string id);
     }
 }

@@ -31,5 +31,13 @@ namespace Suls.Services
             var problems = this.dbContext.Problems.ToList();
             return problems;
         }
+
+        public Problem GetById(string id)
+        {
+            var problem = this.dbContext.Problems
+                .FirstOrDefault(problem => problem.Id == id);
+
+            return problem;
+        }
     }
 }

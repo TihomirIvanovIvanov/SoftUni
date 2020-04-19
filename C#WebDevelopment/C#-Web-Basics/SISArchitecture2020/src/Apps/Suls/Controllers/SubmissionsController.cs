@@ -66,5 +66,19 @@ namespace Suls.Controllers
 
             return this.Redirect("/");
         }
+
+        public HttpResponse Delete(string id)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var submission = this.dbContext.Submissions.FirstOrDefault(s => s.Id == id);
+            this.dbContext.Remove(submission);
+            this.dbContext.SaveChanges();
+
+            return this.Redirect("/");
+        }
     }
 }

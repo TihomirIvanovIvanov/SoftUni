@@ -14,6 +14,18 @@ namespace Suls.Services
             this.dbContext = dbContext;
         }
 
+        public void Create(string name, int points)
+        {
+            var problem = new Problem
+            {
+                Name = name,
+                Points = points,
+            };
+
+            this.dbContext.Problems.Add(problem);
+            this.dbContext.SaveChanges();
+        }
+
         public IEnumerable<Problem> GetAll()
         {
             var problems = this.dbContext.Problems.ToList();

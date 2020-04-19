@@ -1,5 +1,6 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
+using Suls.Data;
 using Suls.Services;
 using Suls.ViewModels.Problems;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace Suls.Controllers
     public class ProblemsController : Controller
     {
         private readonly IProblemsService problemsService;
+        private readonly ApplicationDbContext dbContext;
 
-        public ProblemsController(IProblemsService problemsService)
+        public ProblemsController(IProblemsService problemsService, ApplicationDbContext dbContext)
         {
             this.problemsService = problemsService;
+            this.dbContext = dbContext;
         }
 
         public HttpResponse Create()
@@ -55,8 +58,8 @@ namespace Suls.Controllers
                 return this.Redirect("/Users/Login");
             }
 
-            var problem = this.problemsService.GetById(id);
-            var viewModel = new DetailsViewModel
+            var viewModel = this.dbContext.Problems.Where(p => p.Id == id)
+                .Select(problem => new DetailsViewModel
             {
                 Name = problem.Name,
                 Submissions = problem.Submissions.Select(submission => new ProblemSubmissionsDetailsViewModel
@@ -66,8 +69,8 @@ namespace Suls.Controllers
                     CreatedOn = submission.CreatedOn,
                     MaxPoints = problem.Points,
                     Username = this.User,
-                }).ToArray()
-            };
+                })
+            }).FirstOrDefault();
 
             return this.View(viewModel);
         }

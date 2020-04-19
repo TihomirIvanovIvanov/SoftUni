@@ -1,5 +1,6 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
+using Suls.Data;
 using Suls.Services;
 using Suls.ViewModels.Home;
 using System.Linq;
@@ -8,23 +9,23 @@ namespace Suls.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProblemsService problemsService;
+        private readonly ApplicationDbContext dbContext;
 
-        public HomeController(IProblemsService problemsService)
+        public HomeController(ApplicationDbContext dbContext)
         {
-            this.problemsService = problemsService;
+            this.dbContext = dbContext;
         }
 
         public HttpResponse Index()
         {
             if (this.IsUserLoggedIn())
             {
-                var viewModel = this.problemsService.GetAll()
+                var viewModel = this.dbContext.Problems
                     .Select(problem => new IndexViewModel
                     {
                         Id = problem.Id,
                         Name = problem.Name,
-                        Count = problem.Submissions.Count(),
+                        Count = problem.Submissions.Count,
                     }).ToList();
 
                 var problemsViewModel = new IndexProblemViewModel { Problems = viewModel };

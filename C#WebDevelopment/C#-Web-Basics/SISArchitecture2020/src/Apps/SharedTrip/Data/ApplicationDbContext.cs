@@ -20,6 +20,9 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserTrip>()
+                .HasKey(ut => new { ut.UserId, ut.TripId });
+
             base.OnModelCreating(modelBuilder);
         }
     }

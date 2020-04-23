@@ -1,4 +1,5 @@
 ﻿using SharedTrip.Models;
+using SharedTrip.ViewModels.Trips;
 using System.Linq;
 
 namespace SharedTrip.Services
@@ -6,5 +7,7 @@ namespace SharedTrip.Services
     public interface ITripsService
     {
         IQueryable<Trip> AllTrips();
+
+        void Add(AddInputModel input);
     }
 }

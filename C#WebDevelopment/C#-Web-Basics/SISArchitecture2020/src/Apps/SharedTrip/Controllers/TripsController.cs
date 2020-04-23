@@ -23,7 +23,7 @@ namespace SharedTrip.Controllers
             }
 
             var tripsViewModel = this.tripsService.AllTrips()
-                .Select(t => new AllTripsViewModels 
+                .Select(t => new AllViewModels 
                 { 
                     Id = t.Id,
                     StartPoint = t.StartPoint,
@@ -33,6 +33,29 @@ namespace SharedTrip.Controllers
                 }).ToArray();
 
             return this.View(tripsViewModel);
+        }
+
+        public HttpResponse Add()
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public HttpResponse Add(AddInputModel input)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.tripsService.Add(input);
+
+            return this.Redirect("/Trips/All");
         }
     }
 }

@@ -16,12 +16,22 @@ namespace SharedTrip.Controllers
 
         public HttpResponse Login()
         {
+            if (this.IsUserLoggedIn())
+            {
+            return this.Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Login(LoginInputModel input)
         {
+            if (this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             var userId = this.usersService.GetUserId(input.Username, input.Password);
 
             if (userId == null)
@@ -30,17 +40,27 @@ namespace SharedTrip.Controllers
             }
 
             this.SignIn(userId);
-            return this.Redirect("/");
+            return this.Redirect("/Trips/All");
         }
 
         public HttpResponse Register()
         {
+            if (this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Register(RegisterInputModel input)
         {
+            if (this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Trips/All");
+            }
+
             if (string.IsNullOrWhiteSpace(input.Email))
             {
                 return this.Register();

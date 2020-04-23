@@ -2,7 +2,7 @@
 
 namespace SharedTrip.ViewModels.Trips
 {
-    public class AllTripsViewModels
+    public class AllViewModels
     {
         public string Id { get; set; }
 

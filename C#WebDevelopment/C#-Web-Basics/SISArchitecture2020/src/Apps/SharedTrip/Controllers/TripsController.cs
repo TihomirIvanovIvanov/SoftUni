@@ -55,9 +55,34 @@ namespace SharedTrip.Controllers
                 return this.Redirect("/Users/Login");
             }
 
+            if (string.IsNullOrWhiteSpace(input.StartPoint))
+            {
+                return this.Add(input);
+            }
+
+            if (string.IsNullOrWhiteSpace(input.EndPoint))
+            {
+                return this.Add(input);
+            }
+
+            if (string.IsNullOrWhiteSpace(input.DepartureTime))
+            {
+                return this.Add(input);
+            }
+
+            if (input.Seats < 2 || input.Seats > 6)
+            {
+                return this.Add(input);
+            }
+
+            if (input.Description.Length > 80)
+            {
+                return this.Add(input);
+            }
+
             this.tripsService.Add(input);
 
-            return this.Redirect("/Trips/All");
+            return this.All();
         }
 
         public HttpResponse Details(string tripId)
@@ -68,9 +93,6 @@ namespace SharedTrip.Controllers
             }
 
             var trip = this.tripsService.GetById(tripId);
-
-            //var departureTime = DateTime
-            //    .ParseExact(.ToString(), "dd.MM.yyyy HH:mm", CultureInfo.CurrentCulture);
             var tripDetailsView = new DetailsViewModel
             {
                 Id = trip.Id,
@@ -83,6 +105,19 @@ namespace SharedTrip.Controllers
             };
 
             return this.View(tripDetailsView);
+        }
+
+        public HttpResponse AddUserToTrip(string tripId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var userId = this.User;
+            this.tripsService.AddUserToTrip(tripId, userId);
+
+            return this.All();
         }
     }
 }

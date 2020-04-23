@@ -1,7 +1,6 @@
 ﻿using SharedTrip.Models;
 using SharedTrip.ViewModels.Trips;
 using System;
-using System.Globalization;
 using System.Linq;
 
 namespace SharedTrip.Services
@@ -31,6 +30,27 @@ namespace SharedTrip.Services
             };
 
             this.dbContext.Trips.Add(trip);
+            this.dbContext.SaveChanges();
+        }
+
+        public void AddUserToTrip(string tripId, string userId)
+        {
+            var trip = this.GetById(tripId);
+            var user = this.dbContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            var userTrips = new UserTrip
+            {
+                UserId = user.Id,
+                TripId = trip.Id,
+            };
+
+            if (this.dbContext.UserTrips.Any(ut => ut.UserId == user.Id))
+            {
+                return;
+            }
+
+            this.dbContext.UserTrips.Add(userTrips);
+            trip.Seats--;
             this.dbContext.SaveChanges();
         }
 

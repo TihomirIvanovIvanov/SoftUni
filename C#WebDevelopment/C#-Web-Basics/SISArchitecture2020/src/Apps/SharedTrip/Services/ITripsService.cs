@@ -11,5 +11,7 @@ namespace SharedTrip.Services
         void Add(AddInputModel input);
 
         Trip GetById(string tripId);
+
+        void AddUserToTrip(string tripId, string userId);
     }
 }

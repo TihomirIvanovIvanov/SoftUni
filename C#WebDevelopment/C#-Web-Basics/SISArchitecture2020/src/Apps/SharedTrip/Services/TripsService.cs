@@ -18,7 +18,7 @@ namespace SharedTrip.Services
         public void Add(AddInputModel input)
         {
             var departureTime = DateTime
-                .ParseExact(input.DepartureTime, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+                .ParseExact(input.DepartureTime, "dd.MM.yyyy HH:mm", null);
 
             var trip = new Trip
             {
@@ -38,6 +38,14 @@ namespace SharedTrip.Services
         {
             var trips = this.dbContext.Trips.AsQueryable();
             return trips;
+        }
+
+        public Trip GetById(string tripId)
+        {
+            var trip = this.dbContext.Trips
+                .FirstOrDefault(t => t.Id == tripId);
+
+            return trip;
         }
     }
 }

@@ -9,5 +9,7 @@ namespace SharedTrip.Services
         IQueryable<Trip> AllTrips();
 
         void Add(AddInputModel input);
+
+        Trip GetById(string tripId);
     }
 }

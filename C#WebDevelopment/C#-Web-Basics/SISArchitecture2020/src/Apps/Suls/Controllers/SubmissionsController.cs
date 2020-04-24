@@ -2,6 +2,7 @@
 using SIS.MvcFramework;
 using Suls.Data;
 using Suls.Models;
+using Suls.Services;
 using Suls.ViewModels.Submissions;
 using System;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace Suls.Controllers
 {
     public class SubmissionsController : Controller
     {
+        private readonly IProblemsService problemsService;
         private readonly ApplicationDbContext dbContext;
         private readonly Random random;
 
-        public SubmissionsController(ApplicationDbContext dbContext, Random random)
+        public SubmissionsController(IProblemsService problemsService, ApplicationDbContext dbContext, Random random)
         {
+            this.problemsService = problemsService;
             this.dbContext = dbContext;
             this.random = random;
         }
@@ -26,14 +29,12 @@ namespace Suls.Controllers
                 return this.Redirect("/Users/Login");
             }
 
-            var viewModel = this.dbContext.Problems
-                .Where(p => p.Id == id)
-                .Select(problem => new CreateViewModel
-                {
-                    ProblemId = problem.Id,
-                    Name = problem.Name,
-                }).FirstOrDefault();
-
+            var problem = this.problemsService.GetById(id);
+            var viewModel = new CreateViewModel
+            {
+                ProblemId = problem.Id,
+                Name = problem.Name,
+            };
 
             return this.View(viewModel);
         }

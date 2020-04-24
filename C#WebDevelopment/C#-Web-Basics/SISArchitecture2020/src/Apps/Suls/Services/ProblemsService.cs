@@ -24,5 +24,13 @@ namespace Suls.Services
             this.dbContext.Problems.Add(problem);
             this.dbContext.SaveChanges();
         }
+
+        public Problem GetById(string id)
+        {
+            var problem = this.dbContext.Problems
+                .FirstOrDefault(problem => problem.Id == id);
+
+            return problem;
+        }
     }
 }

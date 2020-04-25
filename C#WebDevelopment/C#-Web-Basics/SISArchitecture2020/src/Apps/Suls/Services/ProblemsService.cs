@@ -1,5 +1,6 @@
 ﻿using Suls.Data;
 using Suls.Models;
+using Suls.ViewModels.Problems;
 using System.Linq;
 
 namespace Suls.Services
@@ -31,6 +32,28 @@ namespace Suls.Services
                 .FirstOrDefault(problem => problem.Id == id);
 
             return problem;
+        }
+
+        public DetailsViewModel GetDetailsById(string problemId, string userId)
+        {
+            var user = this.dbContext.Users.FirstOrDefault(user => user.Id == userId);
+
+            var problemDetailsView = this.dbContext.Problems
+                .Where(problem => problem.Id == problemId)
+                .Select(problem => new DetailsViewModel
+                {
+                    Name = problem.Name,
+                    Submissions = problem.Submissions.Select(submission => new ProblemSubmissionsDetailsViewModel
+                    {
+                        SubmissionId = submission.Id,
+                        AchievedResult = submission.AchievedResult,
+                        MaxPoints = problem.Points,
+                        CreatedOn = submission.CreatedOn,
+                        Username = user.Username,
+                    })
+                }).FirstOrDefault();
+
+            return problemDetailsView;
         }
     }
 }

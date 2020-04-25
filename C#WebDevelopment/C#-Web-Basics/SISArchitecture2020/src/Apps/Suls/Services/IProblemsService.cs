@@ -1,4 +1,5 @@
 ﻿using Suls.Models;
+using Suls.ViewModels.Problems;
 
 namespace Suls.Services
 {
@@ -7,5 +8,7 @@ namespace Suls.Services
         void Create(string name, int points);
 
         Problem GetById(string id);
+
+        DetailsViewModel GetDetailsById(string problemId, string userId);
     }
 }

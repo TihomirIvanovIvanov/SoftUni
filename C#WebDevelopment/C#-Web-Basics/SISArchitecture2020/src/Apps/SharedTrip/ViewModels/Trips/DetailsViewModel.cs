@@ -17,5 +17,13 @@ namespace SharedTrip.ViewModels.Trips
         public int Seats { get; set; }
 
         public string Description { get; set; }
+
+        public string DepartureTimeFormated
+        {
+            get
+            {
+                return this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
+            }
+        }
     }
 }

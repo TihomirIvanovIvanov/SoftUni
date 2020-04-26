@@ -11,15 +11,15 @@ namespace Suls.Controllers
 {
     public class SubmissionsController : Controller
     {
-        private readonly IProblemsService problemsService;
         private readonly ApplicationDbContext dbContext;
         private readonly Random random;
+        private readonly ISubmissionsService submissionsService;
 
-        public SubmissionsController(IProblemsService problemsService, ApplicationDbContext dbContext, Random random)
+        public SubmissionsController(ApplicationDbContext dbContext, Random random, ISubmissionsService submissionsService)
         {
-            this.problemsService = problemsService;
             this.dbContext = dbContext;
             this.random = random;
+            this.submissionsService = submissionsService;
         }
 
         public HttpResponse Create(string id)
@@ -29,13 +29,7 @@ namespace Suls.Controllers
                 return this.Redirect("/Users/Login");
             }
 
-            var problem = this.problemsService.GetById(id);
-            var viewModel = new CreateViewModel
-            {
-                ProblemId = problem.Id,
-                Name = problem.Name,
-            };
-
+            var viewModel = this.submissionsService.CreateViewModel(id);
             return this.View(viewModel);
         }
 

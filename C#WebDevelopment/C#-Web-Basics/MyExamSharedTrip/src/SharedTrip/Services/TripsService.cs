@@ -58,7 +58,7 @@ namespace SharedTrip.Services
                 ImagePath = trips.ImagePath,
                 StartPoint = trips.StartPoint,
                 EndPoint = trips.EndPoint,
-                DepartureTime = trips.DepartureTime.ToString(DepartureTimeFormat),
+                DepartureTime = trips.DepartureTime,
                 Seats = trips.Seats,
                 Description = trips.Descrtiption
             };

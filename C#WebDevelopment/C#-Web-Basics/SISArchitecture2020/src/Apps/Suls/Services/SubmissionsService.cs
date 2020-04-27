@@ -2,6 +2,7 @@
 using Suls.Models;
 using Suls.ViewModels.Submissions;
 using System;
+using System.Linq;
 
 namespace Suls.Services
 {
@@ -44,6 +45,13 @@ namespace Suls.Services
             };
 
             return submissionView;
+        }
+
+        public void DeleteById(string id)
+        {
+            var submission = this.dbContext.Submissions.FirstOrDefault(s => s.Id == id);
+            this.dbContext.Remove(submission);
+            this.dbContext.SaveChanges();
         }
     }
 }

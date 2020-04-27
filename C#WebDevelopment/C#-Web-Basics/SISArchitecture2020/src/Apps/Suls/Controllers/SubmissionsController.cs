@@ -1,19 +1,15 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
-using Suls.Data;
 using Suls.Services;
-using System.Linq;
 
 namespace Suls.Controllers
 {
     public class SubmissionsController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly ISubmissionsService submissionsService;
 
-        public SubmissionsController(ApplicationDbContext dbContext, ISubmissionsService submissionsService)
+        public SubmissionsController(ISubmissionsService submissionsService)
         {
-            this.dbContext = dbContext;
             this.submissionsService = submissionsService;
         }
 
@@ -52,10 +48,7 @@ namespace Suls.Controllers
                 return this.Redirect("/Users/Login");
             }
 
-            var submission = this.dbContext.Submissions.FirstOrDefault(s => s.Id == id);
-            this.dbContext.Remove(submission);
-            this.dbContext.SaveChanges();
-
+            this.submissionsService.DeleteById(id);
             return this.Redirect("/");
         }
     }

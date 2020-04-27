@@ -1,10 +1,7 @@
 ﻿using SIS.HTTP;
 using SIS.MvcFramework;
 using Suls.Data;
-using Suls.Models;
 using Suls.Services;
-using Suls.ViewModels.Submissions;
-using System;
 using System.Linq;
 
 namespace Suls.Controllers
@@ -12,13 +9,11 @@ namespace Suls.Controllers
     public class SubmissionsController : Controller
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly Random random;
         private readonly ISubmissionsService submissionsService;
 
-        public SubmissionsController(ApplicationDbContext dbContext, Random random, ISubmissionsService submissionsService)
+        public SubmissionsController(ApplicationDbContext dbContext, ISubmissionsService submissionsService)
         {
             this.dbContext = dbContext;
-            this.random = random;
             this.submissionsService = submissionsService;
         }
 
@@ -46,19 +41,7 @@ namespace Suls.Controllers
                 return this.Create(problemId);
             }
 
-            var problem = this.dbContext.Problems.FirstOrDefault(p => p.Id == problemId);
-            var submission = new Submission
-            {
-                Code = code,
-                ProblemId = problemId,
-                AchievedResult = random.Next(0, problem.Points),
-                CreatedOn = DateTime.UtcNow,
-                UserId = this.User,
-            };
-
-            this.dbContext.Submissions.Add(submission);
-            this.dbContext.SaveChanges();
-
+            this.submissionsService.Create(problemId, this.User, code);
             return this.Redirect("/");
         }
 

@@ -6,5 +6,6 @@ namespace Suls.Services
     {
         CreateViewModel CreateViewModel(string problemId);
 
+        void Create(string problemId, string userId, string code);
     }
 }

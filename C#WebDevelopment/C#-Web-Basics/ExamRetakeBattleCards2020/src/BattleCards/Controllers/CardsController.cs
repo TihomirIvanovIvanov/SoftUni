@@ -1,4 +1,5 @@
 ﻿using BattleCards.Services;
+using BattleCards.ViewModels.Cards;
 using SIS.HTTP;
 using SIS.MvcFramework;
 using System.Linq;
@@ -23,6 +24,58 @@ namespace BattleCards.Controllers
 
             var allCardsView = this.cardsService.GetAll().ToArray();
             return this.View(allCardsView);
+        }
+
+        public HttpResponse Add()
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public HttpResponse Add(AddCardInputModel input)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            if (input.Name.Length < 5 || input.Name.Length > 15)
+            {
+                return this.Add();
+            }
+
+            if (string.IsNullOrWhiteSpace(input.Image))
+            {
+                return this.Add();
+            }
+
+            if (string.IsNullOrWhiteSpace(input.Keyword))
+            {
+                return this.Add();
+            }
+
+            if (input.Attack <= 0)
+            {
+                return this.Add();
+            }
+
+            if (input.Health <= 0)
+            {
+                return this.Add();
+            }
+
+            if (input.Description.Length > 200)
+            {
+                return this.Add();
+            }
+
+            this.cardsService.Add(input);
+            return this.All();
         }
     }
 }

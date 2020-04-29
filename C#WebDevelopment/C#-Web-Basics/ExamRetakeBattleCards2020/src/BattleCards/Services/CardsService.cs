@@ -46,5 +46,23 @@ namespace BattleCards.Services
 
             return viewModel;
         }
+
+        public IQueryable<CardsCollectionViewModel> GetMyCardsCollection(string userId)
+        {
+            var viewModel = this.dbContext.UserCards
+                .Where(user => user.UserId == userId)
+                .Select(card => new CardsCollectionViewModel
+                {
+                    Id = card.Card.Id,
+                    Name = card.Card.Name,
+                    Description = card.Card.Description,
+                    Keyword = card.Card.Keyword,
+                    Attack = card.Card.Attack,
+                    Health = card.Card.Health,
+                    ImageUrl = card.Card.ImageUrl,
+                });
+
+            return viewModel;
+        }
     }
 }

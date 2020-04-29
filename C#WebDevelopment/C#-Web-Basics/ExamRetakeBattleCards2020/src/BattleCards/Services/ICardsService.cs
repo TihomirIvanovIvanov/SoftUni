@@ -8,5 +8,7 @@ namespace BattleCards.Services
         IQueryable<AllCardsViewModel> GetAll();
 
         void Add(AddCardInputModel input);
+
+        IQueryable<CardsCollectionViewModel> GetMyCardsCollection(string userId);
     }
 }

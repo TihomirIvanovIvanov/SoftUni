@@ -77,5 +77,16 @@ namespace BattleCards.Controllers
             this.cardsService.Add(input);
             return this.All();
         }
+
+        public HttpResponse Collection()
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            var myCollectionViewModel = this.cardsService.GetMyCardsCollection(this.User).ToArray();
+            return this.View(myCollectionViewModel);
+        }
     }
 }

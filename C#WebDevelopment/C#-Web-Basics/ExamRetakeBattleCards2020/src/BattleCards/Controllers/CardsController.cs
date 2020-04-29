@@ -88,5 +88,16 @@ namespace BattleCards.Controllers
             var myCollectionViewModel = this.cardsService.GetMyCardsCollection(this.User).ToArray();
             return this.View(myCollectionViewModel);
         }
+
+        public HttpResponse AddToCollection(int cardId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.cardsService.AddCardToCollection(cardId, this.User);
+            return this.All();
+        }
     }
 }

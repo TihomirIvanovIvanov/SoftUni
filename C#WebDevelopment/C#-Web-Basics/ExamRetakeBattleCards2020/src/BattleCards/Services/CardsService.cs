@@ -30,6 +30,23 @@ namespace BattleCards.Services
             this.dbContext.SaveChanges();
         }
 
+        public void AddCardToCollection(int cardId, string userId)
+        {
+            var userCard = new UserCard
+            {
+                UserId = userId,
+                CardId = cardId,
+            };
+
+            if (this.dbContext.UserCards.Any(uc => uc.UserId == userId && uc.CardId == cardId))
+            {
+                return;
+            }
+
+            this.dbContext.UserCards.Add(userCard);
+            this.dbContext.SaveChanges();
+        }
+
         public IQueryable<AllCardsViewModel> GetAll()
         {
             var viewModel = this.dbContext.Cards

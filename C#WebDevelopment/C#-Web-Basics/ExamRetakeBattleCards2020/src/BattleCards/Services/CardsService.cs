@@ -81,5 +81,14 @@ namespace BattleCards.Services
 
             return viewModel;
         }
+
+        public void RemoveCardById(int cardId, string userId)
+        {
+            var userCard = this.dbContext.UserCards
+                .FirstOrDefault(uc => uc.UserId == userId && uc.CardId == cardId);
+
+            this.dbContext.UserCards.Remove(userCard);
+            this.dbContext.SaveChanges();
+        }
     }
 }

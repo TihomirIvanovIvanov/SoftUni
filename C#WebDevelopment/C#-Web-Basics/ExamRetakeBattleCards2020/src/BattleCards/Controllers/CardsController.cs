@@ -99,5 +99,16 @@ namespace BattleCards.Controllers
             this.cardsService.AddCardToCollection(cardId, this.User);
             return this.All();
         }
+
+        public HttpResponse RemoveFromCollection(int cardId)
+        {
+            if (!this.IsUserLoggedIn())
+            {
+                return this.Redirect("/Users/Login");
+            }
+
+            this.cardsService.RemoveCardById(cardId, this.User);
+            return this.Collection();
+        }
     }
 }

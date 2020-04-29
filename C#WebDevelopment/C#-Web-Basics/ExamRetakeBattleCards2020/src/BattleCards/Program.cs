@@ -1,5 +1,6 @@
 ﻿using SIS.MvcFramework;
-using System;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BattleCards
@@ -8,6 +9,7 @@ namespace BattleCards
     {
         public static async Task Main()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
             await WebHost.StartAsync(new Startup());
         }
     }

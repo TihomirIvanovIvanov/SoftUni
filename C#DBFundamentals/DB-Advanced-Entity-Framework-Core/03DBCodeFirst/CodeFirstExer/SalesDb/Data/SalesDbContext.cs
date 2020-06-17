@@ -33,6 +33,13 @@ namespace SalesDb.Data
                 .HasMaxLength(50);
 
             modelBuilder.Entity<Product>()
+               .Property(p => p.Description)
+               .IsRequired()
+               .IsUnicode()
+               .HasMaxLength(250)
+               .HasDefaultValue("No description");
+
+            modelBuilder.Entity<Product>()
                 .Property(p => p.Quantity)
                 .IsRequired();
 

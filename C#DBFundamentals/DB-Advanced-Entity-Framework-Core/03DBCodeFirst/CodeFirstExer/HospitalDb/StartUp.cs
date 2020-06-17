@@ -1,4 +1,5 @@
 ﻿using HospitalDb.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalDb
 {
@@ -7,7 +8,7 @@ namespace HospitalDb
         public static void Main()
         {
             using var dbContext = new HospitalDbContext();
-            dbContext.Database.EnsureCreated();
+            dbContext.Database.Migrate();
         }
     }
 }

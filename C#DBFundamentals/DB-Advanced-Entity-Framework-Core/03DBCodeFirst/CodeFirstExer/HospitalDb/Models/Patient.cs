@@ -33,10 +33,10 @@ namespace HospitalDb.Models
 
         public bool HasInsurance { get; set; }
 
-        public ICollection<Diagnose> Diagnoses { get; set; }
-
-        public ICollection<Visitation> Visitations { get; set; }
-
-        public ICollection<PatientMedicament> Prescriptions { get; set; }
+        public virtual ICollection<Diagnose> Diagnoses { get; set; }
+               
+        public virtual ICollection<Visitation> Visitations { get; set; }
+               
+        public virtual ICollection<PatientMedicament> Prescriptions { get; set; }
     }
 }

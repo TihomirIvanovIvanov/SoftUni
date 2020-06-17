@@ -15,6 +15,8 @@ namespace HospitalDb.Data
 
         public DbSet<PatientMedicament> Prescriptions { get; set; }
 
+        public DbSet<Doctor> Doctors { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -57,6 +59,14 @@ namespace HospitalDb.Data
 
             modelBuilder.Entity<Medicament>()
                 .Property(p => p.Name)
+                .IsUnicode(true);
+
+            modelBuilder.Entity<Doctor>()
+                .Property(p => p.Name)
+                .IsUnicode(true);
+
+            modelBuilder.Entity<Doctor>()
+                .Property(p => p.Specialty)
                 .IsUnicode(true);
 
             modelBuilder.Entity<PatientMedicament>()

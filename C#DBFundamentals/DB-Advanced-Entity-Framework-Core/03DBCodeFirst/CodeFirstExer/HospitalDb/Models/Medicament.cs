@@ -17,6 +17,6 @@ namespace HospitalDb.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<PatientMedicament> Prescriptions { get; set; }
+        public virtual ICollection<PatientMedicament> Prescriptions { get; set; }
     }
 }

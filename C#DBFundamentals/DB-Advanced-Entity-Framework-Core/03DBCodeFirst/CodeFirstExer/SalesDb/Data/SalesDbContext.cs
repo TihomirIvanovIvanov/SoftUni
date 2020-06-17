@@ -62,6 +62,10 @@ namespace SalesDb.Data
                 .HasMaxLength(80);
 
             modelBuilder.Entity<Sale>()
+                .Property(s => s.Date)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Sale>()
                 .HasOne(s => s.Product)
                 .WithMany(p => p.Sales)
                 .HasForeignKey(s => s.ProductId);

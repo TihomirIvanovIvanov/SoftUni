@@ -12,11 +12,11 @@
     {
         public static void Main()
         {
-            var input = int.Parse(Console.ReadLine());
+            //var input = Console.ReadLine();
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(CountBooks(db, input));
+                Console.WriteLine(CountCopiesByAuthor(db));
             }
         }
 
@@ -165,6 +165,23 @@
                 .ToList();
 
             return booksCount.Count();
+        }
+
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            var copies = context.Authors
+                .Select(a => new
+                {
+                    Name = $"{a.FirstName} {a.LastName}",
+                    Copies = a.Books.Select(c => c.Copies).Sum()
+                })
+                .OrderByDescending(a => a.Copies)
+                .Select(a => $"{a.Name} - {a.Copies}")
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, copies);
+
+            return result.TrimEnd();
         }
     }
 }

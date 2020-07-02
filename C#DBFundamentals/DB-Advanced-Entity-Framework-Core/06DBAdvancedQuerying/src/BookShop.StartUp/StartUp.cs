@@ -15,7 +15,7 @@
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBooksReleasedBefore(db, input));
+                Console.WriteLine(GetAuthorNamesEndingIn(db, input));
             }
         }
 
@@ -112,6 +112,19 @@
                 .ToList();
 
             var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var authors = context.Authors
+                .Where(a => a.FirstName.ToLower().EndsWith(input.ToLower()))
+                .Select(a => $"{a.FirstName} {a.LastName}")
+                .OrderBy(a => a)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, authors);
 
             return result.TrimEnd();
         }

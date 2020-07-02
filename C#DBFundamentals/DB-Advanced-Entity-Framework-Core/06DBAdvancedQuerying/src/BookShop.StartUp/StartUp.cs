@@ -6,6 +6,7 @@
     using BookShop.Models.Enums;
     using System;
     using System.Linq;
+    using System.Text;
     using System.Text.RegularExpressions;
 
     public class StartUp
@@ -16,7 +17,7 @@
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetTotalProfitByCategory(db));
+                Console.WriteLine(GetMostRecentBooks(db));
             }
         }
 
@@ -200,6 +201,37 @@
             var result = String.Join(Environment.NewLine, profit);
 
             return result.TrimEnd();
+        }
+
+        public static string GetMostRecentBooks(BookShopContext context)
+        {
+            var categories = context.Categories
+                .OrderBy(c => c.Name)
+                .Select(c => new
+                {
+                    c.Name,
+                    Books = c.CategoryBooks.Select(b => b.Book)
+                    .OrderByDescending(b => b.ReleaseDate)
+                    .Take(3)
+                })
+                .ToList();
+
+            var builder = new StringBuilder();
+
+            foreach (var c in categories)
+            {
+                builder.AppendLine($"--{c.Name}");
+                foreach (var b in c.Books)
+                {
+                    var date = b.ReleaseDate == null ? 
+                               "N/A" : 
+                               b.ReleaseDate.Value.Year.ToString();
+
+                    builder.AppendLine($"{b.Title} ({date})");
+                }
+            }
+
+            return builder.ToString().TrimEnd();
         }
     }
 }

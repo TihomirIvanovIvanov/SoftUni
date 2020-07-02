@@ -11,11 +11,11 @@
     {
         public static void Main()
         {
-            var input = Console.ReadLine();
+            //var input = Console.ReadLine();
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBooksByAgeRestriction(db, input));
+                Console.WriteLine(GetBooksByPrice(db));
             }
         }
 
@@ -53,6 +53,19 @@
                 .Where(b => b.EditionType == EditionType.Gold && b.Copies < 5000)
                 .OrderBy(b => b.BookId)
                 .Select(b => b.Title)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetBooksByPrice(BookShopContext context)
+        {
+            var books = context.Books
+                .Where(b => b.Price > 40)
+                .OrderByDescending(b => b.Price)
+                .Select(b => $"{b.Title} - ${b.Price:F2}")
                 .ToList();
 
             var result = String.Join(Environment.NewLine, books);

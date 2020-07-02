@@ -6,6 +6,7 @@
     using BookShop.Models.Enums;
     using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class StartUp
     {
@@ -15,7 +16,7 @@
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBookTitlesContaining(db, input));
+                Console.WriteLine(GetBooksByAuthor(db, input));
             }
         }
 
@@ -135,6 +136,21 @@
                 .Where(b => b.Title.ToLower().Contains(input.ToLower()))
                 .Select(b => b.Title)
                 .OrderBy(b => b)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            var pattern = $"^{input}.*";
+
+            var books = context.Books
+                .Where(b => Regex.IsMatch(b.Author.LastName, pattern, RegexOptions.IgnoreCase))
+                .OrderBy(b => b.BookId)
+                .Select(b => $"{b.Title} ({b.Author.FirstName} {b.Author.LastName})")
                 .ToList();
 
             var result = String.Join(Environment.NewLine, books);

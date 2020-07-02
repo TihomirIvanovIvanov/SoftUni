@@ -3,6 +3,7 @@
     using BookShop.Data;
     using BookShop.Initializer;
     using BookShop.Models;
+    using BookShop.Models.Enums;
     using System;
     using System.Linq;
 
@@ -43,7 +44,20 @@
 
             var result = String.Join(Environment.NewLine, books);
 
-            return result;
+            return result.TrimEnd();
+        }
+
+        public static string GetGoldenBooks(BookShopContext context)
+        {
+            var books = context.Books
+                .Where(b => b.EditionType == EditionType.Gold && b.Copies < 5000)
+                .OrderBy(b => b.BookId)
+                .Select(b => b.Title)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
         }
     }
 }

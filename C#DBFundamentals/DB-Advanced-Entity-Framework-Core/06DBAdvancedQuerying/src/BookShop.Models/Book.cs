@@ -1,5 +1,6 @@
 ﻿namespace BookShop.Models
 {
+    using BookShop.Models.Enums;
     using System;
     using System.Collections.Generic;
 

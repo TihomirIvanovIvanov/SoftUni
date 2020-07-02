@@ -15,7 +15,7 @@
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBooksByCategory(db, input));
+                Console.WriteLine(GetBooksReleasedBefore(db, input));
             }
         }
 
@@ -94,6 +94,21 @@
                 .Where(b => b.BookCategories.Any(c => categories.Contains(c.Category.Name.ToLower())))
                 .Select(b => b.Title)
                 .OrderBy(b => b)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            var checkDate = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+
+            var books = context.Books
+                .Where(b => b.ReleaseDate < checkDate)
+                .OrderByDescending(b => b.ReleaseDate.Value)
+                .Select(b => $"{b.Title} - {b.EditionType} - ${b.Price:F2}")
                 .ToList();
 
             var result = String.Join(Environment.NewLine, books);

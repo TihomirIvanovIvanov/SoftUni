@@ -11,11 +11,11 @@
     {
         public static void Main()
         {
-            var input = int.Parse(Console.ReadLine());
+            var input = Console.ReadLine();
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBooksNotReleasedIn(db, input));
+                Console.WriteLine(GetBooksByCategory(db, input));
             }
         }
 
@@ -79,6 +79,21 @@
                 .OrderBy(b => b.BookId)
                 .Where(b => b.ReleaseDate.Value.Year != year)
                 .Select(b => b.Title)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            var categories = input.ToLower().Split(new[] { "\t", " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var books = context.Books
+                .Where(b => b.BookCategories.Any(c => categories.Contains(c.Category.Name.ToLower())))
+                .Select(b => b.Title)
+                .OrderBy(b => b)
                 .ToList();
 
             var result = String.Join(Environment.NewLine, books);

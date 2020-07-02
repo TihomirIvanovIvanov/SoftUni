@@ -17,7 +17,7 @@
 
             using (var db = new BookShopContext())
             {
-                IncreasePrices(db);
+                Console.WriteLine($"{RemoveBooks(db)} books were deleted");
             }
         }
 
@@ -242,6 +242,18 @@
                 .ForEach(b => b.Price += 5);
 
             context.SaveChanges();
+        }
+
+        public static int RemoveBooks(BookShopContext context)
+        {
+            var books = context.Books
+                .Where(b => b.Copies < 4200)
+                .ToList();
+
+            context.Books.RemoveRange(books);
+            context.SaveChanges();
+
+            return books.Count();
         }
     }
 }

@@ -12,11 +12,11 @@
     {
         public static void Main()
         {
-            var input = Console.ReadLine();
+            var input = int.Parse(Console.ReadLine());
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetBooksByAuthor(db, input));
+                Console.WriteLine(CountBooks(db, input));
             }
         }
 
@@ -156,6 +156,15 @@
             var result = String.Join(Environment.NewLine, books);
 
             return result.TrimEnd();
+        }
+
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            var booksCount = context.Books
+                .Where(b => b.Title.Count() > lengthCheck)
+                .ToList();
+
+            return booksCount.Count();
         }
     }
 }

@@ -15,7 +15,7 @@
 
             using (var db = new BookShopContext())
             {
-                Console.WriteLine(GetAuthorNamesEndingIn(db, input));
+                Console.WriteLine(GetBookTitlesContaining(db, input));
             }
         }
 
@@ -125,6 +125,19 @@
                 .ToList();
 
             var result = String.Join(Environment.NewLine, authors);
+
+            return result.TrimEnd();
+        }
+
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            var books = context.Books
+                .Where(b => b.Title.ToLower().Contains(input.ToLower()))
+                .Select(b => b.Title)
+                .OrderBy(b => b)
+                .ToList();
+
+            var result = String.Join(Environment.NewLine, books);
 
             return result.TrimEnd();
         }

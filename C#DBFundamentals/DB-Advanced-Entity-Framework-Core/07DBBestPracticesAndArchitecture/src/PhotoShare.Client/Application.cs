@@ -32,6 +32,9 @@
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
             serviceCollection.AddTransient<IDatabaseInitializerService, DatabaseInitializerService>();
+            serviceCollection.AddTransient<IUsersService, UsersService>();
+
+            serviceCollection.AddSingleton<IUsersSessionService, UsersSessionService>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

@@ -1,40 +1,39 @@
 ﻿namespace PhotoShare.Client.Core.Commands
 {
+    using PhotoShare.Services;
     using System;
-
-    using Models;
-    using Data;
 
     public class RegisterUserCommand : ICommand
     {
+        private readonly IUsersService usersService;
+
+        private readonly IUsersSessionService usersSessionService;
+
+        public RegisterUserCommand(IUsersService usersService, IUsersSessionService usersSessionService)
+        {
+            this.usersService = usersService;
+            this.usersSessionService = usersSessionService;
+        }
+
         // RegisterUser <username> <password> <repeat-password> <email>
         public string Execute(string command, string[] data)
         {
-            string username = data[0];
-            string password = data[1];
-            string repeatPassword = data[2];
-            string email = data[3];
-
-            if (password == repeatPassword)
+            if (data.Length != 4)
             {
-                throw new ArgumentException("Passwords do not match!");
+                throw new InvalidOperationException($"Command {command} is not valid!");
             }
 
-            User user = new User
+            if (this.usersSessionService.IsLoggedIn())
             {
-                Username = username,
-                Password = password,
-                Email = email,
-                IsDeleted = false,
-                RegisteredOn = DateTime.Now,
-                LastTimeLoggedIn = DateTime.Now
-            };
-
-            using (PhotoShareContext context = new PhotoShareContext())
-            {
-                context.Users.Add(user);
-                context.SaveChanges();
+                throw new ArgumentNullException("You should logged out first!");
             }
+
+            var username = data[0];
+            var password = data[1];
+            var confirmPassword = data[2];
+            var email = data[3];
+
+            var user = this.usersService.Create(username, password, confirmPassword, email);
 
             return "User " + user.Username + " was registered successfully!";
         }

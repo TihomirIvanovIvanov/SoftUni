@@ -9,5 +9,7 @@
         User ByUsername(string username);
 
         User ModifyUser(string username, string property, string newValue);
+
+        void Delete(string username);
     }
 }

@@ -58,6 +58,25 @@
             return user;
         }
 
+        public void Delete(string username)
+        {
+            var user = this.ByUsername(username);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User {username} not found!");
+            }
+
+            if ((bool)user.IsDeleted)
+            {
+                throw new InvalidOperationException($"User {user.Username} is already deleted!");
+            }
+
+            user.IsDeleted = true;
+
+            this.context.SaveChanges();
+        }
+
         public User ModifyUser(string username, string property, string newValue)
         {
             var user = this.ByUsername(this.usersSessionService.User.Username);

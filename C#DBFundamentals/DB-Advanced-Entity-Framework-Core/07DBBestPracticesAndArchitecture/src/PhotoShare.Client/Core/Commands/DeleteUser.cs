@@ -4,26 +4,38 @@
     using System.Linq;
 
     using Data;
+    using PhotoShare.Services;
 
     public class DeleteUser : ICommand
     {
+        private readonly IUsersSessionService usersSessionService;
+
+        private readonly IUsersService usersService;
+
+        public DeleteUser(IUsersSessionService usersSessionService, IUsersService usersService)
+        {
+            this.usersSessionService = usersSessionService;
+            this.usersService = usersService;
+        }
+
         // DeleteUser <username>
         public string Execute(string command, string[] data)
         {
-            string username = data[1];
-            using (PhotoShareContext context = new PhotoShareContext())
+            if (data.Length != 1)
             {
-                var user = context.Users.FirstOrDefault(u => u.Username == username);
-                if (user == null)
-                {
-                    throw new InvalidOperationException($"User with {username} was not found!");
-                }
-
-                // TODO: Delete User by username (only mark him as inactive)
-                context.SaveChanges();
-
-                return $"User {username} was deleted from the database!";
+                throw new InvalidOperationException($"Command {command} not valid!");
             }
+
+            if (!this.usersSessionService.IsLoggedIn() || this.usersSessionService.User.Username != data[0])
+            {
+                throw new InvalidOperationException("Invalid credentials!");
+            }
+
+            var username = data[0];
+
+            this.usersService.Delete(username);
+
+            return $"User {username} was deleted successfully!";
         }
     }
 }

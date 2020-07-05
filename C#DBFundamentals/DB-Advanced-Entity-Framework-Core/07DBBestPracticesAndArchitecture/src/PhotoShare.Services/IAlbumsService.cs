@@ -5,5 +5,11 @@
     public interface IAlbumsService
     {
         Tag CreateTag(string name);
+
+        Album CreateAlbum(string username, string albumTitle, string color, string[] tags);
+
+        Tag TagByName(string name);
+
+        Album AlbumByName(string name);
     }
 }

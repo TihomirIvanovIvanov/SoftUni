@@ -2,10 +2,10 @@
 {
     using System;
 
-    public class CreateAlbumCommand
+    public class CreateAlbumCommand : ICommand
     {
         // CreateAlbum <username> <albumTitle> <BgColor> <tag1> <tag2>...<tagN>
-        public string Execute()
+        public string Execute(string command, string[] data)
         {
             throw new NotImplementedException();
         }

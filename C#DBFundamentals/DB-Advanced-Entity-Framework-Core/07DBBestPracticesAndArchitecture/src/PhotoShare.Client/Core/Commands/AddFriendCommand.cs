@@ -2,10 +2,10 @@
 {
     using System;
 
-    public class AddFriendCommand
+    public class AddFriendCommand : ICommand
     {
         // AddFriend <username1> <username2>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             throw new NotImplementedException();
         }

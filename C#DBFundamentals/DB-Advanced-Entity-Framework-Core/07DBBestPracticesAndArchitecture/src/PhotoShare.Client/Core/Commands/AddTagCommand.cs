@@ -4,10 +4,10 @@
     using Data;
     using Utilities;
 
-    public class AddTagCommand
+    public class AddTagCommand : ICommand
     {
         // AddTag <tag>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             string tag = data[1].ValidateOrTransform();
 

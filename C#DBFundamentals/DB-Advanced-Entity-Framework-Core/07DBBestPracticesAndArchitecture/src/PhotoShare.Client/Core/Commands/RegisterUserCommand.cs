@@ -5,10 +5,10 @@
     using Models;
     using Data;
 
-    public class RegisterUserCommand
+    public class RegisterUserCommand : ICommand
     {
         // RegisterUser <username> <password> <repeat-password> <email>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             string username = data[0];
             string password = data[1];

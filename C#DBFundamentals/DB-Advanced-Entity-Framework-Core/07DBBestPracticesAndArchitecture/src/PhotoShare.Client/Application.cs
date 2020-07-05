@@ -2,26 +2,40 @@
 {
     using Core;
     using Data;
-    using Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using PhotoShare.Services;
+    using System;
+    using System.IO;
 
     public class Application
     {
         public static void Main()
         {
-            ResetDatabase();
+            var serviceProvider = ConfigureServices();
 
-            CommandDispatcher commandDispatcher = new CommandDispatcher();
-            Engine engine = new Engine(commandDispatcher);
+            Engine engine = new Engine(serviceProvider);
             engine.Run();
         }
 
-        private static void ResetDatabase()
+        private static IServiceProvider ConfigureServices()
         {
-            using (var db = new PhotoShareContext())
-            {
-                db.Database.EnsureDeleted();
-                db.Database.EnsureCreated();
-            }
+            var serviceCollection = new ServiceCollection();
+
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("application.json")
+                .Build();
+
+            serviceCollection.AddDbContext<PhotoShareContext>(options =>
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+            serviceCollection.AddTransient<IDatabaseInitializerService, DatabaseInitializerService>();
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            return serviceProvider;
         }
     }
 }

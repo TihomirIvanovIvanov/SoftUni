@@ -2,10 +2,10 @@
 {
     using System;
 
-    public class PrintFriendsListCommand 
+    public class PrintFriendsListCommand : ICommand
     {
         // PrintFriendsList <username>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             // TODO prints all friends of user with given username.
             throw new NotImplementedException();

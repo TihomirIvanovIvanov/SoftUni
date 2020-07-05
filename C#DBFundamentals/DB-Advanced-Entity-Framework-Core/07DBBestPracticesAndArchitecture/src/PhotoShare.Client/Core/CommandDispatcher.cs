@@ -1,12 +1,56 @@
 ﻿namespace PhotoShare.Client.Core
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Windows.Input;
 
     public class CommandDispatcher
     {
-        public string DispatchCommand(string[] commandParameters)
+        private readonly IServiceProvider serviceProvider;
+
+        public CommandDispatcher(IServiceProvider serviceProvider)
         {
-            throw new NotImplementedException();
+            this.serviceProvider = serviceProvider;
+        }
+
+        public ICommand ParseCommand(string commandName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var commandTypes = assembly.GetTypes()
+                .Where(t => t.GetInterfaces().Contains(typeof(ICommand)))
+                .ToArray();
+
+            var commandType = commandTypes
+                .SingleOrDefault(t => t.Name == $"{commandName}Command");
+
+            if (commandType == null)
+            {
+                throw new InvalidOperationException("Invalid Command!");
+            }
+
+            var command = InjectServices(commandType);
+
+            return command;
+        }
+
+        private ICommand InjectServices(Type type)
+        {
+            var constructor = type.GetConstructors().First();
+
+            var constructorParameters = constructor
+                .GetParameters()
+                .Select(pi => pi.ParameterType)
+                .ToArray();
+
+            var services = constructorParameters
+                .Select(this.serviceProvider.GetService)
+                .ToArray();
+
+            var command = (ICommand)constructor.Invoke(services);
+
+            return command;
         }
     }
 }

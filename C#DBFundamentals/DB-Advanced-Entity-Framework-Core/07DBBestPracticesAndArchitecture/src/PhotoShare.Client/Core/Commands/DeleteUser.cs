@@ -5,10 +5,10 @@
 
     using Data;
 
-    public class DeleteUser
+    public class DeleteUser : ICommand
     {
         // DeleteUser <username>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             string username = data[1];
             using (PhotoShareContext context = new PhotoShareContext())

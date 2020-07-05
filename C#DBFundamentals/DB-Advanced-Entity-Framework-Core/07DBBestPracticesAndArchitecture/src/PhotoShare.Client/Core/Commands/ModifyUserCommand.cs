@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ModifyUserCommand
+    public class ModifyUserCommand : ICommand
     {
         // ModifyUser <username> <property> <new value>
         // For example:
@@ -10,7 +10,7 @@
         // ModifyUser <username> BornTown <newBornTownName>
         // ModifyUser <username> CurrentTown <newCurrentTownName>
         // !!! Cannot change username
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             throw new NotImplementedException();
         }

@@ -3,10 +3,10 @@
     using Models;
     using Data;
 
-    public class AddTownCommand
+    public class AddTownCommand : ICommand
     {
         // AddTown <townName> <countryName>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             string townName = data[1];
             string country = data[0];

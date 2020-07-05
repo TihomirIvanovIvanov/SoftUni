@@ -2,12 +2,13 @@
 {
     using System;
 
-    public class ExitCommand
+    public class ExitCommand : ICommand
     {
-        public string Execute()
+        public string Execute(string command, string[] data)
         {
+            Console.WriteLine("Bye-bye!");
             Environment.Exit(0);
-            return "Bye-bye!";
+            return string.Empty;
         }
     }
 }

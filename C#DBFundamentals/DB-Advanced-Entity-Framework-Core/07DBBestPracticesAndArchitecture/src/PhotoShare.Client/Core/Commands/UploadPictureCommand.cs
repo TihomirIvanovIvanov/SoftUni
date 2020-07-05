@@ -2,10 +2,10 @@
 {
     using System;
 
-    public class UploadPictureCommand
+    public class UploadPictureCommand : ICommand
     {
         // UploadPicture <albumName> <pictureTitle> <pictureFilePath>
-        public string Execute(string[] data)
+        public string Execute(string command, string[] data)
         {
             throw new NotImplementedException();
         }

@@ -34,6 +34,7 @@
             serviceCollection.AddTransient<IDatabaseInitializerService, DatabaseInitializerService>();
             serviceCollection.AddTransient<IUsersService, UsersService>();
             serviceCollection.AddTransient<ITownsService, TownsService>();
+            serviceCollection.AddTransient<IAlbumsService, AlbumsService>();
 
             serviceCollection.AddSingleton<IUsersSessionService, UsersSessionService>();
 

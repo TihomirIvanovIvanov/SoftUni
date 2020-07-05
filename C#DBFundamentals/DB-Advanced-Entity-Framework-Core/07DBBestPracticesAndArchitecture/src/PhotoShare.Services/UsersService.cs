@@ -9,9 +9,15 @@
     {
         private readonly PhotoShareContext context;
 
-        public UsersService(PhotoShareContext context)
+        private readonly IUsersSessionService usersSessionService;
+
+        private readonly ITownsService townsService;
+
+        public UsersService(PhotoShareContext context, IUsersSessionService usersSessionService, ITownsService townsService)
         {
             this.context = context;
+            this.usersSessionService = usersSessionService;
+            this.townsService = townsService;
         }
 
         public User ByUsername(string username)
@@ -47,6 +53,57 @@
             };
 
             this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            return user;
+        }
+
+        public User ModifyUser(string username, string property, string newValue)
+        {
+            var user = this.ByUsername(this.usersSessionService.User.Username);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User {username} not found!");
+            }
+
+            switch (property)
+            {
+                case "Password":
+
+                    if (!(newValue.Any(ch => Char.IsLower(ch)) && newValue.Any(ch => Char.IsDigit(ch))))
+                    {
+                        throw new ArgumentException($"Value {newValue} not valid. Invalid Password!");
+                    }
+
+                    user.Password = newValue;
+                    break;
+
+                case "BornTown":
+
+                    var town = this.townsService.ByName(newValue);
+
+                    if (town == null)
+                    {
+                        throw new ArgumentException($"Value {newValue} not valid. Town {newValue} not found!");
+                    }
+
+                    user.BornTown = town;
+                    break;
+
+                case "CurrentTown":
+
+                    town = this.townsService.ByName(newValue);
+
+                    if (town == null)
+                    {
+                        throw new ArgumentException($"Value {newValue} not valid. Town {newValue} not found!");
+                    }
+
+                    user.CurrentTown = town;
+                    break;
+            }
+
             this.context.SaveChanges();
 
             return user;

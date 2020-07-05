@@ -33,6 +33,7 @@
 
             serviceCollection.AddTransient<IDatabaseInitializerService, DatabaseInitializerService>();
             serviceCollection.AddTransient<IUsersService, UsersService>();
+            serviceCollection.AddTransient<ITownsService, TownsService>();
 
             serviceCollection.AddSingleton<IUsersSessionService, UsersSessionService>();
 

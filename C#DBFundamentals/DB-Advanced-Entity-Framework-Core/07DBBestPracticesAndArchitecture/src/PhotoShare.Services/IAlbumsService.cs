@@ -11,5 +11,7 @@
         Tag TagByName(string name);
 
         Album AlbumByName(string name);
+
+        void AddTagToAlbum(string albumName, string tagName);
     }
 }

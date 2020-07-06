@@ -35,6 +35,7 @@
             serviceCollection.AddTransient<IUsersService, UsersService>();
             serviceCollection.AddTransient<ITownsService, TownsService>();
             serviceCollection.AddTransient<IAlbumsService, AlbumsService>();
+            serviceCollection.AddTransient<IFriendshipService, FriendshipService>();
 
             serviceCollection.AddSingleton<IUsersSessionService, UsersSessionService>();
 

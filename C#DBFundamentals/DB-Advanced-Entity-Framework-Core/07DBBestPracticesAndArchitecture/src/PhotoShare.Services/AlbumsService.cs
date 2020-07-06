@@ -115,6 +115,44 @@ namespace PhotoShare.Services
             return tag;
         }
 
+        public string ShareAlbum(int albumId, string username, string permission)
+        {
+            var album = this.context.Albums
+                .FirstOrDefault(a => a.Id == albumId);
+
+            if (album == null)
+            {
+                throw new ArgumentException($"Album {albumId} not found!");
+            }
+
+            var isAlbumOwner = this.context.AlbumRoles
+                .Any(ar => ar.Album == album && ar.Role == Role.Owner && ar.User == this.usersSessionService.User);
+
+            if (!isAlbumOwner)
+            {
+                throw new InvalidOperationException("Invalid credentials!");
+            }
+
+            var user = this.usersService.ByUsername(username);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User {username} not found!");
+            }
+
+            if (!Enum.TryParse(typeof(Role), permission, out object roleObj))
+            {
+                throw new ArgumentException("Permission must be either “Owner” or “Viewer”!");
+            }
+
+            var role = (Role)roleObj;
+
+            this.context.AlbumRoles.Add(new AlbumRole { Album = album, Role = role });
+            this.context.SaveChanges();
+
+            return album.Name;
+        }
+
         public Tag TagByName(string name)
         {
             var tag = this.context.Tags

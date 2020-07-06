@@ -13,5 +13,7 @@
         Album AlbumByName(string name);
 
         void AddTagToAlbum(string albumName, string tagName);
+
+        string ShareAlbum(int albumId, string username, string permission);
     }
 }

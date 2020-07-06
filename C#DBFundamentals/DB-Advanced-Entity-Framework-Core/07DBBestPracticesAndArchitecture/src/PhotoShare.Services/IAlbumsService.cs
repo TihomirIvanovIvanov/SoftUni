@@ -15,5 +15,7 @@
         void AddTagToAlbum(string albumName, string tagName);
 
         string ShareAlbum(int albumId, string username, string permission);
+
+        void AddPicture(string albumName, string pictureTitle, string picturePath);
     }
 }

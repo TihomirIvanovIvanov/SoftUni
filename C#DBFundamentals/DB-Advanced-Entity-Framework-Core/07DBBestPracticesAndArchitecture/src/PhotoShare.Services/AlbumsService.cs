@@ -20,6 +20,28 @@ namespace PhotoShare.Services
             this.usersSessionService = usersSessionService;
         }
 
+        public void AddTagToAlbum(string albumName, string tagName)
+        {
+            var tag = this.TagByName(tagName);
+            var album = this.AlbumByName(albumName);
+
+            if (tag == null || album == null)
+            {
+                throw new ArgumentException("Either tag or album do not exist!");
+            }
+
+            var albumOwner = this.context.Users
+                .FirstOrDefault(a => a.AlbumRoles.Any(ar => ar.Album == album && ar.Role == Role.Owner));
+
+            if (albumOwner != this.usersSessionService.User)
+            {
+                throw new InvalidOperationException("Invalid credentials!");
+            }
+
+            this.context.AlbumTags.Add(new AlbumTag { Album = album, Tag = tag });
+            this.context.SaveChanges();
+        }
+
         public Album AlbumByName(string name)
         {
             var album = this.context.Albums

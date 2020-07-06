@@ -1,6 +1,7 @@
 ﻿using PhotoShare.Data;
 using PhotoShare.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PhotoShare.Services
@@ -92,6 +93,28 @@ namespace PhotoShare.Services
 
             this.context.Friendships.Add(new Friendship { User = user, Friend = friend });
             this.context.SaveChanges();
+        }
+
+        public List<string> ListFriends(string username)
+        {
+            var user = this.usersService.ByUsername(username);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"User {username} not found!");
+            }
+
+            var addedFriends = this.context.Friendships
+                .Where(f => f.User == user)
+                .Select(f => f.Friend.Username)
+                .ToList();
+
+            var acceptedFriends = this.context.Friendships
+                .Where(f => f.Friend == user)
+                .Select(f => f.User.Username)
+                .ToList();
+
+            return addedFriends.Intersect(acceptedFriends).ToList();
         }
     }
 }

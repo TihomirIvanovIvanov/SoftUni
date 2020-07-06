@@ -7,5 +7,7 @@
         void AddFriend(string userUsername, string friendUsername);
 
         void AcceptFriend(string userUsername, string friendUsername);
+
+        List<string> ListFriends(string username);
     }
 }

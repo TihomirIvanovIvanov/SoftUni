@@ -5,13 +5,13 @@
 
     public class AddFriendCommand : ICommand
     {
-        private IUsersSessionService userSessionService;
+        private readonly IUsersSessionService usersSessionService;
 
-        private IFriendshipService friendshipService;
+        private readonly IFriendshipService friendshipService;
 
-        public AddFriendCommand(IUsersSessionService userSessionService, IFriendshipService friendshipService)
+        public AddFriendCommand(IUsersSessionService usersSessionService, IFriendshipService friendshipService)
         {
-            this.userSessionService = userSessionService;
+            this.usersSessionService = usersSessionService;
             this.friendshipService = friendshipService;
         }
 
@@ -23,7 +23,7 @@
                 throw new InvalidOperationException($"Command {command} not valid!");
             }
 
-            if (!this.userSessionService.IsLoggedIn() || this.userSessionService.User.Username != data[0])
+            if (!this.usersSessionService.IsLoggedIn() || this.usersSessionService.User.Username != data[0])
             {
                 throw new InvalidOperationException("Invalid credentials!");
             }

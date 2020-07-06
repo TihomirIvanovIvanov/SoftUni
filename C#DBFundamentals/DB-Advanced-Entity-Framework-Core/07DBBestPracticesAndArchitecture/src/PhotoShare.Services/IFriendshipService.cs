@@ -5,5 +5,7 @@
     public interface IFriendshipService
     {
         void AddFriend(string userUsername, string friendUsername);
+
+        void AcceptFriend(string userUsername, string friendUsername);
     }
 }

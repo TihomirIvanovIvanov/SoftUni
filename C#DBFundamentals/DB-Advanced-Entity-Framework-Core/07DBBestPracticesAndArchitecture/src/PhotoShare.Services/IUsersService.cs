@@ -13,5 +13,7 @@
         void Delete(string username);
 
         User Login(string username, string password);
+
+        string Logout();
     }
 }

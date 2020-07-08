@@ -93,6 +93,14 @@
             return user;
         }
 
+        public string Logout()
+        {
+            var username = this.usersSessionService.User.Username;
+            this.usersSessionService.User = null;
+
+            return username;
+        }
+
         public User ModifyUser(string username, string property, string newValue)
         {
             var user = this.ByUsername(this.usersSessionService.User.Username);

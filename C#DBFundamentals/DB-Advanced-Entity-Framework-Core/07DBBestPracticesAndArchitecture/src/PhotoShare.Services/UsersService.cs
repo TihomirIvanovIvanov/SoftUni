@@ -77,6 +77,22 @@
             this.context.SaveChanges();
         }
 
+        public User Login(string username, string password)
+        {
+            var user = this.ByUsername(username);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid username or password!");
+            }
+
+            this.usersSessionService.User = user;
+            user.LastTimeLoggedIn = DateTime.UtcNow;
+
+            this.context.SaveChanges();
+            return user;
+        }
+
         public User ModifyUser(string username, string property, string newValue)
         {
             var user = this.ByUsername(this.usersSessionService.User.Username);

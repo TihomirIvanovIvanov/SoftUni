@@ -3,11 +3,9 @@
     using Core;
     using Data;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using PhotoShare.Services;
     using System;
-    using System.IO;
 
     public class Application
     {
@@ -23,13 +21,8 @@
         {
             var serviceCollection = new ServiceCollection();
 
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("application.json")
-                .Build();
-
             serviceCollection.AddDbContext<PhotoShareContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer("Server=.;Database=PhotoShare;Trusted_Connection=True"));
 
             serviceCollection.AddTransient<IDatabaseInitializerService, DatabaseInitializerService>();
             serviceCollection.AddTransient<IUsersService, UsersService>();

@@ -24,16 +24,19 @@ namespace ProductsShop.Client
             var users = ImportUsersJson();
             context.Users.AddRange(users);
 
-            //var categories = ImportCategoriesJson();
-            //context.Categories.AddRange(categories);
-
-            //var products = ImportProductsJson(context);
-            //context.Products.AddRange(products);
-
-            //var categoryProducts = CreateCategoryProducts(context);
-            //context.CategoryProducts.AddRange(categoryProducts);
+            var categories = ImportCategoriesJson();
+            context.Categories.AddRange(categories);
 
             context.SaveChanges();
+        }
+
+        private static Category[] ImportCategoriesJson()
+        {
+            var json = File.ReadAllText(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Import\categories.json");
+
+            var categories = JsonConvert.DeserializeObject<Category[]>(json);
+
+            return categories;
         }
 
         private static User[] ImportUsersJson()

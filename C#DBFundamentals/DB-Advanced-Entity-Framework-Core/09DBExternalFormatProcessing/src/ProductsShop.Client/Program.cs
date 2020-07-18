@@ -27,7 +27,32 @@ namespace ProductsShop.Client
             var categories = ImportCategoriesJson();
             context.Categories.AddRange(categories);
 
+            var products = ImportProductsJson(context);
+            context.Products.AddRange(products);
+
             context.SaveChanges();
+        }
+
+        private static Product[] ImportProductsJson(ProductsShopContext context)
+        {
+            var json = File.ReadAllText(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Import\products.json");
+
+            var products = JsonConvert.DeserializeObject<Product[]>(json);
+
+            var users = context.Users.ToArray();
+
+            var random = new Random();
+
+            foreach (var product in products)
+            {
+                var seller = users[random.Next(0, users.Length)];
+                product.Seller = seller;
+
+                var bayerId = random.Next(0, users.Length + (int)(users.Length * 0.3));
+                product.Buyer = bayerId < users.Length ? users[bayerId] : null;
+            }
+
+            return products;
         }
 
         private static Category[] ImportCategoriesJson()

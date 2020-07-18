@@ -30,7 +30,35 @@ namespace ProductsShop.Client
             var products = ImportProductsJson(context);
             context.Products.AddRange(products);
 
+            var categoryProducts = CreateCategoryProducts(context);
+            context.CategoryProducts.AddRange(categoryProducts);
+
             context.SaveChanges();
+        }
+
+        private static CategoryProduct[] CreateCategoryProducts(ProductsShopContext context)
+        {
+            var categoryProducts = new List<CategoryProduct>();
+            var product = context.Products.ToArray();
+            var categories = context.Categories.ToArray();
+            var random = new Random();
+
+            for (int i = 0; i < product.Length; i++)
+            {
+                var categoriesCount = random.Next(1, 4);
+                var currentCategories = new HashSet<Category>();
+
+                for (int j = 1; j <= categoriesCount; j++)
+                {
+                    var category = categories[random.Next(0, categories.Length)];
+                    currentCategories.Add(category);
+                }
+
+                currentCategories.ToList()
+                    .ForEach(c => categoryProducts.Add(new CategoryProduct { Category = c, Product = product[i] }));
+            }
+
+            return categoryProducts.ToArray();
         }
 
         private static Product[] ImportProductsJson(ProductsShopContext context)

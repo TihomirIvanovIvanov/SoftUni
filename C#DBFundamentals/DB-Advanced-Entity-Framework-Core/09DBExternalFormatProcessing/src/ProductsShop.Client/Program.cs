@@ -15,9 +15,42 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                var productsInRange = GetProductsInRange(context);
-                Console.WriteLine(productsInRange);
+                Console.WriteLine(SuccessfullySoldProducts(context));
             }
+        }
+
+        private static string SuccessfullySoldProducts(ProductsShopContext context)
+        {
+            var users = context.Users
+                .Where(u => u.SellingProducts.Any(p => p.Buyer != null))
+                .OrderBy(u => u.LastName)
+                .ThenBy(u => u.FirstName)
+                .Select(u => new
+                {
+                    firstName = u.FirstName,
+                    lastName = u.LastName,
+                    soldProducts = u.SellingProducts
+                        .Where(sp => sp.Buyer != null)
+                        .Select(sp => new
+                        {
+                            name = sp.Name,
+                            price = sp.Price,
+                            buyerFirstName = sp.Buyer.FirstName,
+                            buyerLastName = sp.Buyer.LastName,
+                        }).ToList()
+                })
+                .ToList();
+
+            var json = JsonConvert.SerializeObject(users, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            File.WriteAllText(
+                @"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\SuccessfullySoldProducts.json", json);
+
+            return json;
         }
 
         private static string GetProductsInRange(ProductsShopContext context)
@@ -33,7 +66,9 @@ namespace ProductsShop.Client
                 }).ToList();
 
             var json = JsonConvert.SerializeObject(products, Formatting.Indented);
+
             File.WriteAllText(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\GetProductsInRange.json", json);
+
             return json;
         }
 

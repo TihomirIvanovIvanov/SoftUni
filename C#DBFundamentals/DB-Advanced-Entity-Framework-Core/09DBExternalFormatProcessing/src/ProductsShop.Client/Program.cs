@@ -15,8 +15,26 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                SeedJson(context);
+                var productsInRange = GetProductsInRange(context);
+                Console.WriteLine(productsInRange);
             }
+        }
+
+        private static string GetProductsInRange(ProductsShopContext context)
+        {
+            var products = context.Products
+                .Where(p => p.Price >= 500 && p.Price <= 1000)
+                .OrderBy(p => p.Price)
+                .Select(p => new
+                {
+                    name = p.Name,
+                    price = p.Price,
+                    seller = $"{p.Seller.FirstName} {p.Seller.LastName}",
+                }).ToList();
+
+            var json = JsonConvert.SerializeObject(products, Formatting.Indented);
+            File.WriteAllText(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\GetProductsInRange.json", json);
+            return json;
         }
 
         private static void SeedJson(ProductsShopContext context)
@@ -27,8 +45,8 @@ namespace ProductsShop.Client
             var categories = ImportCategoriesJson();
             context.Categories.AddRange(categories);
 
-            var products = ImportProductsJson(context);
-            context.Products.AddRange(products);
+            //var products = ImportProductsJson(context);
+            //context.Products.AddRange(products);
 
             var categoryProducts = CreateCategoryProducts(context);
             context.CategoryProducts.AddRange(categoryProducts);

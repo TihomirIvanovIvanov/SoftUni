@@ -15,8 +15,44 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                Console.WriteLine(CategoriesByProductsCount(context));
+                Console.WriteLine(UsersAndProducts(context));
             }
+        }
+
+        private static string UsersAndProducts(ProductsShopContext context)
+        {
+            var users = context.Users
+                .Where(u => u.SellingProducts.Count > 0)
+                .Select(u => new
+                {
+                    usersCount = u.SellingProducts.Count,
+                    users = new
+                    {
+                        firstName = u.FirstName,
+                        lastName = u.LastName,
+                        age = u.Age,
+                        soldProducts = new
+                        {
+                            count = u.SellingProducts.Count,
+                            products = u.SellingProducts
+                            .Select(sp => new
+                            {
+                                name = sp.Name,
+                                price = sp.Price
+                            })
+                            .ToList()
+                        }
+                    }
+                })
+                .OrderByDescending(o => o.users.soldProducts.count)
+                .ThenBy(o => o.users.lastName)
+                .ToList();
+
+            var json = JsonConvert.SerializeObject(users, Formatting.Indented);
+
+            File.WriteAllText(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\UsersAndProducts.json", json);
+
+            return json;
         }
 
         private static string CategoriesByProductsCount(ProductsShopContext context)

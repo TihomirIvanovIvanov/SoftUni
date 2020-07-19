@@ -15,14 +15,52 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                Console.WriteLine(UsersAndProducts(context));
+                SeedXml(context);
             }
+        }
+
+        private static void SeedXml(ProductsShopContext context)
+        {
+            var users = ImportUsersXml();
+            context.Users.AddRange(users);
+
+            context.SaveChanges();
+        }
+
+        private static List<User> ImportUsersXml()
+        {
+            var xDoc = XDocument.Load(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Import\users.xml");
+
+            var elements = xDoc.Root.Elements();
+
+            var users = new List<User>();
+
+            foreach (var user in elements)
+            {
+                var firstName = user.Attribute("firstName")?.Value;
+                var lastName = user.Attribute("lastName")?.Value;
+
+                int? age = null;
+                if (user.Attribute("age") != null)
+                {
+                    age = int.Parse(user.Attribute("age").Value);
+                }
+
+                users.Add(new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Age = age,
+                });
+            }
+
+            return users;
         }
 
         private static string UsersAndProducts(ProductsShopContext context)
         {
             var users = context.Users
-                .Where(u => u.SellingProducts.Count > 0)
+                .Where(u => u.SellingProducts != null)
                 .Select(u => new
                 {
                     usersCount = u.SellingProducts.Count,

@@ -7,7 +7,7 @@ namespace FastFood.App
 {
     public class Startup
 	{
-		public static void Main(string[] args)
+		public static void Main()
 		{
 			var context = new FastFoodDbContext();
 

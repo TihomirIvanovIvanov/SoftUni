@@ -24,7 +24,44 @@ namespace ProductsShop.Client
             var users = ImportUsersXml();
             context.Users.AddRange(users);
 
+            var products = ImportProductsXml(context);
+            context.Products.AddRange(products);
+
             context.SaveChanges();
+        }
+
+        private static List<Product> ImportProductsXml(ProductsShopContext context)
+        {
+            var xDoc = XDocument.Load(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Import\products.xml");
+
+            var elements = xDoc.Root.Elements();
+
+            var products = new List<Product>();
+            var users = context.Users.ToList();
+
+            var random = new Random();
+
+            foreach (var element in elements)
+            {
+                var name = element.Element("name").Value;
+                var price = decimal.Parse(element.Element("price").Value);
+
+                var product = new Product
+                {
+                    Name = name,
+                    Price = price,
+                };
+
+                var seller = users[random.Next(0, users.Count)];
+                product.Seller = seller;
+
+                var bayerId = random.Next(0, users.Count + (int)(users.Count * 0.3));
+                product.Buyer = bayerId < users.Count ? users[bayerId] : null;
+
+                products.Add(product);
+            }
+
+            return products;
         }
 
         private static List<User> ImportUsersXml()

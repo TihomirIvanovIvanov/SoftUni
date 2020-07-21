@@ -15,8 +15,35 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                SeedXml(context);
+                ProductsInRangeXml(context);
             }
+        }
+
+        private static void ProductsInRangeXml(ProductsShopContext context)
+        {
+            var products = context.Products
+                .Where(p => p.Price >= 1000 && p.Price <= 2000 && p.Buyer != null)
+                .OrderBy(p => p.Price)
+                .Select(p => new
+                {
+                    name = p.Name,
+                    price = p.Price,
+                    bayer = $"{p.Buyer.FirstName} {p.Buyer.LastName}",
+                }).ToList();
+
+            var xDoc = new XDocument();
+            xDoc.Add(new XElement("products"));
+
+            foreach (var product in products)
+            {
+                xDoc.Element("products")
+                    .Add(new XElement("product",
+                         new XAttribute("name", product.name),
+                         new XAttribute("price", product.price),
+                         new XAttribute("bayer", product.bayer)));
+            }
+
+            xDoc.Save(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\ProductsInRangeXml.xml");
         }
 
         private static void SeedXml(ProductsShopContext context)
@@ -179,7 +206,7 @@ namespace ProductsShop.Client
             return json;
         }
 
-        private static string CategoriesByProductsCount(ProductsShopContext context)
+        private static string CategoriesByProductsCountJson(ProductsShopContext context)
         {
             var categories = context.Categories
                 .OrderBy(c => c.Name)
@@ -199,7 +226,7 @@ namespace ProductsShop.Client
             return json;
         }
 
-        private static string SuccessfullySoldProducts(ProductsShopContext context)
+        private static string SuccessfullySoldProductsJson(ProductsShopContext context)
         {
             var users = context.Users
                 .Where(u => u.SellingProducts.Any(p => p.Buyer != null))
@@ -233,7 +260,7 @@ namespace ProductsShop.Client
             return json;
         }
 
-        private static string GetProductsInRange(ProductsShopContext context)
+        private static string GetProductsInRangeJson(ProductsShopContext context)
         {
             var products = context.Products
                 .Where(p => p.Price >= 500 && p.Price <= 1000)

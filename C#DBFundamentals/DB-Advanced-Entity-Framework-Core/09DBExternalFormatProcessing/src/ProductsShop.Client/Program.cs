@@ -15,8 +15,63 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                CategoriesByProductCountXml(context);
+                UsersAndProductsXml(context);
             }
+        }
+
+        private static void UsersAndProductsXml(ProductsShopContext context)
+        {
+            var users = context.Users
+                .Where(u => u.SellingProducts.Count > 0)
+                .Select(u => new
+                {
+                    firstName = u.FirstName,
+                    lastName = u.LastName,
+                    age = u.Age,
+                    soldProducts = new
+                    {
+                        count = u.SellingProducts.Count,
+                        products = u.SellingProducts
+                            .Select(sp => new
+                            {
+                                name = sp.Name,
+                                price = sp.Price
+                            })
+                            .ToArray()
+                    }
+                })
+                .OrderByDescending(o => o.soldProducts.count)
+                .ThenBy(o => o.lastName)
+                .ToList();
+
+            var xDoc = new XDocument();
+            xDoc.Add(new XElement("users"));
+            xDoc.Element("users").SetAttributeValue("count", users.Count());
+
+            foreach (var u in users)
+            {
+                var user = new XElement("user");
+                user.SetAttributeValue("first-name", u.firstName);
+                user.SetAttributeValue("last-name", u.lastName);
+                user.SetAttributeValue("age", u.age);
+
+                var soldProducts = new XElement("sold-products");
+                soldProducts.SetAttributeValue("count", u.soldProducts.count);
+
+                foreach (var p in u.soldProducts.products)
+                {
+                    var product = new XElement("product",
+                                  new XAttribute("name", p.name),
+                                  new XAttribute("price", p.price));
+
+                    soldProducts.Add(product);
+                }
+
+                user.Add(soldProducts);
+
+                xDoc.Element("users").Add(user);
+            }
+            xDoc.Save(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\UsersAndProductsXml.xml");
         }
 
         private static void CategoriesByProductCountXml(ProductsShopContext context)

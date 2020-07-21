@@ -15,8 +15,52 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                ProductsInRangeXml(context);
+                SoldProductsXml(context);
             }
+        }
+
+        private static void SoldProductsXml(ProductsShopContext context)
+        {
+            var users = context.Users
+                .Where(u => u.SellingProducts.Count >= 1)
+                .OrderBy(u => u.LastName)
+                .ThenBy(u => u.FirstName)
+                .Select(u => new
+                {
+                    u.FirstName,
+                    u.LastName,
+                    SoldProducts = u.SellingProducts
+                        .Select(sp => new
+                        {
+                            name = sp.Name,
+                            price = sp.Price
+                        })
+                });
+
+            var xDoc = new XDocument();
+            xDoc.Add(new XElement("users"));
+
+            foreach (var u in users)
+            {
+                var user = new XElement("user");
+                user.SetAttributeValue("first-name", u.FirstName);
+                user.SetAttributeValue("last-name", u.LastName);
+
+                var products = new XElement("sold-products");
+
+                foreach (var p in u.SoldProducts)
+                {
+                    var product = new XElement("product");
+                    product.Add(new XElement("name", p.name), new XElement("price", p.price));
+                    products.Add(product);
+                }
+
+                user.Add(products);
+
+                xDoc.Element("users").Add(user);
+            }
+
+            xDoc.Save(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\SoldProductsXml.xml");
         }
 
         private static void ProductsInRangeXml(ProductsShopContext context)

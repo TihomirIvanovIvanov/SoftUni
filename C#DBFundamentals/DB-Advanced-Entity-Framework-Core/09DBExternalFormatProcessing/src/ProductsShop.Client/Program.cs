@@ -15,8 +15,44 @@ namespace ProductsShop.Client
         {
             using (var context = new ProductsShopContext())
             {
-                SoldProductsXml(context);
+                CategoriesByProductCountXml(context);
             }
+        }
+
+        private static void CategoriesByProductCountXml(ProductsShopContext context)
+        {
+            var categories = context.Categories
+                .Select(c => new
+                {
+                    category = c.Name,
+                    productsCount = c.CategoryProducts
+                            .Select(cp => cp.Product)
+                            .Count(),
+                    averagePrice = c.CategoryProducts
+                            .Select(cp => cp.Product)
+                            .Average(p => p.Price),
+                    totalRevenue = c.CategoryProducts
+                            .Select(cp => cp.Product)
+                            .Sum(p => p.Price)
+                })
+                .OrderByDescending(c => c.productsCount)
+                .ToList();
+
+            var xDoc = new XDocument();
+            xDoc.Add(new XElement("categories"));
+
+            foreach (var c in categories)
+            {
+                var category = new XElement("category",
+                               new XAttribute("name", c.category));
+
+                category.Add(new XElement("products-count", c.productsCount),
+                             new XElement("average-price", c.averagePrice),
+                             new XElement("total-revenue", c.totalRevenue));
+
+                xDoc.Element("categories").Add(category);
+            }
+            xDoc.Save(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Export\CategoriesByProductCountXml.xml");
         }
 
         private static void SoldProductsXml(ProductsShopContext context)

@@ -27,7 +27,56 @@ namespace ProductsShop.Client
             var products = ImportProductsXml(context);
             context.Products.AddRange(products);
 
+            var categories = ImportCategoriesXml();
+            context.Categories.AddRange(categories);
+
+            var categoryProducts = CreateCategoryProductsXml(context);
+            context.CategoryProducts.AddRange(categoryProducts);
+
             context.SaveChanges();
+        }
+
+        private static List<CategoryProduct> CreateCategoryProductsXml(ProductsShopContext context)
+        {
+            var categoryProducts = new List<CategoryProduct>();
+            var products = context.Products.ToList();
+            var categories = context.Categories.ToList();
+            var random = new Random();
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                var categoriesCount = random.Next(1, 4);
+                var currentCategories = new HashSet<Category>();
+
+                for (int j = 1; j <= categoriesCount; j++)
+                {
+                    var category = categories[random.Next(0, categories.Count)];
+                    currentCategories.Add(category);
+                }
+
+                currentCategories.ToList()
+                    .ForEach(c => categoryProducts.Add(new CategoryProduct { Category = c, Product = products[i] }));
+            }
+
+            return categoryProducts.ToList();
+        }
+
+        private static List<Category> ImportCategoriesXml()
+        {
+            var xDoc = XDocument.Load(@"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\09DBExternalFormatProcessing\src\ProductsShop.Client\Import\categories.xml");
+
+            var elements = xDoc.Root.Elements();
+
+            var categories = new List<Category>();
+
+            foreach (var category in elements)
+            {
+                var name = category.Element("name").Value;
+
+                categories.Add(new Category { Name = name });
+            }
+
+            return categories;
         }
 
         private static List<Product> ImportProductsXml(ProductsShopContext context)
@@ -214,27 +263,27 @@ namespace ProductsShop.Client
             //var products = ImportProductsJson(context);
             //context.Products.AddRange(products);
 
-            var categoryProducts = CreateCategoryProducts(context);
+            var categoryProducts = CreateCategoryProductsJson(context);
             context.CategoryProducts.AddRange(categoryProducts);
 
             context.SaveChanges();
         }
 
-        private static CategoryProduct[] CreateCategoryProducts(ProductsShopContext context)
+        private static List<CategoryProduct> CreateCategoryProductsJson(ProductsShopContext context)
         {
             var categoryProducts = new List<CategoryProduct>();
-            var product = context.Products.ToArray();
-            var categories = context.Categories.ToArray();
+            var product = context.Products.ToList();
+            var categories = context.Categories.ToList();
             var random = new Random();
 
-            for (int i = 0; i < product.Length; i++)
+            for (int i = 0; i < product.Count; i++)
             {
                 var categoriesCount = random.Next(1, 4);
                 var currentCategories = new HashSet<Category>();
 
                 for (int j = 1; j <= categoriesCount; j++)
                 {
-                    var category = categories[random.Next(0, categories.Length)];
+                    var category = categories[random.Next(0, categories.Count)];
                     currentCategories.Add(category);
                 }
 
@@ -242,7 +291,7 @@ namespace ProductsShop.Client
                     .ForEach(c => categoryProducts.Add(new CategoryProduct { Category = c, Product = product[i] }));
             }
 
-            return categoryProducts.ToArray();
+            return categoryProducts.ToList();
         }
 
         private static Product[] ImportProductsJson(ProductsShopContext context)

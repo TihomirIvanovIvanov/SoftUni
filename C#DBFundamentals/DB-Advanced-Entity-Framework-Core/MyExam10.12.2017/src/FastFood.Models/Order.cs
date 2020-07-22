@@ -13,7 +13,7 @@ namespace FastFood.Models
 
         public int Id { get; set; }
 
-        public string Custumer { get; set; }
+        public string Customer { get; set; }
 
         public DateTime DateTime { get; set; }
 

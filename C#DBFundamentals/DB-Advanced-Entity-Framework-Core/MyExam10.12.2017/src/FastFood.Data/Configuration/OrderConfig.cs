@@ -12,7 +12,7 @@ namespace FastFood.Data.Configuration
                 .HasKey(o => o.Id);
 
             builder
-                .Property(o => o.Custumer)
+                .Property(o => o.Customer)
                 .IsRequired();
 
             builder

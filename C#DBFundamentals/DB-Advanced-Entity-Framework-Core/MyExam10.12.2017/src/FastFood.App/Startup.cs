@@ -52,8 +52,6 @@ namespace FastFood.App
             Console.WriteLine(jsonOutput);
             File.WriteAllText(exportDir + "OrdersByEmployee.json", jsonOutput);
 
-			return;
-
             var xmlOutput = DataProcessor.Serializer.ExportCategoryStatistics(context, "Chicken,Drinks,Toys");
             Console.WriteLine(xmlOutput);
             File.WriteAllText(exportDir + "CategoryStatistics.xml", xmlOutput);

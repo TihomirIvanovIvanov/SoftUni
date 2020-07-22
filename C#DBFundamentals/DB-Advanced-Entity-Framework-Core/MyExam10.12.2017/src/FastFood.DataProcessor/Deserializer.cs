@@ -3,9 +3,7 @@ using FastFood.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 
 namespace FastFood.DataProcessor
 {
@@ -39,7 +37,13 @@ namespace FastFood.DataProcessor
 
                 var position = context.Positions.FirstOrDefault(p => p.Name == obj.Position);
 
-                context.Employees.Add(new Employee { Name = obj.Name, Age = obj.Age, Position = position });
+                var employee = new Employee
+                {
+                    Name = obj.Name,
+                    Age = obj.Age,
+                    Position = position
+                };
+                context.Employees.Add(employee);
                 context.SaveChanges();
 
                 result.Add(string.Format(SuccessMessage, obj.Name));
@@ -50,7 +54,47 @@ namespace FastFood.DataProcessor
 
         public static string ImportItems(FastFoodDbContext context, string jsonString)
         {
-            throw new Exception();
+            var result = new List<string>();
+
+            var objects = JsonConvert.DeserializeAnonymousType(
+                jsonString, new[] { new { Name = string.Empty, Price = 0.00m, Category = string.Empty } });
+
+            foreach (var obj in objects)
+            {
+                var itemExists = context.Items.Any(i => i.Name == obj.Name);
+
+                if (itemExists || obj.Name.Length < 3 || obj.Name.Length > 30 ||
+                    obj.Price < 0.01m ||
+                    obj.Category.Length < 3 || obj.Category.Length > 30)
+                {
+                    result.Add(FailureMessage);
+                    continue;
+                }
+
+                var categoryExists = context.Items.Any(i => i.Name == obj.Category);
+
+                if (!categoryExists)
+                {
+                    var category = new Category { Name = obj.Category };
+                    context.Categories.Add(category);
+                    context.SaveChanges();
+                }
+
+                var categoryFromDb = context.Categories.FirstOrDefault(c => c.Name == obj.Category);
+
+                var item = new Item
+                {
+                    Category = categoryFromDb,
+                    Name = obj.Name,
+                    Price = obj.Price,
+                };
+                context.Items.Add(item);
+                context.SaveChanges();
+
+                result.Add(string.Format(SuccessMessage, obj.Name));
+            }
+
+            return string.Join(Environment.NewLine, result);
         }
 
         public static string ImportOrders(FastFoodDbContext context, string xmlString)

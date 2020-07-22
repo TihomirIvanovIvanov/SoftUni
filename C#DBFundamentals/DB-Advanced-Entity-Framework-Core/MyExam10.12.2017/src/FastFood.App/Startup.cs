@@ -9,7 +9,11 @@ namespace FastFood.App
 {
     public class Startup
 	{
-		public static void Main()
+        private const string ImportResults = @"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\MyExam10.12.2017\src\FastFood.App\ImportResults\";
+
+        private const string BaseDir = @"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\MyExam10.12.2017\src\Datasets\";
+
+        public static void Main()
 		{
 			var context = new FastFoodDbContext();
 
@@ -26,20 +30,17 @@ namespace FastFood.App
             //BonusTask(context);
         }
 
-		private static void ImportEntities(FastFoodDbContext context, string baseDir = @"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\MyExam10.12.2017\src\Datasets\")
+		private static void ImportEntities(FastFoodDbContext context, string baseDir = BaseDir)
 		{
-			const string exportDir = @"C:\Users\tihom\source\SoftUniCoursesCSharp\00GitAndGitHub\SoftUni\C#DBFundamentals\DB-Advanced-Entity-Framework-Core\MyExam10.12.2017\src\FastFood.App\ImportResults\";
-
+			const string exportDir = ImportResults;
 
 			var employees = DataProcessor.Deserializer.ImportEmployees(context, File.ReadAllText(baseDir + "employees.json"));
             PrintAndExportEntityToFile(employees, exportDir + "Employees.txt");
 
-			return;
-
             var items = DataProcessor.Deserializer.ImportItems(context, File.ReadAllText(baseDir + "items.json"));
             PrintAndExportEntityToFile(items, exportDir + "Items.txt");
 
-            var orders = DataProcessor.Deserializer.ImportOrders(context, File.ReadAllText(baseDir + "orders.xml"));
+			var orders = DataProcessor.Deserializer.ImportOrders(context, File.ReadAllText(baseDir + "orders.xml"));
             PrintAndExportEntityToFile(orders, exportDir + "Orders.txt");
         }
 

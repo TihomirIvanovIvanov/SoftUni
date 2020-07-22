@@ -25,7 +25,7 @@ namespace FastFood.App
 
             ImportEntities(context);
 
-            //ExportEntities(context);
+            ExportEntities(context);
 
             //BonusTask(context);
         }
@@ -46,11 +46,13 @@ namespace FastFood.App
 
 		private static void ExportEntities(FastFoodDbContext context)
 		{
-			const string exportDir = "./ImportResults/";
+			const string exportDir = ImportResults;
 
             var jsonOutput = DataProcessor.Serializer.ExportOrdersByEmployee(context, "Avery Rush", "ToGo");
             Console.WriteLine(jsonOutput);
             File.WriteAllText(exportDir + "OrdersByEmployee.json", jsonOutput);
+
+			return;
 
             var xmlOutput = DataProcessor.Serializer.ExportCategoryStatistics(context, "Chicken,Drinks,Toys");
             Console.WriteLine(xmlOutput);

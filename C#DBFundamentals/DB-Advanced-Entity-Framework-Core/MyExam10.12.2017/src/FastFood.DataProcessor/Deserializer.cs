@@ -104,7 +104,7 @@ namespace FastFood.DataProcessor
         {
             var result = new List<string>();
 
-            XDocument xDoc = XDocument.Parse(xmlString);
+            var xDoc = XDocument.Parse(xmlString);
 
             var elements = xDoc.Root.Elements();
 
@@ -115,40 +115,37 @@ namespace FastFood.DataProcessor
                 var timeAsString = o.Element("DateTime")?.Value;
                 var typeAsString = o.Element("Type")?.Value;
 
-                if (customer == null || timeAsString == null || typeAsString == null || employeeName == null)
+                if (customer == null || employeeName == null || timeAsString == null || typeAsString == null)
                 {
                     result.Add(FailureMessage);
                     continue;
                 }
 
-                var employee = context.Employees.SingleOrDefault(e => e.Name == employeeName);
-
+                var employee = context.Employees.FirstOrDefault(e => e.Name == employeeName);
                 if (employee == null)
                 {
                     result.Add(FailureMessage);
                     continue;
                 }
 
-                var time = DateTime.ParseExact(timeAsString, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                var dateTime = DateTime.ParseExact(timeAsString, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
 
-                object typeObj;
-                var isTypeValid = Enum.TryParse(typeof(OrderType), typeAsString, out typeObj);
-
+                var isTypeValid = Enum.TryParse<OrderType>(typeAsString, out var validType);
                 if (!isTypeValid)
                 {
                     result.Add(FailureMessage);
                     continue;
                 }
 
-                var type = (OrderType)typeObj;
+                var type = validType;
 
-                bool areItemsValid = true;
+                var areItemsValid = true;
                 var items = new List<ItemDto>();
 
-                foreach (var i in o.Element("Items").Elements())
+                foreach (var item in o.Element("Items").Elements())
                 {
-                    string name = i.Element("Name")?.Value;
-                    string quantityAsString = i.Element("Quantity")?.Value;
+                    var name = item.Element("Name")?.Value;
+                    var quantityAsString = item.Element("Quantity")?.Value;
 
                     if (quantityAsString == null || name == null)
                     {
@@ -156,17 +153,17 @@ namespace FastFood.DataProcessor
                         areItemsValid = false;
                     }
 
-                    int quantity = int.Parse(quantityAsString);
+                    var quantity = int.Parse(quantityAsString);
+                    var itemFromDb = context.Items.FirstOrDefault(i => i.Name == name);
 
-                    var item = context.Items.SingleOrDefault(it => it.Name == name);
-
-                    if (item == null || quantity <= 0)
+                    if (itemFromDb == null || quantity <= 0)
                     {
                         result.Add(FailureMessage);
                         areItemsValid = false;
                     }
 
-                    items.Add(new ItemDto { Name = name, Quantity = quantity });
+                    var itemDto = new ItemDto { Name = name, Quantity = quantity };
+                    items.Add(itemDto);
                 }
 
                 if (!areItemsValid)
@@ -175,21 +172,36 @@ namespace FastFood.DataProcessor
                     continue;
                 }
 
-                var order = new Order { Customer = customer, DateTime = time, Employee = employee, Type = type };
+                var order = new Order
+                {
+                    Customer = customer,
+                    DateTime = dateTime,
+                    Employee = employee,
+                    Type = type,
+                };
+
                 context.Orders.Add(order);
 
                 foreach (var itemDto in items)
                 {
-                    var item = context.Items.SingleOrDefault(i => i.Name == itemDto.Name);
-                    context.OrderItems.Add(new OrderItem { Item = item, Order = order, Quantity = itemDto.Quantity });
+                    var item = context.Items.FirstOrDefault(i => i.Name == itemDto.Name);
+                    var orderItems = new OrderItem
+                    {
+                        Item = item,
+                        Order = order,
+                        Quantity = itemDto.Quantity,
+                    };
+
+                    context.OrderItems.Add(orderItems);
                 }
 
                 context.SaveChanges();
 
-                result.Add($"Order for {customer} on {time.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)} added");
+                result.Add(
+                    $"Order for {customer} on {dateTime.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)} added");
             }
 
-            return String.Join(Environment.NewLine, result);
+            return string.Join(Environment.NewLine, result);
         }
     }
 }

@@ -89,7 +89,61 @@ namespace SymbolInMatrix
 
             //Console.WriteLine(maxSum);
 
+            ////Task 6
+            //var rowCount = int.Parse(Console.ReadLine());
+            //var jaggedArray = new int[rowCount][];
 
+            //for (int i = 0; i < rowCount; i++)
+            //{
+            //    var currentRow = Console.ReadLine()
+            //        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            //        .Select(int.Parse)
+            //        .ToArray();
+
+            //    jaggedArray[i] = currentRow;
+            //}
+
+            //var input = Console.ReadLine()
+            //    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            //    .ToArray();
+
+            //while (input[0]?.ToLower() != "end")
+            //{
+            //    var row = int.Parse(input[1]);
+            //    var col = int.Parse(input[2]);
+            //    var value = int.Parse(input[3]);
+
+            //    if (row < 0 || row > jaggedArray.Length - 1 ||
+            //        col < 0 || col > jaggedArray[row].Length - 1)
+            //    {
+            //        Console.WriteLine("Invalid coordinates");
+
+            //        input = Console.ReadLine()
+            //        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            //        .ToArray();
+
+            //        continue;
+            //    }
+
+            //    switch (input[0]?.ToLower())
+            //    {
+            //        case "add":
+            //            jaggedArray[row][col] += value;
+            //            break;
+            //        case "subtract":
+            //            jaggedArray[row][col] -= value;
+            //            break;
+            //    }
+
+            //    input = Console.ReadLine()
+            //    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            //    .ToArray();
+            //}
+
+            //foreach (var item in jaggedArray)
+            //{
+            //    Console.WriteLine(string.Join(' ', item));
+            //}
         }
     }
 }

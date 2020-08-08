@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PrimaryDiagonal
 {
-    class Program
+    class StartUp
     {
         static void Main(string[] args)
         {

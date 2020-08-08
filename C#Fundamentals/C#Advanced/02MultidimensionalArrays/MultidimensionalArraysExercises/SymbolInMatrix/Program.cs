@@ -144,6 +144,58 @@ namespace SymbolInMatrix
             //{
             //    Console.WriteLine(string.Join(' ', item));
             //}
+
+            ////Task 7
+            //var jaggedArray = new int[3][];
+
+            //var numbers = Console.ReadLine()
+            //    .Split(", ", StringSplitOptions.RemoveEmptyEntries)
+            //    .Select(int.Parse)
+            //    .ToArray();
+
+            //jaggedArray[0] = numbers
+            //    .Where(x => Math.Abs(x) % 3 == 0)
+            //    .ToArray();
+
+            //jaggedArray[1] = numbers
+            //    .Where(x => Math.Abs(x) % 3 == 1)
+            //    .ToArray();
+
+            //jaggedArray[2] = numbers
+            //    .Where(x => Math.Abs(x) % 3 == 2)
+            //    .ToArray();
+
+            //foreach (var item in jaggedArray)
+            //{
+            //    Console.WriteLine(string.Join(' ', item));
+            //}
+
+            //Task 8
+            var rowCount = int.Parse(Console.ReadLine());
+            var jaggedArray = new long[rowCount][];
+
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                jaggedArray[i] = new long[i + 1];
+                jaggedArray[i][0] = 1;
+                jaggedArray[i][i] = 1;
+            }
+
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                if (jaggedArray[i].Length > 2)
+                {
+                    for (int j = 1; j < jaggedArray[i].Length - 1; j++)
+                    {
+                        jaggedArray[i][j] = jaggedArray[i - 1][j] + jaggedArray[i - 1][j - 1];
+                    }
+                }
+            }
+
+            foreach (var item in jaggedArray)
+            {
+                Console.WriteLine(string.Join(' ', item));
+            }
         }
     }
 }

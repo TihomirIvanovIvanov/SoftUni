@@ -13,11 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaximalSum", "MaximalSum\Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubiksMatrix", "RubiksMatrix\RubiksMatrix.csproj", "{50EB8D99-7CF3-4253-B026-744E4C5A345D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetPractice", "TargetPractice\TargetPractice.csproj", "{E52017FB-E620-4620-9655-D3027C8703A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TargetPractice", "TargetPractice\TargetPractice.csproj", "{E52017FB-E620-4620-9655-D3027C8703A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegoBlocks", "LegoBlocks\LegoBlocks.csproj", "{79DDE235-AB67-4DFE-A156-9AEA9931E581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegoBlocks", "LegoBlocks\LegoBlocks.csproj", "{79DDE235-AB67-4DFE-A156-9AEA9931E581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadioactiveBunnies", "RadioactiveBunnies\RadioactiveBunnies.csproj", "{33FABDC4-0E52-444B-ABDF-3BC62F85C007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioactiveBunnies", "RadioactiveBunnies\RadioactiveBunnies.csproj", "{33FABDC4-0E52-444B-ABDF-3BC62F85C007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossfire", "Crossfire\Crossfire.csproj", "{036DB007-996D-42C5-9E72-1C54025FCBD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{33FABDC4-0E52-444B-ABDF-3BC62F85C007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33FABDC4-0E52-444B-ABDF-3BC62F85C007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33FABDC4-0E52-444B-ABDF-3BC62F85C007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036DB007-996D-42C5-9E72-1C54025FCBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036DB007-996D-42C5-9E72-1C54025FCBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036DB007-996D-42C5-9E72-1C54025FCBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036DB007-996D-42C5-9E72-1C54025FCBD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

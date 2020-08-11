@@ -45,15 +45,15 @@ namespace RadioactiveBunnies
                 {
                     Move(-1, 0);
                 }
-                else if (currentStep == 'L')
+                if (currentStep == 'L')
                 {
                     Move(0, -1);
                 }
-                else if (currentStep == 'R')
+                if (currentStep == 'R')
                 {
                     Move(0, 1);
                 }
-                else if (currentStep == 'D')
+                if (currentStep == 'D')
                 {
                     Move(1, 0);
                 }
@@ -75,25 +75,17 @@ namespace RadioactiveBunnies
             }
         }
 
-        private static void PrintJaggedArray()
-        {
-            for (int i = 0; i < jaggedArray.Length; i++)
-            {
-                Console.WriteLine(string.Join(string.Empty, jaggedArray[i]));
-            }
-        }
-
         private static void Spread()
         {
             var indexes = new Queue<int[]>();
 
-            for (int i = 0; i < jaggedArray.Length; i++)
+            for (int row = 0; row < jaggedArray.Length; row++)
             {
-                for (int j = 0; j < jaggedArray[i].Length; j++)
+                for (int col = 0; col < jaggedArray[row].Length; col++)
                 {
-                    if (jaggedArray[i][j] == 'B')
+                    if (jaggedArray[row][col] == 'B')
                     {
-                        indexes.Enqueue(new int[] { i, j });
+                        indexes.Enqueue(new int[] { row, col });
                     }
                 }
             }
@@ -155,7 +147,7 @@ namespace RadioactiveBunnies
         private static void Move(int row, int col)
         {
             var targetRow = playerRow + row;
-            var targetCol = playerRow + col;
+            var targetCol = playerCol + col;
 
             if (!IsInside(targetRow, targetCol))
             {
@@ -172,6 +164,7 @@ namespace RadioactiveBunnies
             else
             {
                 jaggedArray[playerRow][playerCol] = '.';
+
                 playerRow += row;
                 playerCol += col;
 
@@ -190,22 +183,30 @@ namespace RadioactiveBunnies
                    col >= 0 && col < jaggedArray[row].Length;
         }
 
+        private static void PrintJaggedArray()
+        {
+            for (int row = 0; row < jaggedArray.Length; row++)
+            {
+                Console.WriteLine(string.Join("", jaggedArray[row]));
+            }
+        }
+
         private static void GetJaggedArray(int cols)
         {
-            for (int i = 0; i < jaggedArray.Length; i++)
+            for (int row = 0; row < jaggedArray.Length; row++)
             {
                 var input = Console.ReadLine();
 
-                jaggedArray[i] = new char[cols];
+                jaggedArray[row] = new char[cols];
 
-                for (int j = 0; j < jaggedArray[i].Length; j++)
+                for (int col = 0; col < jaggedArray[row].Length; col++)
                 {
-                    jaggedArray[i][j] = input[j];
+                    jaggedArray[row][col] = input[col];
 
-                    if (jaggedArray[i][j] == 'P')
+                    if (jaggedArray[row][col] == 'P')
                     {
-                        playerRow = i;
-                        playerCol = j;
+                        playerRow = row;
+                        playerCol = col;
                     }
                 }
             }

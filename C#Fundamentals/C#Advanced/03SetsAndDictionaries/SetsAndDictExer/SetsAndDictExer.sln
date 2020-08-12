@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueUsernames", "UniqueUs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetsOfElements", "SetsOfElements\SetsOfElements.csproj", "{AEADEA8E-578A-468B-8A6C-5F5F7A51B51C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeriodicTable", "PeriodicTable\PeriodicTable.csproj", "{9ED1F68F-DE09-43B3-9055-AD485E1497B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenTimes", "EvenTimes\EvenTimes.csproj", "{2EAFCE29-14BA-466C-97BE-018D166C8801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AEADEA8E-578A-468B-8A6C-5F5F7A51B51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEADEA8E-578A-468B-8A6C-5F5F7A51B51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEADEA8E-578A-468B-8A6C-5F5F7A51B51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ED1F68F-DE09-43B3-9055-AD485E1497B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED1F68F-DE09-43B3-9055-AD485E1497B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED1F68F-DE09-43B3-9055-AD485E1497B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED1F68F-DE09-43B3-9055-AD485E1497B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

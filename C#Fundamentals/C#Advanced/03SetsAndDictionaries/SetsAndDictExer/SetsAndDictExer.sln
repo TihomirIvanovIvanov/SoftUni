@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeriodicTable", "PeriodicTa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvenTimes", "EvenTimes\EvenTimes.csproj", "{2EAFCE29-14BA-466C-97BE-018D166C8801}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountSymbols", "CountSymbols\CountSymbols.csproj", "{BC60F29F-28D1-4168-964E-14CF7FC89136}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wardrobe", "Wardrobe\Wardrobe.csproj", "{2BB0439B-5B17-42D2-B696-D32F3FEE93F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EAFCE29-14BA-466C-97BE-018D166C8801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC60F29F-28D1-4168-964E-14CF7FC89136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC60F29F-28D1-4168-964E-14CF7FC89136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC60F29F-28D1-4168-964E-14CF7FC89136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC60F29F-28D1-4168-964E-14CF7FC89136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BB0439B-5B17-42D2-B696-D32F3FEE93F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB0439B-5B17-42D2-B696-D32F3FEE93F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB0439B-5B17-42D2-B696-D32F3FEE93F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB0439B-5B17-42D2-B696-D32F3FEE93F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecimalToBinaryConverter", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchingBrackets", "MatchingBrackets\MatchingBrackets.csproj", "{8A50A2A5-A55B-40E6-9D53-F92AC543B623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotPotato", "HotPotato\HotPotato.csproj", "{F7B2E313-9479-4A95-BE4C-1ED10C992156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficJam", "TrafficJam\TrafficJam.csproj", "{F09E32B7-D715-4B36-98D2-FE5A72B3AFFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{8A50A2A5-A55B-40E6-9D53-F92AC543B623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A50A2A5-A55B-40E6-9D53-F92AC543B623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A50A2A5-A55B-40E6-9D53-F92AC543B623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B2E313-9479-4A95-BE4C-1ED10C992156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B2E313-9479-4A95-BE4C-1ED10C992156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B2E313-9479-4A95-BE4C-1ED10C992156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B2E313-9479-4A95-BE4C-1ED10C992156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09E32B7-D715-4B36-98D2-FE5A72B3AFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09E32B7-D715-4B36-98D2-FE5A72B3AFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09E32B7-D715-4B36-98D2-FE5A72B3AFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09E32B7-D715-4B36-98D2-FE5A72B3AFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

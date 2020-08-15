@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionPrint", "ActionPrint\ActionPrint.csproj", "{8119D993-90F9-4AC9-9FA6-F01C58A1874D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActionPrint", "ActionPrint\ActionPrint.csproj", "{8119D993-90F9-4AC9-9FA6-F01C58A1874D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightsOfHonor", "KnightsOfHonor\KnightsOfHonor.csproj", "{DFFD748D-1823-4EEF-917E-9F491195DFBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnightsOfHonor", "KnightsOfHonor\KnightsOfHonor.csproj", "{DFFD748D-1823-4EEF-917E-9F491195DFBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomMinFunction", "CustomMinFunction\CustomMinFunction.csproj", "{7D41E34C-5345-4214-8205-1E4F3C047AE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomMinFunction", "CustomMinFunction\CustomMinFunction.csproj", "{7D41E34C-5345-4214-8205-1E4F3C047AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindEvensOrOdds", "FindEvensOrOdds\FindEvensOrOdds.csproj", "{ED23FC17-F094-4464-A83B-9528A811CD58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppliedArithmetics", "AppliedArithmetics\AppliedArithmetics.csproj", "{A268C38D-997D-42E8-AD05-433DAC224C81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{7D41E34C-5345-4214-8205-1E4F3C047AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D41E34C-5345-4214-8205-1E4F3C047AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D41E34C-5345-4214-8205-1E4F3C047AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED23FC17-F094-4464-A83B-9528A811CD58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED23FC17-F094-4464-A83B-9528A811CD58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED23FC17-F094-4464-A83B-9528A811CD58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED23FC17-F094-4464-A83B-9528A811CD58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A268C38D-997D-42E8-AD05-433DAC224C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A268C38D-997D-42E8-AD05-433DAC224C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A268C38D-997D-42E8-AD05-433DAC224C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A268C38D-997D-42E8-AD05-433DAC224C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

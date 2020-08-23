@@ -62,7 +62,7 @@ namespace ThePartyReservationFilterModule
             lengthCollection.ToList()
                .ForEach(x =>
                {
-                   bool lengthIs(string str) => str.Length == x;
+                   Predicate<string> lengthIs = str => str.Length == x;
                    names = names.Where(name => !lengthIs(name)).ToList();
                });
             containsCollection.ToList()

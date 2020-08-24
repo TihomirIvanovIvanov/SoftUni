@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossroads", "Crossroads\Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingFeud", "KnightGame\ParkingFeud.csproj", "{24867407-1244-461A-941E-85CA7FC84AFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrouble", "TicketTrouble\TicketTrouble.csproj", "{6A525037-C190-4CA8-A972-2D3648DCCDB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{24867407-1244-461A-941E-85CA7FC84AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24867407-1244-461A-941E-85CA7FC84AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24867407-1244-461A-941E-85CA7FC84AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

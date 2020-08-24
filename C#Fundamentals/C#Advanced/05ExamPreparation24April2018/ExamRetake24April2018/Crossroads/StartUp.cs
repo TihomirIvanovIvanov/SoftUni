@@ -28,7 +28,7 @@ namespace Crossroads
             }
 
             Console.WriteLine($"Everyone is safe.{Environment.NewLine}" +
-                $"{totalCars - cars.Count} total cars passed the crossroads");
+                $"{totalCars - cars.Count} total cars passed the crossroads.");
         }
 
         private static void GreenLightOn(Queue<string> cars, int greenTime, int freeWindow)
@@ -55,7 +55,7 @@ namespace Crossroads
         {
             if (partsInside.Length > freeWindow)
             {
-                Console.WriteLine($"A crash happend!{Environment.NewLine}{car} was hit at {partsInside[freeWindow]}.");
+                Console.WriteLine($"A crash happened!{Environment.NewLine}{car} was hit at {partsInside[freeWindow]}.");
                 Environment.Exit(0);
             }
         }

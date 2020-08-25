@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossroads", "Crossroads\Crossroads.csproj", "{E80FFEA2-56E6-4595-8601-108FBDEC56E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "Crossroads\Crossroads.csproj", "{E80FFEA2-56E6-4595-8601-108FBDEC56E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingFeud", "KnightGame\ParkingFeud.csproj", "{24867407-1244-461A-941E-85CA7FC84AFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketTrouble", "TicketTrouble\TicketTrouble.csproj", "{6A525037-C190-4CA8-A972-2D3648DCCDB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTrouble", "TicketTrouble\TicketTrouble.csproj", "{6A525037-C190-4CA8-A972-2D3648DCCDB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieTime", "MovieTime\MovieTime.csproj", "{031FA98C-A7B6-4B07-87E9-2CC38883B6FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieTime", "MovieTime\MovieTime.csproj", "{031FA98C-A7B6-4B07-87E9-2CC38883B6FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingFeud", "ParkingFued\ParkingFeud.csproj", "{93DBBE5B-4DEA-42CE-9CED-AFF8A25CB108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightGame", "KnightGame\KnightGame.csproj", "{AFDCDDD9-77AC-430B-8787-AD86FB08F4BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +23,6 @@ Global
 		{E80FFEA2-56E6-4595-8601-108FBDEC56E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E80FFEA2-56E6-4595-8601-108FBDEC56E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E80FFEA2-56E6-4595-8601-108FBDEC56E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24867407-1244-461A-941E-85CA7FC84AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24867407-1244-461A-941E-85CA7FC84AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24867407-1244-461A-941E-85CA7FC84AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24867407-1244-461A-941E-85CA7FC84AFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A525037-C190-4CA8-A972-2D3648DCCDB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +31,14 @@ Global
 		{031FA98C-A7B6-4B07-87E9-2CC38883B6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{031FA98C-A7B6-4B07-87E9-2CC38883B6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{031FA98C-A7B6-4B07-87E9-2CC38883B6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DBBE5B-4DEA-42CE-9CED-AFF8A25CB108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DBBE5B-4DEA-42CE-9CED-AFF8A25CB108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DBBE5B-4DEA-42CE-9CED-AFF8A25CB108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DBBE5B-4DEA-42CE-9CED-AFF8A25CB108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDCDDD9-77AC-430B-8787-AD86FB08F4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDCDDD9-77AC-430B-8787-AD86FB08F4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDCDDD9-77AC-430B-8787-AD86FB08F4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDCDDD9-77AC-430B-8787-AD86FB08F4BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

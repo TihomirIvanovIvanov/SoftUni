@@ -1,146 +1,176 @@
 ﻿using System;
-using System.Linq;
 
-namespace ParkingFeud
+namespace KnightGame
 {
     public class StartUp
     {
+        private static char[][] matrix;
+
+        private static int[][] knightsToRemove;
+
         public static void Main()
         {
-            var parking = CreateParking();
+            FillUpMatrix();
 
-            var entranceNumber = int.Parse(Console.ReadLine());
-
-            TryPark(entranceNumber, parking);
-        }
-
-        private static void TryPark(int entranceNumber, bool[][] parking)
-        {
-            var parked = false;
-            var totalDistance = 0;
-            var maxColumnIndex = parking[0].Length - 1;
-            string parkingSpot = null;
-
-            while (!parked)
+            var removed = 0;
+            while (true)
             {
-                var positionsInput = Console.ReadLine();
-                var positions = positionsInput.Split();
+                FillUpKnightsMatrix();
 
-                var index = entranceNumber - 1;
-                parkingSpot = positions[index];
-
-                var conflictIndex = -1;
-
-                for (int i = 0; i < positions.Length; i++)
+                for (int row = 0; row < matrix.Length; row++)
                 {
-                    if (parkingSpot == positions[i] && i != index)
+                    for (int col = 0; col < matrix[row].Length; col++)
                     {
-                        conflictIndex = i;
+                        if (matrix[row][col] == 'K')
+                        {
+                            MoveLeftDown(row, col);
+                            MoveRightDown(row, col);
+                            MoveLeftUp(row, col);
+                            MoveRightUp(row, col);
+                        }
                     }
                 }
 
-                var currentDistance = CalculateDistance(entranceNumber, parkingSpot, maxColumnIndex);
-                totalDistance += currentDistance;
+                if (!RemoveMostAttackedKnight())
+                {
+                    break;
+                }
 
-                if (conflictIndex >= 0)
-                {
-                    var otherCarDistance = CalculateDistance(conflictIndex + 1, positions[conflictIndex], maxColumnIndex);
-                    if (currentDistance > otherCarDistance)
-                    {
-                        totalDistance += currentDistance;
-                    }
-                    else
-                    {
-                        parked = true;
-                    }
-                }
-                else
-                {
-                    parked = true;
-                }
+                removed++;
             }
-
-            ParkSuccess(parkingSpot, totalDistance);
+            Console.WriteLine(removed);
         }
 
-        private static void ParkSuccess(string parkingSpot, int totalDistance)
+        private static bool RemoveMostAttackedKnight()
         {
-            Console.WriteLine($"Parked successfully at {parkingSpot}.");
-            Console.WriteLine($"Total Distance Passed: {totalDistance}");
-        }
+            var mostAttacked = 0;
+            var removeRow = 0;
+            var removeCol = 0;
 
-        //Calculates the distance from an entrance to the parking spot
-        private static int CalculateDistance(int entranceNumber, string targetParkingSpot, int finalColumnIndex)
-        {
-            var goingLeft = true;
-            var currentPosition = new int[] { entranceNumber * 2 - 1, 0 };
-            var parkingSpotPosition = GetParkingSpotPosition(targetParkingSpot);
-            var distance = 0;
-
-            while (!AtSpot(currentPosition, parkingSpotPosition))
+            for (int row = 0; row < knightsToRemove.Length; row++)
             {
-                distance++;
-
-                //Move the car
-                currentPosition[1] += goingLeft ? 1 : -1;
-
-                var reachedTheEnd = currentPosition[1] == finalColumnIndex && goingLeft ||
-                    currentPosition[1] == 0 && !goingLeft;
-
-                //If you reach the end of the row, go up/down and change direction
-                if (reachedTheEnd)
+                for (int col = 0; col < knightsToRemove[row].Length; col++)
                 {
-                    var targetRowIsAbove = currentPosition[0] > parkingSpotPosition[0];
-                    currentPosition[0] += targetRowIsAbove ? -2 : 2;
-                    goingLeft = !goingLeft;
-                    distance += 2;
+                    if (knightsToRemove[row][col] > mostAttacked)
+                    {
+                        removeRow = row;
+                        removeCol = col;
+                        mostAttacked = knightsToRemove[row][col];
+                    }
                 }
             }
-
-            return distance;
-        }
-
-        //Checks if the car is next to the desired spot
-        private static bool AtSpot(int[] currentPosition, int[] parkingSpotPosition)
-        {
-            var sameCol = currentPosition[1] == parkingSpotPosition[1];
-
-            var rowAboveSpot = currentPosition[0] == parkingSpotPosition[0] - 1;
-            var rowBelowSpot = currentPosition[0] == parkingSpotPosition[0] + 1;
-            var rowNextToSpot = rowAboveSpot || rowBelowSpot;
-
-            return sameCol && rowNextToSpot;
-        }
-
-        //Gets the coordinates of a spot
-        private static int[] GetParkingSpotPosition(string parkingSpot)
-        {
-            var letter = parkingSpot[0];
-            var row = (int.Parse(parkingSpot.Substring(1)) - 1) * 2;
-            var column = letter - 'A' + 1;
-
-            return new int[] { row, column };
-        }
-
-        //Initiates the parking lot, not really necessary
-        private static bool[][] CreateParking()
-        {
-            var dimensions = Console.ReadLine()
-                .Split()
-                .Select(int.Parse)
-                .ToArray();
-
-            var actualRows = dimensions[0] * 2 - 1;
-            var actualCols = dimensions[1] + 2;
-
-            var parking = new bool[actualRows][];
-
-            for (int rowNumber = 0; rowNumber < actualRows; rowNumber++)
+            if (mostAttacked == 0)
             {
-                parking[rowNumber] = new bool[actualCols];
+                return false;
             }
+            matrix[removeRow][removeCol] = '0';
+            return true;
+        }
 
-            return parking;
+        private static void MoveRightUp(int row, int col)
+        {
+            var newRow = row - 2;
+            var newCol = col + 1;
+            ValidateRightUpMove(newRow, newCol);
+
+            newRow = row - 1;
+            newCol = col + 2;
+            ValidateRightUpMove(newRow, newCol);
+        }
+
+        private static void ValidateRightUpMove(int row, int col)
+        {
+            if (col < matrix.Length && row >= 0)
+            {
+                IsKnight(row, col);
+            }
+        }
+
+        private static void MoveLeftUp(int row, int col)
+        {
+            var newRow = row - 2;
+            var newCol = col - 1;
+            ValidateLeftUpMove(newRow, newCol);
+
+            newRow = row - 1;
+            newCol = col - 2;
+            ValidateLeftUpMove(newRow, newCol);
+        }
+
+        private static void ValidateLeftUpMove(int row, int col)
+        {
+            if (col >= 0 && row >= 0)
+            {
+                IsKnight(row, col);
+            }
+        }
+
+        private static void MoveRightDown(int row, int col)
+        {
+            var newRow = row + 2;
+            var newCol = col + 1;
+            ValidateRightDownMove(newRow, newCol);
+
+            newRow = row + 1;
+            newCol = col + 2;
+            ValidateRightDownMove(newRow, newCol);
+        }
+
+        private static void ValidateRightDownMove(int row, int col)
+        {
+            if (col < matrix.Length && row < matrix.Length)
+            {
+                IsKnight(row, col);
+            }
+        }
+
+        private static void MoveLeftDown(int row, int col)
+        {
+            var newRow = row + 2;
+            var newCol = col - 1;
+            ValidateLeftDownMove(newRow, newCol);
+
+            newRow = row + 1;
+            newCol = col - 2;
+            ValidateLeftDownMove(newRow, newCol);
+        }
+
+        private static void ValidateLeftDownMove(int row, int col)
+        {
+            if (col >= 0 && row < matrix.Length)
+            {
+                IsKnight(row, col);
+            }
+        }
+
+        private static void IsKnight(int row, int col)
+        {
+            if (matrix[row][col] == 'K')
+            {
+                knightsToRemove[row][col]++;
+            }
+        }
+
+        private static void FillUpKnightsMatrix()
+        {
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                knightsToRemove[i] = new int[matrix.Length];
+            }
+        }
+
+        private static void FillUpMatrix()
+        {
+            var n = int.Parse(Console.ReadLine());
+            matrix = new char[n][];
+            knightsToRemove = new int[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                matrix[i] = Console.ReadLine()
+                    .Trim()
+                    .ToCharArray();
+            }
         }
     }
 }

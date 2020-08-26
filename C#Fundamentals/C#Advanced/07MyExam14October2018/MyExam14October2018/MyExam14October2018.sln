@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagram", "Tagram\Tagram.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miner", "Miner\Miner.csproj", "{365A5BD5-2550-4A50-B46B-11D1012F2AB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupsAndBottles", "CupsAndBottles\CupsAndBottles.csproj", "{76A664C4-7BF6-473E-BE87-3E5448E5F4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{365A5BD5-2550-4A50-B46B-11D1012F2AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{365A5BD5-2550-4A50-B46B-11D1012F2AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{365A5BD5-2550-4A50-B46B-11D1012F2AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A664C4-7BF6-473E-BE87-3E5448E5F4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A664C4-7BF6-473E-BE87-3E5448E5F4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A664C4-7BF6-473E-BE87-3E5448E5F4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A664C4-7BF6-473E-BE87-3E5448E5F4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointInRectangle", "PointIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentSystem", "StudentSystem\StudentSystem.csproj", "{0C05B4E9-4707-4A38-9F2A-B6E3EF40AFC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelReservation", "HotelReservation\HotelReservation.csproj", "{1E75BE3E-61B3-474D-B22C-B031E4F14667}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0C05B4E9-4707-4A38-9F2A-B6E3EF40AFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C05B4E9-4707-4A38-9F2A-B6E3EF40AFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C05B4E9-4707-4A38-9F2A-B6E3EF40AFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E75BE3E-61B3-474D-B22C-B031E4F14667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E75BE3E-61B3-474D-B22C-B031E4F14667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E75BE3E-61B3-474D-B22C-B031E4F14667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E75BE3E-61B3-474D-B22C-B031E4F14667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

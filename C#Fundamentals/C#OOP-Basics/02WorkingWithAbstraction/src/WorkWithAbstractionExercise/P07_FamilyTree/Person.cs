@@ -1,46 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-public class Person
+namespace P07_FamilyTree
 {
-    private string name;
-    private string birthday;
-    private List<Person> parents;
-    private List<Person> children;
-
-    public Person()
+    public class Person
     {
-        this.Children = new List<Person>();
-        this.Parents = new List<Person>();
-    }
+        private readonly List<Person> children;
 
-    public string Name
-    {
-        get { return name; }
-        set { name = value; }
-    }
+        public Person()
+        {
+            this.children = new List<Person>();
+        }
 
-    public string Birthday
-    {
-        get { return birthday; }
-        set { birthday = value; }
-    }
+        public Person(string name, string birthday)
+            : this()
+        {
+            this.Name = name;
+            this.Birthday = birthday;
+        }
 
-    public List<Person> Parents
-    {
-        get { return parents; }
-        set { parents = value; }
-    }
+        public string Name { get; set; }
 
-    public List<Person> Children
-    {
-        get { return children; }
-        set { children = value; }
-    }
+        public string Birthday { get; set; }
 
-    public override string ToString()
-    {
-        return $"{this.Name} {this.Birthday}";
+        public IReadOnlyList<Person> Children => this.children.AsReadOnly();
+
+        public void AddChild(Person child)
+        {
+            this.children.Add(child);
+        }
+
+        public void AddChildrenInfo(string name, string birthday)
+        {
+            if (this.children.FirstOrDefault(c => c.Name == name) != null)
+            {
+                this.children
+                    .FirstOrDefault(c => c.Name == name)
+                    .Birthday = birthday;
+                return;
+            }
+
+            if (this.children.FirstOrDefault(c => c.Birthday == birthday) != null)
+            {
+                this.children
+                    .FirstOrDefault(c => c.Birthday == birthday)
+                    .Name = name;
+            }
+        }
+
+        public Person FindChild(string childName)
+        {
+            return this.children.FirstOrDefault(c => c.Name == childName);
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassBox", "ClassBox\ClassBox.csproj", "{9E5AC98E-66F5-4DD0-B7F2-C78A322E3B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassBoxDataValidation", "ClassBoxDataValidation\ClassBoxDataValidation.csproj", "{673A6CDB-4798-42D9-85EA-C9495FED6CBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E5AC98E-66F5-4DD0-B7F2-C78A322E3B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5AC98E-66F5-4DD0-B7F2-C78A322E3B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5AC98E-66F5-4DD0-B7F2-C78A322E3B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5AC98E-66F5-4DD0-B7F2-C78A322E3B99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{673A6CDB-4798-42D9-85EA-C9495FED6CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673A6CDB-4798-42D9-85EA-C9495FED6CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673A6CDB-4798-42D9-85EA-C9495FED6CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673A6CDB-4798-42D9-85EA-C9495FED6CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6F2F191-41FC-480E-B360-89968842C286}
+	EndGlobalSection
+EndGlobal

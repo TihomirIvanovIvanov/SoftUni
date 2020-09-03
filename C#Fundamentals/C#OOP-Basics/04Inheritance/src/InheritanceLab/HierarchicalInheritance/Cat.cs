@@ -1,4 +1,4 @@
-﻿namespace Farm
+﻿namespace HierarchicalInheritance
 {
     public class Cat : Animal
     {

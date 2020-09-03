@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop", "BookShop\BookSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mankind", "Mankind\Mankind.csproj", "{6D94F6C7-2196-4BB9-800B-800E5409EBF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRadioDatabase", "OnlineRadioDatabase\OnlineRadioDatabase.csproj", "{6D36114E-F108-4FE5-8355-A1DB726C9F51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6D94F6C7-2196-4BB9-800B-800E5409EBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D94F6C7-2196-4BB9-800B-800E5409EBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D94F6C7-2196-4BB9-800B-800E5409EBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D36114E-F108-4FE5-8355-A1DB726C9F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D36114E-F108-4FE5-8355-A1DB726C9F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D36114E-F108-4FE5-8355-A1DB726C9F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D36114E-F108-4FE5-8355-A1DB726C9F51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

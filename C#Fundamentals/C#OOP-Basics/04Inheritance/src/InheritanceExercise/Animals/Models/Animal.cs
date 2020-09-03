@@ -2,10 +2,12 @@
 {
     using System;
 
-    public abstract class Animal
+    public abstract class Animal : ISoundProducable
     {
         private string name;
+
         private int age;
+
         private string gender;
 
         protected Animal(string name, int age, string gender)

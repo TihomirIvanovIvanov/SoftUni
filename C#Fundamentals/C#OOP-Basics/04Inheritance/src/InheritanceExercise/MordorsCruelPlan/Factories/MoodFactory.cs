@@ -8,19 +8,14 @@
         {
             type = type.ToLower();
 
-            switch (type)
+            return type switch
             {
-                case "sad":
-                    return new Sad();
-                case "angry":
-                    return new Angry();
-                case "happy":
-                    return new Happy();
-                case "javascript":
-                    return new JavaScript();
-                default:
-                    throw new System.Exception("Invalid type!");
-            }
+                "sad" => new Sad(),
+                "angry" => new Angry(),
+                "happy" => new Happy(),
+                "javascript" => new JavaScript(),
+                _ => throw new System.Exception("Invalid type!"),
+            };
         }
     }
 }

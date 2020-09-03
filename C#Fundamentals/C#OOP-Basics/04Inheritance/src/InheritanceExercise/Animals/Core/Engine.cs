@@ -8,6 +8,7 @@
     public class Engine
     {
         private AnimalFactory animalFactory;
+
         private List<Animal> animals;
 
         public Engine()
@@ -24,18 +25,19 @@
                 try
                 {
                     var type = input;
-                    var animalsInfo = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    var animalsInfo = Console.ReadLine()
+                        .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
                     var name = animalsInfo[0];
                     var age = int.Parse(animalsInfo[1]);
                     var gender = animalsInfo[2];
 
-                    var animal = animalFactory.CreateAnimal(type, name, age, gender);
+                    var animal = this.animalFactory.CreateAnimal(type, name, age, gender);
                     animals.Add(animal);
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(e.Message);
                 }
             }
 

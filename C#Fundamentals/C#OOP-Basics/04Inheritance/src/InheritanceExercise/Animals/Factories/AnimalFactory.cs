@@ -9,21 +9,15 @@
         {
             type = type.ToLower();
 
-            switch (type)
+            return type switch
             {
-                case "cat":
-                    return new Cat(name, age, gender);
-                case "dog":
-                    return new Dog(name, age, gender);
-                case "frog":
-                    return new Frog(name, age, gender);
-                case "kitten":
-                    return new Kitten(name, age);
-                case "tomcat":
-                    return new Tomcat(name, age);
-                default:
-                    throw new Exception("Invalid input!");
-            }
+                "cat" => new Cat(name, age, gender),
+                "dog" => new Dog(name, age, gender),
+                "frog" => new Frog(name, age, gender),
+                "kitten" => new Kitten(name, age),
+                "tomcat" => new Tomcat(name, age),
+                _ => throw new Exception("Invalid input!"),
+            };
         }
     }
 }

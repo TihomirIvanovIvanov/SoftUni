@@ -4,7 +4,7 @@
     {
         private const string gender = "Male";
 
-        public Tomcat(string name, int age) 
+        public Tomcat(string name, int age)
             : base(name, age, gender)
         {
         }

@@ -1,7 +1,5 @@
 ﻿namespace Animals.Models
 {
-    using System;
-
     public class Cat : Animal
     {
         public Cat(string name, int age, string gender)
@@ -11,7 +9,7 @@
 
         public override void ProduceSound()
         {
-            Console.WriteLine("Meow meow");
+            System.Console.WriteLine("Meow meow");
         }
     }
 }

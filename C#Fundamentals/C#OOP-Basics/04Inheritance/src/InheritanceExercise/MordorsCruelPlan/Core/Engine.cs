@@ -10,7 +10,9 @@
     public class Engine
     {
         private FoodFactory foodFactory;
+
         private MoodFactory moodFactory;
+
         private List<Food> foods;
 
         public Engine()
@@ -22,36 +24,36 @@
 
         public void Run()
         {
-            var input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var input = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < input.Length; i++)
             {
                 var type = input[i];
 
-                var food = foodFactory.CreateFood(type);
-                foods.Add(food);
+                var food = this.foodFactory.CreateFood(type);
+                this.foods.Add(food);
             }
 
-            var points = foods.Sum(f => f.Happiness);
+            var points = this.foods.Sum(food => food.Happiness);
             Mood mood;
 
             if (points < -5)
             {
-                mood = moodFactory.CreateMood("angry");
+                mood = this.moodFactory.CreateMood("angry");
             }
-            else if (points >= -5 && points < 0)
+            else if(points >= -5 && points < 0)
             {
-                mood = moodFactory.CreateMood("sad");
+                mood = this.moodFactory.CreateMood("sad");
             }
             else if (points >= 1 && points < 15)
             {
-                mood = moodFactory.CreateMood("happy");
+                mood = this.moodFactory.CreateMood("happy");
             }
             else
             {
-                mood = moodFactory.CreateMood("javascript");
+                mood = this.moodFactory.CreateMood("javascript");
             }
-
 
             Console.WriteLine(points);
             Console.WriteLine(mood.GetType().Name);

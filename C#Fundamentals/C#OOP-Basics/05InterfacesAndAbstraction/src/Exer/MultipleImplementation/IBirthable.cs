@@ -1,4 +1,4 @@
-﻿namespace PersonInfo
+﻿namespace MultipleImplementation
 {
     public interface IBirthable
     {

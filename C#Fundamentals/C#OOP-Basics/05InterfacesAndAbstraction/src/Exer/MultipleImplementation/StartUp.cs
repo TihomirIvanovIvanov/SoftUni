@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PersonInfo
+namespace MultipleImplementation
 {
     public class StartUp
     {

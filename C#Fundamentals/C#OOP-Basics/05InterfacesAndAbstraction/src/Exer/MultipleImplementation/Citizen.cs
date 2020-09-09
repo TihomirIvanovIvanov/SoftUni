@@ -1,4 +1,4 @@
-﻿namespace PersonInfo
+﻿namespace MultipleImplementation
 {
     public class Citizen : IPerson, IIdentifiable, IBirthable
     {

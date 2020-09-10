@@ -1,0 +1,18 @@
+﻿using FoodShortage.Contracts;
+using System;
+
+namespace FoodShortage.Model
+{
+    public class Pet : INameble, IBirthable
+    {
+        public Pet(string name, string birthdate)
+        {
+            this.Name = name;
+            this.Birthdate = DateTime.ParseExact(birthdate, "dd/mm/yyyy", null);
+        }
+
+        public string Name { get; }
+
+        public DateTime Birthdate { get; }
+    }
+}
